@@ -11,7 +11,10 @@
 
   <!-- NAV -->
   <nav class="nav" id="nav">
-    <a href="index.html" class="nav__logo">Getupscaped.com</a>
+    <a href="index.html" class="nav__logo">
+      <span class="nav__logo-name">Getupscaped.com</span>
+      <span class="nav__logo-sub">Luxury Lighting</span>
+    </a>
     <ul class="nav__links">
       <li><a href="gallery.html">Gallery</a></li>
       <li><a href="#about">About Us</a></li>
@@ -42,23 +45,21 @@
 
   <!-- HERO -->
   <section class="hero" id="hero">
-    <div class="hero__scene" aria-hidden="true">
+    <!-- parallax layers -->
+    <div class="hero__layer hero__layer--far" aria-hidden="true">
+      <div class="hero__stars"></div>
+    </div>
+    <div class="hero__layer hero__layer--mid" aria-hidden="true">
       <div class="hero__glow hero__glow--1"></div>
       <div class="hero__glow hero__glow--2"></div>
       <div class="hero__glow hero__glow--3"></div>
+    </div>
+    <div class="hero__layer hero__layer--near" aria-hidden="true">
       <div class="hero__beam hero__beam--1"></div>
       <div class="hero__beam hero__beam--2"></div>
       <div class="hero__silhouette"></div>
-      <div class="hero__stars" aria-hidden="true"></div>
     </div>
     <div class="hero__overlay"></div>
-
-    <!-- corner badge -->
-    <div class="hero__badge reveal" data-delay="900">
-      <span class="hero__badge-line">Fairfield County</span>
-      <span class="hero__badge-dot"></span>
-      <span class="hero__badge-line">Low Voltage</span>
-    </div>
 
     <div class="hero__content">
       <p class="hero__eyebrow reveal">Westport, CT &nbsp;&bull;&nbsp; Est. 2025</p>
@@ -66,32 +67,17 @@
         <span class="reveal-clip">Luxury landscape lighting,</span>
         <span class="reveal-clip hero__title--light" data-delay="200">without the luxury markup.</span>
       </h1>
-      <p class="hero__sub reveal" data-delay="450">Professional design &amp; installation for Fairfield and Westchester County homes.</p>
-      <div class="hero__actions reveal" data-delay="600">
+      <p class="hero__sub reveal" data-delay="400">Professional design &amp; installation for Fairfield and Westchester County homes.</p>
+      <div class="hero__actions reveal" data-delay="550">
         <a href="#contact" class="btn btn--gold">Book Your Design Walkthrough</a>
         <a href="gallery.html" class="btn btn--outline-white">See Our Work</a>
       </div>
-    </div>
-
-    <!-- floating stat pills -->
-    <div class="hero__float hero__float--left reveal" data-delay="800">
-      <span class="hero__float-num">10+</span>
-      <span class="hero__float-label">Properties lit</span>
-    </div>
-    <div class="hero__float hero__float--right reveal" data-delay="950">
-      <span class="hero__float-num">100%</span>
-      <span class="hero__float-label">Satisfaction</span>
     </div>
 
     <a href="#services" class="hero__scroll">
       <span></span>
     </a>
   </section>
-
-  <!-- TAGLINE STRIP -->
-  <div class="tagline-strip">
-    <p class="reveal">"We make your home look extraordinary after dark."</p>
-  </div>
 
   <!-- SERVICES -->
   <section class="services section" id="services">
@@ -166,7 +152,9 @@
         <h2 class="sec-title">From first walkthrough<br>to champagne toast.</h2>
       </div>
       <div class="steps" id="steps">
-        <div class="steps__orb" id="stepsOrb" aria-hidden="true"></div>
+        <div class="steps__track" aria-hidden="true">
+          <div class="steps__fill" id="stepsFill"></div>
+        </div>
         <div class="step reveal" data-delay="0">
           <div class="step__num">01</div>
           <div class="step__body">

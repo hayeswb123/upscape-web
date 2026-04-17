@@ -161,8 +161,23 @@ h1, h2, h3, h4 {
   letter-spacing: 0.04em;
   color: var(--white);
   transition: color 0.35s;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
 }
 .nav.scrolled .nav__logo { color: var(--dark); }
+.nav__logo-name { display: block; }
+.nav__logo-sub {
+  display: block;
+  font-size: 0.62rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-lt);
+  opacity: 0.85;
+}
+.nav.scrolled .nav__logo-sub { color: var(--gold); }
 
 .nav__links {
   display: flex;
@@ -388,135 +403,71 @@ h1, h2, h3, h4 {
 }
 
 /* ===========================
-   HERO EXTRAS
+   HERO PARALLAX LAYERS
 =========================== */
-.hero__beam {
+.hero__layer {
   position: absolute;
-  bottom: 0;
-  width: 2px;
-  height: 55%;
-  transform-origin: bottom center;
-  pointer-events: none;
-}
-.hero__beam--1 {
-  left: 32%;
-  background: linear-gradient(to top, rgba(184,154,88,0.55) 0%, transparent 100%);
-  transform: rotate(-18deg);
-  filter: blur(3px);
-}
-.hero__beam--2 {
-  left: 58%;
-  background: linear-gradient(to top, rgba(184,154,88,0.35) 0%, transparent 100%);
-  transform: rotate(14deg);
-  filter: blur(4px);
+  inset: 0;
+  will-change: transform;
 }
 
 .hero__stars {
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(1px 1px at 15% 12%, rgba(255,255,255,0.55) 0%, transparent 100%),
-    radial-gradient(1px 1px at 42% 8%, rgba(255,255,255,0.45) 0%, transparent 100%),
-    radial-gradient(1px 1px at 68% 18%, rgba(255,255,255,0.5) 0%, transparent 100%),
-    radial-gradient(1px 1px at 82% 6%, rgba(255,255,255,0.4) 0%, transparent 100%),
-    radial-gradient(1px 1px at 27% 22%, rgba(255,255,255,0.35) 0%, transparent 100%),
-    radial-gradient(1px 1px at 91% 25%, rgba(255,255,255,0.45) 0%, transparent 100%),
-    radial-gradient(1px 1px at 55% 30%, rgba(255,255,255,0.3) 0%, transparent 100%),
-    radial-gradient(1px 1px at 8% 35%, rgba(255,255,255,0.4) 0%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 75% 10%, rgba(255,255,255,0.6) 0%, transparent 100%),
-    radial-gradient(1.5px 1.5px at 35% 5%, rgba(255,255,255,0.5) 0%, transparent 100%);
+    radial-gradient(1px 1px at 12% 8%,  rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 38% 5%,  rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 65% 11%, rgba(255,255,255,0.65) 0%, transparent 100%),
+    radial-gradient(1px 1px at 80% 4%,  rgba(255,255,255,0.45) 0%, transparent 100%),
+    radial-gradient(1px 1px at 22% 19%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 88% 22%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 50% 28%, rgba(255,255,255,0.35) 0%, transparent 100%),
+    radial-gradient(1px 1px at 5%  32%, rgba(255,255,255,0.45) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 73% 7%, rgba(255,255,255,0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 93% 15%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 45% 15%, rgba(255,255,255,0.35) 0%, transparent 100%),
+    radial-gradient(1px 1px at 30% 3%,  rgba(255,255,255,0.5) 0%, transparent 100%);
 }
 
-.hero__badge {
+.hero__beam {
   position: absolute;
-  top: 50%;
-  right: 48px;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  z-index: 2;
-}
-.hero__badge-line {
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.45);
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-}
-.hero__badge-dot {
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 8px var(--gold-lt);
-}
-
-.hero__float {
-  position: absolute;
-  bottom: 15%;
-  z-index: 2;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
-  backdrop-filter: blur(12px);
-  border-radius: 8px;
-  padding: 14px 22px;
-  text-align: center;
-}
-.hero__float--left  { left: 48px; }
-.hero__float--right { right: 48px; }
-.hero__float-num {
-  display: block;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.9rem;
-  font-weight: 500;
-  color: var(--gold-lt);
-  line-height: 1;
-  margin-bottom: 4px;
-}
-.hero__float-label {
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.45);
-}
-
-/* ===========================
-   PROCESS ORB
-=========================== */
-.steps__orb {
-  position: absolute;
-  left: 22px;
-  top: 0;
-  width: 16px; height: 16px;
-  border-radius: 50%;
-  background: var(--gold-lt);
-  box-shadow: 0 0 16px 6px rgba(212,184,122,0.65), 0 0 40px 12px rgba(184,154,88,0.3);
-  transform: translate(-50%, 0);
-  z-index: 2;
+  bottom: 0;
+  width: 3px;
+  height: 60%;
+  transform-origin: bottom center;
   pointer-events: none;
-  transition: top 0.08s linear;
+}
+.hero__beam--1 {
+  left: 30%;
+  background: linear-gradient(to top, rgba(184,154,88,0.6) 0%, transparent 100%);
+  transform: rotate(-16deg);
+  filter: blur(4px);
+}
+.hero__beam--2 {
+  left: 60%;
+  background: linear-gradient(to top, rgba(184,154,88,0.4) 0%, transparent 100%);
+  transform: rotate(12deg);
+  filter: blur(5px);
 }
 
 /* ===========================
-   TAGLINE STRIP
+   PROCESS SLIDER
 =========================== */
-.tagline-strip {
-  background: var(--dark-2);
-  padding: 52px 32px;
-  text-align: center;
+.steps__track {
+  position: absolute;
+  left: 29px;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: rgba(0,0,0,0.1);
+  z-index: 0;
 }
-.tagline-strip p {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.4rem, 3vw, 2.2rem);
-  font-style: italic;
-  font-weight: 400;
-  color: rgba(255,255,255,0.75);
-  max-width: 700px;
-  margin: 0 auto;
+.steps__fill {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 0%;
+  background: linear-gradient(to bottom, var(--gold-lt), var(--gold));
+  transition: height 0.15s linear;
+  box-shadow: 0 0 10px rgba(184,154,88,0.5);
 }
 
 /* ===========================
@@ -635,14 +586,6 @@ h1, h2, h3, h4 {
   max-width: 700px;
   margin: 0 auto;
   position: relative;
-}
-.steps::before {
-  content: '';
-  position: absolute;
-  left: 29px;
-  top: 0; bottom: 0;
-  width: 1px;
-  background: rgba(0,0,0,0.12);
 }
 
 .step {
@@ -1211,6 +1154,4 @@ h1, h2, h3, h4 {
   .stats-band__inner { flex-direction: column; }
   .stat__sep { width: 52px; height: 1px; }
   .hero__title { font-size: 2.2rem; }
-  .hero__float { display: none; }
-  .hero__badge { display: none; }
 }

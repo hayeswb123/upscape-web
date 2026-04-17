@@ -50,30 +50,33 @@ window.addEventListener('load', () => {
 // ===========================
 // HERO PARALLAX
 // ===========================
-const glows = document.querySelectorAll('.hero__glow');
+const layerFar  = document.querySelector('.hero__layer--far');
+const layerMid  = document.querySelector('.hero__layer--mid');
+const layerNear = document.querySelector('.hero__layer--near');
+const heroOverlay = document.querySelector('.hero .hero__overlay');
+
 window.addEventListener('scroll', () => {
   const y = window.scrollY;
-  glows.forEach((g, i) => {
-    const speed = [0.25, 0.18, 0.12][i] || 0.2;
-    g.style.transform = `translateY(${y * speed}px)`;
-  });
+  if (layerFar)  layerFar.style.transform  = `translateY(${y * 0.15}px)`;
+  if (layerMid)  layerMid.style.transform  = `translateY(${y * 0.3}px)`;
+  if (layerNear) layerNear.style.transform = `translateY(${y * 0.5}px)`;
+  if (heroOverlay) heroOverlay.style.opacity = 1 - (y / window.innerHeight) * 0.6;
 }, { passive: true });
 
 // ===========================
-// PROCESS LIGHT ORB
+// PROCESS FILL SLIDER
 // ===========================
-const stepsEl  = document.getElementById('steps');
-const stepsOrb = document.getElementById('stepsOrb');
+const stepsEl   = document.getElementById('steps');
+const stepsFill = document.getElementById('stepsFill');
 
-if (stepsEl && stepsOrb) {
+if (stepsEl && stepsFill) {
   window.addEventListener('scroll', () => {
-    const rect = stepsEl.getBoundingClientRect();
+    const rect    = stepsEl.getBoundingClientRect();
     const sectionH = stepsEl.offsetHeight;
-    const viewH    = window.innerHeight;
-    const raw = (viewH * 0.6 - rect.top) / sectionH;
+    const viewH   = window.innerHeight;
+    const raw = (viewH * 0.55 - rect.top) / sectionH;
     const p   = Math.max(0, Math.min(1, raw));
-    stepsOrb.style.top = (p * sectionH) + 'px';
-    stepsOrb.style.opacity = p > 0 && p < 1 ? '1' : '0';
+    stepsFill.style.height = (p * 100) + '%';
   }, { passive: true });
 }
 
