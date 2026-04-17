@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery | Upscape Landscape Lighting</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav scrolled" id="nav">
+    <a href="index.html" class="nav__logo">Upscape</a>
+    <ul class="nav__links">
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="index.html#about">About Us</a></li>
+      <li><a href="index.html#faq">FAQ</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="index.html#contact" class="nav__cta">Book Design Walkthrough</a></li>
+    </ul>
+    <button class="nav__burger" id="burger" aria-label="Menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mob" id="mob" aria-hidden="true">
+    <button class="mob__close" id="mobClose">&#x2715;</button>
+    <ul>
+      <li><a href="gallery.html" class="mob__link">Gallery</a></li>
+      <li><a href="index.html#about" class="mob__link">About Us</a></li>
+      <li><a href="index.html#faq" class="mob__link">FAQ</a></li>
+      <li><a href="index.html#contact" class="mob__link">Contact</a></li>
+      <li><a href="index.html#contact" class="mob__link mob__link--cta">Book Design Walkthrough</a></li>
+    </ul>
+    <div class="mob__foot">
+      <span>Westport, CT</span>
+      <span>(203) 682-5387</span>
+    </div>
+  </div>
+
+  <!-- GALLERY HERO -->
+  <div class="gal-hero">
+    <span class="eyebrow reveal">Our Work</span>
+    <h1 class="reveal" data-delay="100">Every project, after dark.</h1>
+    <p class="reveal" data-delay="200">Four Fairfield County properties transformed with precision low voltage lighting.</p>
+  </div>
+
+  <!-- GALLERY GRID -->
+  <section class="gallery">
+    <div class="gal-grid">
+
+      <div class="gal-card reveal">
+        <div class="gal-card__bg gal-bg--1"></div>
+        <div class="gal-card__info">
+          <span class="gal-card__tag">Tree Lighting</span>
+          <h2 class="gal-card__title">Fairfield County Residence</h2>
+        </div>
+      </div>
+
+      <div class="gal-card reveal" data-delay="80">
+        <div class="gal-card__bg gal-bg--2"></div>
+        <div class="gal-card__info">
+          <span class="gal-card__tag">Stone Wall Lighting</span>
+          <h2 class="gal-card__title">Fairfield County Residence</h2>
+        </div>
+      </div>
+
+      <div class="gal-card reveal" data-delay="160">
+        <div class="gal-card__bg gal-bg--3"></div>
+        <div class="gal-card__info">
+          <span class="gal-card__tag">Pathway Lighting</span>
+          <h2 class="gal-card__title">Fairfield County Residence</h2>
+        </div>
+      </div>
+
+      <div class="gal-card reveal" data-delay="240">
+        <div class="gal-card__bg gal-bg--4"></div>
+        <div class="gal-card__info">
+          <span class="gal-card__tag">Driveway Lighting</span>
+          <h2 class="gal-card__title">Fairfield County Residence</h2>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="background: var(--cream-2); text-align: center; padding: 80px 0;">
+    <div class="container">
+      <span class="eyebrow reveal">Ready to transform your property?</span>
+      <h2 class="sec-title reveal" data-delay="80" style="margin-bottom: 32px;">Let's design your lighting together.</h2>
+      <a href="index.html#contact" class="btn btn--dark reveal" data-delay="160">Book a Free Design Walkthrough</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <h3>Upscape</h3>
+          <p>Luxury landscape lighting without<br>the luxury markup.</p>
+          <a href="tel:+12036825387">(203) 682-5387</a>
+        </div>
+        <div class="footer__cols">
+          <div class="footer__col">
+            <p class="footer__col-head">Navigate</p>
+            <a href="gallery.html">Gallery</a>
+            <a href="index.html#about">About Us</a>
+            <a href="index.html#faq">FAQ</a>
+            <a href="index.html#contact">Contact</a>
+          </div>
+          <div class="footer__col">
+            <p class="footer__col-head">Services</p>
+            <span>Uplighting</span>
+            <span>Pathway Lighting</span>
+            <span>Driveways &amp; Stone Walls</span>
+            <span>Low Voltage Systems</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 Upscape. All rights reserved.</p>
+        <p>Westport, CT &mdash; Fairfield &amp; Westchester County</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
