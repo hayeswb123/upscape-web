@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Getupscaped | Luxury Landscape Lighting</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;1,6..96,400;1,6..96,500&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <a href="#" class="nav__logo">
+      <span class="nav__logo-name">Getupscaped</span>
+      <span class="nav__logo-tag">Luxury Lighting</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact" class="nav__cta">Book Design</a></li>
+    </ul>
+    <button class="nav__burger" id="burger" aria-label="Open menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mob-menu" id="mobMenu" aria-hidden="true">
+    <button class="mob-menu__close" id="mobClose" aria-label="Close menu">&#x2715;</button>
+    <ul>
+      <li><a href="#services" class="mob-link">Services</a></li>
+      <li><a href="#process" class="mob-link">Process</a></li>
+      <li><a href="#gallery" class="mob-link">Gallery</a></li>
+      <li><a href="#about" class="mob-link">About</a></li>
+      <li><a href="#faq" class="mob-link">FAQ</a></li>
+      <li><a href="#contact" class="mob-link mob-link--cta">Book Design</a></li>
+    </ul>
+    <div class="mob-menu__foot">
+      <span>Westport, CT</span>
+      <span>(203) 682-5387</span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero__bg" aria-hidden="true">
+      <div class="hero__glow hero__glow--1"></div>
+      <div class="hero__glow hero__glow--2"></div>
+      <div class="hero__glow hero__glow--3"></div>
+      <div class="hero__lines"></div>
+    </div>
+    <div class="hero__inner">
+      <div class="hero__eyebrow" data-reveal>
+        <span>Est. 2025</span>
+        <span class="hero__sep"></span>
+        <span>Westport, CT</span>
+      </div>
+      <h1 class="hero__title">
+        <span class="hero__word" data-reveal="clip">Illuminate</span>
+        <span class="hero__word hero__word--gold" data-reveal="clip" data-delay="200">your property.</span>
+      </h1>
+      <div class="hero__foot" data-reveal data-delay="480">
+        <p class="hero__sub">Low voltage landscape lighting,<br>without the premium markup.</p>
+        <a href="#contact" class="btn">Book Free Design</a>
+      </div>
+    </div>
+    <a href="#services" class="hero__scroll" aria-label="Scroll">
+      <span class="hero__scroll-text">Scroll</span>
+      <span class="hero__scroll-line"></span>
+    </a>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>Uplighting</span><span class="mdot"></span>
+      <span>Pathway Lighting</span><span class="mdot"></span>
+      <span>Driveway &amp; Stone Wall</span><span class="mdot"></span>
+      <span>Low Voltage Lighting</span><span class="mdot"></span>
+      <span>Residential Design</span><span class="mdot"></span>
+      <span>Free Consultation</span><span class="mdot"></span>
+      <span>Westport, CT</span><span class="mdot"></span>
+      <span>Outdoor Ambiance</span><span class="mdot"></span>
+      <span>Uplighting</span><span class="mdot"></span>
+      <span>Pathway Lighting</span><span class="mdot"></span>
+      <span>Driveway &amp; Stone Wall</span><span class="mdot"></span>
+      <span>Low Voltage Lighting</span><span class="mdot"></span>
+      <span>Residential Design</span><span class="mdot"></span>
+      <span>Free Consultation</span><span class="mdot"></span>
+      <span>Westport, CT</span><span class="mdot"></span>
+      <span>Outdoor Ambiance</span><span class="mdot"></span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="services section" id="services">
+    <div class="container">
+      <header class="sec-head" data-reveal>
+        <span class="eyebrow">What We Do</span>
+        <h2 class="sec-title">Crafted for every corner<br>of your property.</h2>
+      </header>
+      <div class="svc-grid">
+        <div class="svc-card" data-reveal data-delay="0">
+          <span class="svc-num">01</span>
+          <div class="svc-body">
+            <h3>Uplighting</h3>
+            <p>Subtle beams that highlight your home's architecture and mature trees, adding dramatic curb appeal without harsh glare.</p>
+          </div>
+          <div class="svc-line"></div>
+        </div>
+        <div class="svc-card" data-reveal data-delay="120">
+          <span class="svc-num">02</span>
+          <div class="svc-body">
+            <h3>Pathway Lighting</h3>
+            <p>Low-profile fixtures that guide guests safely to your front door, pool, or patio while looking clean and minimal.</p>
+          </div>
+          <div class="svc-line"></div>
+        </div>
+        <div class="svc-card" data-reveal data-delay="240">
+          <span class="svc-num">03</span>
+          <div class="svc-body">
+            <h3>Driveways &amp; Stone Walls</h3>
+            <p>Precision lighting that defines your property's edges and elevates the look of stonework and hardscaping.</p>
+          </div>
+          <div class="svc-line"></div>
+        </div>
+        <div class="svc-card" data-reveal data-delay="360">
+          <span class="svc-num">04</span>
+          <div class="svc-body">
+            <h3>Low Voltage Systems</h3>
+            <p>Energy-efficient 12V fixtures designed to last. Great results without the high operating costs.</p>
+          </div>
+          <div class="svc-line"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <span class="stat__n">4</span>
+      <span class="stat__l">Properties Illuminated</span>
+    </div>
+    <div class="stat__div" aria-hidden="true"></div>
+    <div class="stat">
+      <span class="stat__n" data-count="100" data-suffix="%" data-duration="600">0%</span>
+      <span class="stat__l">Customer Satisfaction</span>
+    </div>
+    <div class="stat__div" aria-hidden="true"></div>
+    <div class="stat">
+      <span class="stat__n stat__n--sm">Low<br>Voltage</span>
+      <span class="stat__l">Specialists</span>
+    </div>
+    <div class="stat__div" aria-hidden="true"></div>
+    <div class="stat">
+      <span class="stat__n">Free</span>
+      <span class="stat__l">Design Consultation</span>
+    </div>
+  </div>
+
+  <!-- DIVIDER QUOTE 1 -->
+  <div class="qdiv">
+    <div class="qdiv__bg" aria-hidden="true"><div class="qdiv__glow"></div></div>
+    <div class="container">
+      <span class="eyebrow" data-reveal>Our Philosophy</span>
+      <h2 class="qdiv__text" data-reveal="clip">"Luxury without<br><em>the luxury markup."</em></h2>
+    </div>
+  </div>
+
+  <!-- PROCESS -->
+  <section class="process section" id="process">
+    <div class="container">
+      <header class="sec-head" data-reveal>
+        <span class="eyebrow">Our Process</span>
+        <h2 class="sec-title">Five steps to a stunning<br>nighttime landscape.</h2>
+      </header>
+      <div class="steps">
+        <div class="steps__track" aria-hidden="true">
+          <div class="steps__fill" id="stepsFill"></div>
+        </div>
+        <div class="step" data-step>
+          <span class="step__n">01</span>
+          <div class="step__body">
+            <h3>Free Design Consultation</h3>
+            <p>We walk your property with you, discuss how you use each space, and sketch a custom lighting plan. No cost, no pressure.</p>
+          </div>
+        </div>
+        <div class="step" data-step>
+          <span class="step__n">02</span>
+          <div class="step__body">
+            <h3>Installation Day</h3>
+            <p>Fixtures are installed with minimal disruption. No trenches left open, no mess, no surprises.</p>
+          </div>
+        </div>
+        <div class="step" data-step>
+          <span class="step__n">03</span>
+          <div class="step__body">
+            <h3>Dusk Aiming &amp; Tuning</h3>
+            <p>We return after dark to aim and fine-tune every fixture so the light looks perfect from the street and from inside your home.</p>
+          </div>
+        </div>
+        <div class="step" data-step>
+          <span class="step__n">04</span>
+          <div class="step__body">
+            <h3>Champagne Toast <em>(really)</em></h3>
+            <p>We reveal your new lighting with a bottle of champagne and a celebratory toast. A Getupscaped tradition.</p>
+          </div>
+        </div>
+        <div class="step" data-step>
+          <span class="step__n">05</span>
+          <div class="step__body">
+            <h3>Ongoing Care</h3>
+            <p>We're available for seasonal adjustments, upgrades, and service as your property evolves over time.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery section" id="gallery">
+    <div class="container">
+      <header class="sec-head" data-reveal>
+        <span class="eyebrow">Our Work</span>
+        <h2 class="sec-title">Every project tells<br>a different story.</h2>
+      </header>
+    </div>
+    <div class="gal-grid">
+      <div class="gal-item" data-reveal data-delay="0">
+        <div class="gal-bg gal-bg--1"></div>
+        <div class="gal-overlay">
+          <span class="gal-label">Project 01</span>
+          <div class="gal-info">
+            <h3>Fairfield County Residence</h3>
+            <span>Tree Lighting</span>
+          </div>
+        </div>
+      </div>
+      <div class="gal-item" data-reveal data-delay="120">
+        <div class="gal-bg gal-bg--2"></div>
+        <div class="gal-overlay">
+          <span class="gal-label">Project 02</span>
+          <div class="gal-info">
+            <h3>Fairfield County Residence</h3>
+            <span>Stone Wall Lighting</span>
+          </div>
+        </div>
+      </div>
+      <div class="gal-item" data-reveal data-delay="60">
+        <div class="gal-bg gal-bg--3"></div>
+        <div class="gal-overlay">
+          <span class="gal-label">Project 03</span>
+          <div class="gal-info">
+            <h3>Fairfield County Residence</h3>
+            <span>Pathway Lighting</span>
+          </div>
+        </div>
+      </div>
+      <div class="gal-item" data-reveal data-delay="180">
+        <div class="gal-bg gal-bg--4"></div>
+        <div class="gal-overlay">
+          <span class="gal-label">Project 04</span>
+          <div class="gal-info">
+            <h3>Fairfield County Residence</h3>
+            <span>Driveway Lighting</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about section" id="about">
+    <div class="container">
+      <div class="about__inner">
+        <div class="about__left" data-reveal>
+          <span class="eyebrow">The Person Behind It</span>
+          <h2 class="sec-title">Hayes Bauer,<br><em>Founder</em></h2>
+          <p class="about__school">Staples High School &middot; Westport, CT</p>
+          <div class="about__body">
+            <p>I created Getupscaped to bring thoughtful, modern landscape lighting to local homes at an affordable price. I approach every project with a design-first mindset, focused on subtle, elegant lighting that elevates your architecture and landscaping without overwhelming it.</p>
+            <p>I'm hands-on with every step, from the initial walkthrough to installation to late-night fine-tuning. Whenever a project calls for extra support, my dad works alongside me to make sure everything is executed with the highest level of care.</p>
+            <p>This is a small, family operation, and that's exactly why your home gets the personal attention it deserves.</p>
+          </div>
+          <a href="#contact" class="btn">Book a Free Walkthrough</a>
+        </div>
+        <div class="about__right" data-reveal="right" data-delay="200">
+          <div class="about__card">
+            <div class="about__card-glow" aria-hidden="true"></div>
+            <div class="about__initials" aria-hidden="true">HB</div>
+            <div class="about__card-meta">
+              <span class="about__card-name">Hayes Bauer</span>
+              <span class="about__card-role">Founder, Getupscaped</span>
+            </div>
+            <div class="about__tags">
+              <span>Design-First</span>
+              <span>Low Voltage</span>
+              <span>Family Business</span>
+              <span>Westport, CT</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL -->
+  <section class="testi section">
+    <div class="testi__bg" aria-hidden="true"><div class="testi__glow"></div></div>
+    <div class="container">
+      <div class="testi__inner" data-reveal>
+        <div class="testi__stars">★★★★★</div>
+        <blockquote class="testi__quote">"The tree uplighting they installed, especially on our Japanese maple, looks incredible every night. Hayes was professional, fast, and clearly cares about the details. The champagne toast at the end was an unexpected touch that made the whole experience feel special. Couldn't recommend Upscape more."</blockquote>
+        <cite class="testi__cite">Jamie L., Southport, CT</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVIDER QUOTE 2 -->
+  <div class="qdiv">
+    <div class="qdiv__bg" aria-hidden="true"><div class="qdiv__glow qdiv__glow--alt"></div></div>
+    <div class="container">
+      <span class="eyebrow" data-reveal>The Standard</span>
+      <h2 class="qdiv__text" data-reveal="clip">Transforming properties<br><em>one light at a time.</em></h2>
+    </div>
+  </div>
+
+  <!-- PRICING -->
+  <section class="pricing section" id="pricing">
+    <div class="container">
+      <header class="sec-head" style="text-align:center" data-reveal>
+        <span class="eyebrow">Investment</span>
+        <h2 class="sec-title">Transparent pricing.<br>No surprises.</h2>
+      </header>
+      <div class="pricing__row" data-reveal>
+        <div class="pricing__amt">
+          <span class="pricing__lbl">Starting at</span>
+          <span class="pricing__val">$2,500</span>
+        </div>
+        <div class="pricing__bar-wrap">
+          <div class="pricing__bar"><div class="pricing__fill" id="pricingFill"></div></div>
+          <span class="pricing__bar-lbl">Most projects fall within this range</span>
+        </div>
+        <div class="pricing__amt">
+          <span class="pricing__lbl">Up to</span>
+          <span class="pricing__val">$12,000</span>
+        </div>
+      </div>
+      <p class="pricing__note" data-reveal>Every installation is custom-designed for your property. Pricing depends on scope, square footage, and fixture selection. Your quote is always free and always honest.</p>
+      <div class="pricing__cta" data-reveal>
+        <a href="#contact" class="btn">Request a Free Quote</a>
+        <p class="pricing__cta-note">No obligation. No sales pressure.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq section" id="faq">
+    <div class="container">
+      <header class="sec-head" style="text-align:center" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2 class="sec-title">Questions people<br><em>actually ask.</em></h2>
+      </header>
+      <div class="faq__list">
+        <div class="faq__item">
+          <button class="faq__q" aria-expanded="false">You're just a kid. Why should I trust you?</button>
+          <div class="faq__a"><p>Fair question. My age means I bring genuine enthusiasm to every project, not someone going through the motions. Every client I've worked with has been fully satisfied, and my dad is involved in every installation to make sure the quality is there. I'm also not going anywhere. I'll be around to support your lighting long after the project wraps.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__q" aria-expanded="false">Are you licensed and insured?</button>
+          <div class="faq__a"><p>Low voltage landscape lighting (typically 12V) is specifically designed to be safe to install without an electrical license. In Connecticut and most states, low voltage work of this kind doesn't require a licensed electrician. The transformers and fixtures operate well below any risk threshold. I'm always happy to address any concerns before we start.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__q" aria-expanded="false">Are you an electrician?</button>
+          <div class="faq__a"><p>No, and for low voltage landscape lighting, you don't need one. These systems run at 12 volts, far below the 120V household wiring that requires a licensed electrician. Low voltage is what makes outdoor landscape lighting safe, affordable, and the perfect fit for what I do.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__q" aria-expanded="false">How much does it cost to install landscape lighting?</button>
+          <div class="faq__a"><p>Most projects fall between $2,500 and $12,000 depending on scope, number of fixtures, and the complexity of your property. I give every client a free, itemized quote before any work begins. No hidden fees, no surprises.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__q" aria-expanded="false">How much energy do landscape lights consume?</button>
+          <div class="faq__a"><p>Very little. LED low voltage fixtures typically draw 1–7 watts each. A full setup of 10 lights uses roughly 7.2 kWh per month, around $1–2 on your electric bill. Energy efficiency is one of the biggest advantages of low voltage LED lighting.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__q" aria-expanded="false">How do I control the landscape lights?</button>
+          <div class="faq__a"><p>Your system includes a programmable transformer with automatic on/off schedules. Many setups also support dusk-to-dawn sensors or smart timers you can control from your phone. We'll set everything up and walk you through it before we leave.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__q" aria-expanded="false">Do landscape lights require ongoing maintenance?</button>
+          <div class="faq__a"><p>Minimal. LED fixtures last tens of thousands of hours. Occasionally a fixture may need repositioning after heavy rain or landscaping work. I include a complimentary follow-up check-in after installation, and I'm always a text away if anything comes up.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__q" aria-expanded="false">Will this bother my neighbors?</button>
+          <div class="faq__a"><p>Not if it's designed correctly, and good design is the whole point. Every fixture is aimed deliberately at your architecture, trees, or pathways. Properly installed landscape lighting enhances the neighborhood aesthetic without bleeding into anyone else's space.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__q" aria-expanded="false">Can I start small and expand later?</button>
+          <div class="faq__a"><p>Absolutely. Low voltage systems are modular by design. We can light one zone now and add more fixtures down the road without touching any of the existing work. Many clients start with a front yard and come back for the backyard later.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__q" aria-expanded="false">Do you really bring a bottle of champagne to toast a new installation?</button>
+          <div class="faq__a"><p>Yes, and one I genuinely look forward to on every project. Once the installation is complete and we've done our nighttime walkthrough together, we pop a bottle to celebrate your transformed property. Sparkling cider available too.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact section" id="contact">
+    <div class="contact__glow" aria-hidden="true"></div>
+    <div class="container">
+      <div class="contact__inner">
+        <div class="contact__left" data-reveal>
+          <span class="eyebrow">Get Started</span>
+          <h2 class="sec-title">Ready to transform<br>your property?</h2>
+          <div class="contact__info">
+            <div class="contact__row">
+              <span class="contact__lbl">Location</span>
+              <span>Westport, CT &amp; Surrounding Areas</span>
+            </div>
+            <div class="contact__row">
+              <span class="contact__lbl">Phone</span>
+              <a href="tel:+12036825387">(203) 682-5387</a>
+            </div>
+            <div class="contact__row">
+              <span class="contact__lbl">Response Time</span>
+              <span>Within 24 hours</span>
+            </div>
+            <div class="contact__row">
+              <span class="contact__lbl">Consultation</span>
+              <span>Always free, always on-site</span>
+            </div>
+          </div>
+        </div>
+        <form class="contact__form" id="contactForm" data-reveal="right" data-delay="150">
+          <div class="form__row">
+            <div class="form__field">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" placeholder="First &amp; Last Name" required />
+            </div>
+            <div class="form__field">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" placeholder="you@example.com" required />
+            </div>
+          </div>
+          <div class="form__field">
+            <label for="phone2">Phone Number</label>
+            <input type="tel" id="phone2" placeholder="(203) 000-0000" />
+          </div>
+          <div class="form__field">
+            <label for="message">Your Vision</label>
+            <textarea id="message" rows="5" placeholder="Tell us about your property and what you're hoping to achieve..."></textarea>
+          </div>
+          <button type="submit" class="btn btn--full">Request Free Design Consultation</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <h3>Getupscaped</h3>
+          <p>Luxury landscape lighting without<br>the luxury markup. Westport, CT.</p>
+        </div>
+        <div class="footer__nav">
+          <div class="footer__col">
+            <p class="footer__col-head">Navigate</p>
+            <a href="#services">Services</a>
+            <a href="#process">Process</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#about">About</a>
+            <a href="#faq">FAQ</a>
+          </div>
+          <div class="footer__col">
+            <p class="footer__col-head">Contact</p>
+            <a href="#contact">Free Consultation</a>
+            <a href="tel:+12036825387">(203) 682-5387</a>
+            <span>Westport, CT</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 Getupscaped. All rights reserved.</p>
+        <p>Luxury Landscape Lighting &middot; Westport, CT</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
