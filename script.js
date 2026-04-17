@@ -1,4 +1,63 @@
 // ===========================
+// SCROLL PROGRESS BAR
+// ===========================
+(function () {
+  const bar = document.createElement('div');
+  bar.id = 'scroll-progress';
+  document.body.prepend(bar);
+  window.addEventListener('scroll', () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (window.scrollY / max * 100) + '%';
+  }, { passive: true });
+})();
+
+// ===========================
+// AMBIENT GOLD PARTICLES
+// ===========================
+(function () {
+  const canvas = document.createElement('canvas');
+  canvas.id = 'particles-canvas';
+  document.body.prepend(canvas);
+  const ctx = canvas.getContext('2d');
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  const COUNT = 55;
+  const particles = Array.from({ length: COUNT }, () => ({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    r: Math.random() * 1.4 + 0.3,
+    speed: Math.random() * 0.35 + 0.08,
+    drift: (Math.random() - 0.5) * 0.3,
+    alpha: Math.random() * 0.45 + 0.1,
+    fade: Math.random() * 0.008 + 0.002,
+    dir: 1,
+  }));
+
+  function tick() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.y -= p.speed;
+      p.x += p.drift;
+      p.alpha += p.fade * p.dir;
+      if (p.alpha > 0.55 || p.alpha < 0.05) p.dir *= -1;
+      if (p.y < -4) { p.y = canvas.height + 4; p.x = Math.random() * canvas.width; }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(184,154,88,${p.alpha})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+// ===========================
 // NAV SCROLL STATE
 // ===========================
 const nav = document.getElementById('nav');
@@ -38,6 +97,57 @@ const revealObs = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
 // ===========================
+// HERO PARALLAX
+// ===========================
+const lightsCanvas = document.getElementById('lightsCanvas');
+window.addEventListener('scroll', () => {
+  if (!lightsCanvas) return;
+  lightsCanvas.style.transform = `translateY(${window.scrollY * 0.18}px)`;
+}, { passive: true });
+
+// ===========================
+// DIRECTIONAL REVEALS
+// ===========================
+const dirObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    const delay = parseInt(el.dataset.delay) || 0;
+    setTimeout(() => el.classList.add('visible'), delay);
+    dirObs.unobserve(el);
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal-left, .reveal-right').forEach(el => dirObs.observe(el));
+
+// ===========================
+// WORD SPLIT HEADINGS
+// ===========================
+(function () {
+  document.querySelectorAll('.sec-title').forEach(heading => {
+    const rawHtml = heading.innerHTML;
+    const lines = rawHtml.split(/<br\s*\/?>/i);
+    const wrapped = lines.map(line =>
+      line.trim().split(/\s+/).filter(Boolean).map(w =>
+        `<span class="split-word">${w}</span>`
+      ).join(' ')
+    ).join('<br>');
+    heading.innerHTML = wrapped;
+    heading.style.perspective = '400px';
+
+    const words = heading.querySelectorAll('.split-word');
+    const obs = new IntersectionObserver(entries => {
+      if (!entries[0].isIntersecting) return;
+      words.forEach((w, i) => {
+        setTimeout(() => w.classList.add('visible'), i * 70);
+      });
+      obs.unobserve(heading);
+    }, { threshold: 0.3 });
+    obs.observe(heading);
+  });
+})();
+
+// ===========================
 // HERO ENTRANCE
 // ===========================
 window.addEventListener('load', () => {
@@ -48,113 +158,99 @@ window.addEventListener('load', () => {
 });
 
 // ===========================
-// SPINNING GLOBE
+// HERO SPOTLIGHT BEAMS
 // ===========================
 (function () {
-  const canvas = document.getElementById('globeCanvas');
+  const canvas = document.getElementById('lightsCanvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  const DPR = window.devicePixelRatio || 1;
-  const SIZE = 700;
-  canvas.width  = SIZE * DPR;
-  canvas.height = SIZE * DPR;
-  ctx.scale(DPR, DPR);
 
-  const cx = SIZE / 2, cy = SIZE / 2, R = SIZE / 2 - 20;
-  let rot = 0;
-
-  const GOLD      = 'rgba(184,154,88,';
-  const GOLD_LITE = 'rgba(212,184,122,';
-
-  function project(lat, lng, r) {
-    const phi   = (90 - lat) * Math.PI / 180;
-    const theta = (lng + rot) * Math.PI / 180;
-    const x = r * Math.sin(phi) * Math.cos(theta);
-    const y = r * Math.cos(phi);
-    const z = r * Math.sin(phi) * Math.sin(theta);
-    return { x: cx + x, y: cy - y, z };
+  function resize() {
+    canvas.width  = canvas.offsetWidth  * (window.devicePixelRatio || 1);
+    canvas.height = canvas.offsetHeight * (window.devicePixelRatio || 1);
+    ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
   }
+  resize();
+  window.addEventListener('resize', () => { ctx.setTransform(1,0,0,1,0,0); resize(); }, { passive: true });
 
-  function drawLine(pts, alpha) {
-    if (pts.length < 2) return;
+  const W = () => canvas.offsetWidth;
+  const H = () => canvas.offsetHeight;
+
+  const beams = [
+    { ox: 0.18, speed: 0.00035, phase: 0,    spread: 0.18, alpha: 0.13, width: 220 },
+    { ox: 0.38, speed: 0.00028, phase: 1.4,  spread: 0.14, alpha: 0.10, width: 180 },
+    { ox: 0.55, speed: 0.00042, phase: 2.8,  spread: 0.20, alpha: 0.15, width: 260 },
+    { ox: 0.72, speed: 0.00031, phase: 0.9,  spread: 0.13, alpha: 0.09, width: 160 },
+    { ox: 0.88, speed: 0.00038, phase: 2.1,  spread: 0.16, alpha: 0.11, width: 200 },
+  ];
+
+  const orbs = Array.from({ length: 6 }, (_, i) => ({
+    x: (0.15 + i * 0.15) * 800,
+    y: 200 + Math.random() * 400,
+    r: 60 + Math.random() * 80,
+    phase: Math.random() * Math.PI * 2,
+    speed: 0.0004 + Math.random() * 0.0003,
+    alpha: 0.04 + Math.random() * 0.04,
+  }));
+
+  let t = 0;
+
+  function drawBeam(beam, w, h) {
+    const angle = Math.sin(t * beam.speed + beam.phase) * beam.spread;
+    const ox = beam.ox * w;
+    const oy = -30;
+
+    const dx = Math.sin(angle);
+    const dy = Math.cos(angle);
+
+    const len = h * 1.4;
+    const tx = ox + dx * len;
+    const ty = oy + dy * len;
+
+    const px = -dy * beam.width * 0.5;
+    const py =  dx * beam.width * 0.5;
+
+    const grad = ctx.createLinearGradient(ox, oy, tx, ty);
+    grad.addColorStop(0,   `rgba(212,184,122,${beam.alpha * 1.8})`);
+    grad.addColorStop(0.3, `rgba(184,154,88,${beam.alpha})`);
+    grad.addColorStop(1,   `rgba(184,154,88,0)`);
+
     ctx.beginPath();
-    ctx.moveTo(pts[0].x, pts[0].y);
-    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
-    ctx.strokeStyle = GOLD + alpha + ')';
-    ctx.lineWidth = 0.7;
-    ctx.stroke();
-  }
-
-  function frame() {
-    ctx.clearRect(0, 0, SIZE, SIZE);
-
-    // globe glow halo
-    const grd = ctx.createRadialGradient(cx, cy, R * 0.5, cx, cy, R * 1.1);
-    grd.addColorStop(0, GOLD_LITE + '0.08)');
-    grd.addColorStop(1, GOLD_LITE + '0)');
-    ctx.fillStyle = grd;
-    ctx.beginPath();
-    ctx.arc(cx, cy, R * 1.1, 0, Math.PI * 2);
+    ctx.moveTo(ox, oy);
+    ctx.lineTo(tx + px, ty + py);
+    ctx.lineTo(tx - px, ty - py);
+    ctx.closePath();
+    ctx.fillStyle = grad;
     ctx.fill();
+  }
 
-    // latitude lines
-    for (let lat = -75; lat <= 75; lat += 15) {
-      const pts = [];
-      for (let lng = 0; lng <= 360; lng += 4) {
-        const p = project(lat, lng, R);
-        if (p.z >= 0) pts.push(p);
-        else {
-          if (pts.length > 1) drawLine(pts, 0.28);
-          pts.length = 0;
-        }
-      }
-      if (pts.length > 1) drawLine(pts, 0.28);
-    }
+  function frame(ts) {
+    t = ts;
+    const w = W(), h = H();
+    ctx.clearRect(0, 0, w, h);
 
-    // longitude lines
-    for (let lng = 0; lng < 360; lng += 20) {
-      const pts = [];
-      for (let lat = -90; lat <= 90; lat += 3) {
-        const p = project(lat, lng, R);
-        if (p.z >= 0) pts.push(p);
-        else {
-          if (pts.length > 1) drawLine(pts, 0.22);
-          pts.length = 0;
-        }
-      }
-      if (pts.length > 1) drawLine(pts, 0.22);
-    }
+    ctx.globalCompositeOperation = 'screen';
 
-    // equator accent
-    const eqPts = [];
-    for (let lng = 0; lng <= 360; lng += 2) {
-      const p = project(0, lng, R);
-      if (p.z >= 0) eqPts.push(p);
-      else {
-        if (eqPts.length > 1) {
-          ctx.beginPath();
-          ctx.moveTo(eqPts[0].x, eqPts[0].y);
-          eqPts.forEach(pt => ctx.lineTo(pt.x, pt.y));
-          ctx.strokeStyle = GOLD_LITE + '0.55)';
-          ctx.lineWidth = 1.2;
-          ctx.stroke();
-        }
-        eqPts.length = 0;
-      }
-    }
+    orbs.forEach(orb => {
+      const wobbleX = orb.x + Math.sin(t * orb.speed + orb.phase) * 40;
+      const wobbleY = orb.y + Math.cos(t * orb.speed * 0.7 + orb.phase) * 25;
+      const g = ctx.createRadialGradient(wobbleX, wobbleY, 0, wobbleX, wobbleY, orb.r);
+      g.addColorStop(0, `rgba(212,184,122,${orb.alpha * 2})`);
+      g.addColorStop(1, `rgba(184,154,88,0)`);
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(wobbleX, wobbleY, orb.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
 
-    // sphere edge ring
-    ctx.beginPath();
-    ctx.arc(cx, cy, R, 0, Math.PI * 2);
-    ctx.strokeStyle = GOLD + '0.18)';
-    ctx.lineWidth = 1;
-    ctx.stroke();
+    beams.forEach(b => drawBeam(b, w, h));
 
-    rot += 0.12;
+    ctx.globalCompositeOperation = 'source-over';
+
     requestAnimationFrame(frame);
   }
 
-  frame();
+  requestAnimationFrame(frame);
 })();
 
 // ===========================
@@ -277,3 +373,39 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 // ===========================
 const yearEl = document.querySelector('.footer__bottom p');
 if (yearEl) yearEl.textContent = yearEl.textContent.replace('2026', new Date().getFullYear());
+
+// ===========================
+// HORIZONTAL SCROLL SECTION
+// ===========================
+(function () {
+  const section = document.querySelector('.hscroll');
+  const track   = document.getElementById('hscrollTrack');
+  const dots    = document.querySelectorAll('.hscroll__dot');
+  const hint    = document.querySelector('.hscroll__hint');
+  const panels  = document.querySelectorAll('.hscroll__panel');
+  if (!section || !track) return;
+
+  const PANEL_COUNT = panels.length;
+
+  function update() {
+    const rect    = section.getBoundingClientRect();
+    const sectionH = section.offsetHeight;
+    const viewH   = window.innerHeight;
+
+    const raw = -rect.top / (sectionH - viewH);
+    const p   = Math.max(0, Math.min(1, raw));
+
+    const maxShift = track.scrollWidth - window.innerWidth;
+    track.style.transform = `translateX(${-p * maxShift}px)`;
+
+    const idx = Math.min(Math.floor(p * PANEL_COUNT + 0.15), PANEL_COUNT - 1);
+
+    panels.forEach((panel, i) => panel.classList.toggle('active', i === idx));
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+
+    if (hint) hint.style.opacity = p > 0.05 ? '0' : '1';
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
