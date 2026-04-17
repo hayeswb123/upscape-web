@@ -48,19 +48,122 @@ window.addEventListener('load', () => {
 });
 
 // ===========================
-// HERO PARALLAX
+// SPINNING GLOBE
 // ===========================
-const layerFar  = document.querySelector('.hero__layer--far');
-const layerMid  = document.querySelector('.hero__layer--mid');
-const layerNear = document.querySelector('.hero__layer--near');
-const heroOverlay = document.querySelector('.hero .hero__overlay');
+(function () {
+  const canvas = document.getElementById('globeCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const DPR = window.devicePixelRatio || 1;
+  const SIZE = 700;
+  canvas.width  = SIZE * DPR;
+  canvas.height = SIZE * DPR;
+  ctx.scale(DPR, DPR);
 
+  const cx = SIZE / 2, cy = SIZE / 2, R = SIZE / 2 - 20;
+  let rot = 0;
+
+  const GOLD      = 'rgba(184,154,88,';
+  const GOLD_LITE = 'rgba(212,184,122,';
+
+  function project(lat, lng, r) {
+    const phi   = (90 - lat) * Math.PI / 180;
+    const theta = (lng + rot) * Math.PI / 180;
+    const x = r * Math.sin(phi) * Math.cos(theta);
+    const y = r * Math.cos(phi);
+    const z = r * Math.sin(phi) * Math.sin(theta);
+    return { x: cx + x, y: cy - y, z };
+  }
+
+  function drawLine(pts, alpha) {
+    if (pts.length < 2) return;
+    ctx.beginPath();
+    ctx.moveTo(pts[0].x, pts[0].y);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
+    ctx.strokeStyle = GOLD + alpha + ')';
+    ctx.lineWidth = 0.7;
+    ctx.stroke();
+  }
+
+  function frame() {
+    ctx.clearRect(0, 0, SIZE, SIZE);
+
+    // globe glow halo
+    const grd = ctx.createRadialGradient(cx, cy, R * 0.5, cx, cy, R * 1.1);
+    grd.addColorStop(0, GOLD_LITE + '0.08)');
+    grd.addColorStop(1, GOLD_LITE + '0)');
+    ctx.fillStyle = grd;
+    ctx.beginPath();
+    ctx.arc(cx, cy, R * 1.1, 0, Math.PI * 2);
+    ctx.fill();
+
+    // latitude lines
+    for (let lat = -75; lat <= 75; lat += 15) {
+      const pts = [];
+      for (let lng = 0; lng <= 360; lng += 4) {
+        const p = project(lat, lng, R);
+        if (p.z >= 0) pts.push(p);
+        else {
+          if (pts.length > 1) drawLine(pts, 0.28);
+          pts.length = 0;
+        }
+      }
+      if (pts.length > 1) drawLine(pts, 0.28);
+    }
+
+    // longitude lines
+    for (let lng = 0; lng < 360; lng += 20) {
+      const pts = [];
+      for (let lat = -90; lat <= 90; lat += 3) {
+        const p = project(lat, lng, R);
+        if (p.z >= 0) pts.push(p);
+        else {
+          if (pts.length > 1) drawLine(pts, 0.22);
+          pts.length = 0;
+        }
+      }
+      if (pts.length > 1) drawLine(pts, 0.22);
+    }
+
+    // equator accent
+    const eqPts = [];
+    for (let lng = 0; lng <= 360; lng += 2) {
+      const p = project(0, lng, R);
+      if (p.z >= 0) eqPts.push(p);
+      else {
+        if (eqPts.length > 1) {
+          ctx.beginPath();
+          ctx.moveTo(eqPts[0].x, eqPts[0].y);
+          eqPts.forEach(pt => ctx.lineTo(pt.x, pt.y));
+          ctx.strokeStyle = GOLD_LITE + '0.55)';
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+        }
+        eqPts.length = 0;
+      }
+    }
+
+    // sphere edge ring
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI * 2);
+    ctx.strokeStyle = GOLD + '0.18)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    rot += 0.12;
+    requestAnimationFrame(frame);
+  }
+
+  frame();
+})();
+
+// ===========================
+// HERO SCROLL FADE
+// ===========================
+const heroOverlay = document.querySelector('.hero .hero__overlay');
 window.addEventListener('scroll', () => {
   const y = window.scrollY;
-  if (layerFar)  layerFar.style.transform  = `translateY(${y * 0.15}px)`;
-  if (layerMid)  layerMid.style.transform  = `translateY(${y * 0.3}px)`;
-  if (layerNear) layerNear.style.transform = `translateY(${y * 0.5}px)`;
-  if (heroOverlay) heroOverlay.style.opacity = 1 - (y / window.innerHeight) * 0.6;
+  if (heroOverlay) heroOverlay.style.opacity = String(Math.min(1, y / window.innerHeight * 1.2));
 }, { passive: true });
 
 // ===========================
