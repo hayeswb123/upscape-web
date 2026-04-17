@@ -21,6 +21,73 @@
 
 html { scroll-behavior: smooth; }
 
+/* ===========================
+   SCROLL PROGRESS BAR
+=========================== */
+#scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--gold), var(--gold-lt), var(--gold));
+  z-index: 9999;
+  transition: width 0.05s linear;
+  pointer-events: none;
+}
+
+/* ===========================
+   AMBIENT PARTICLES CANVAS
+=========================== */
+#particles-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.45;
+}
+
+/* ===========================
+   REVEAL VARIANTS
+=========================== */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-48px);
+  transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+}
+.reveal-left.visible { opacity: 1; transform: none; }
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(48px);
+  transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+}
+.reveal-right.visible { opacity: 1; transform: none; }
+
+/* ===========================
+   WORD SPLIT HEADINGS
+=========================== */
+.split-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(24px) rotateX(12deg);
+  transform-origin: top center;
+  transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
+}
+.split-word.visible { opacity: 1; transform: none; }
+
+/* ===========================
+   SVC CARD TILT HOVER
+=========================== */
+.svc-card {
+  transform-style: preserve-3d;
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+.svc-card:hover {
+  transform: translateY(-6px) scale(1.015);
+}
+
 body {
   font-family: 'Inter', sans-serif;
   background: var(--dark);
@@ -1146,4 +1213,225 @@ h1, h2, h3, h4 {
   .stats-band__inner { flex-direction: column; }
   .stat__sep { width: 52px; height: 1px; }
   .hero__title { font-size: 2.2rem; }
+}
+
+/* ===========================
+   HORIZONTAL SCROLL SECTION
+=========================== */
+.hscroll {
+  /* tall outer container — gives vertical scroll room to drive horizontal motion */
+  height: 500vh;
+  position: relative;
+}
+
+.hscroll__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--dark);
+}
+
+.hscroll__track {
+  display: flex;
+  height: 100%;
+  width: 400%; /* 4 panels */
+  will-change: transform;
+}
+
+.hscroll__panel {
+  flex: 0 0 25%; /* each panel = 1 viewport width */
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 8vw;
+  border-right: 1px solid rgba(255,255,255,0.04);
+}
+
+/* subtle radial glow per panel, different hue shift */
+.hscroll__panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 60% 50%, rgba(184,154,88,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hscroll__panel--2::before { background: radial-gradient(ellipse 70% 60% at 40% 55%, rgba(184,154,88,0.06) 0%, transparent 70%); }
+.hscroll__panel--3::before { background: radial-gradient(ellipse 70% 60% at 65% 45%, rgba(184,154,88,0.08) 0%, transparent 70%); }
+.hscroll__panel--4::before { background: radial-gradient(ellipse 70% 60% at 35% 50%, rgba(184,154,88,0.06) 0%, transparent 70%); }
+
+/* big background number */
+.hscroll__panel::after {
+  content: attr(data-bg-num);
+  position: absolute;
+  right: 6vw;
+  bottom: -0.1em;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32vw;
+  font-weight: 600;
+  color: rgba(184,154,88,0.04);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hscroll__panel-inner {
+  max-width: 560px;
+  position: relative;
+  z-index: 2;
+}
+
+.hscroll__num {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.hscroll__tag {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-lt);
+  margin-bottom: 28px;
+}
+
+.hscroll__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 500;
+  line-height: 1.05;
+  color: var(--white);
+  margin-bottom: 28px;
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+
+.hscroll__desc {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-mid);
+  max-width: 400px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s 0.12s var(--ease), transform 0.7s 0.12s var(--ease);
+}
+
+.hscroll__line {
+  margin-top: 40px;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.8s 0.2s var(--ease);
+}
+
+/* active panel animates in */
+.hscroll__panel.active .hscroll__title,
+.hscroll__panel.active .hscroll__desc { opacity: 1; transform: none; }
+.hscroll__panel.active .hscroll__line { width: 80px; }
+
+/* dots */
+.hscroll__dots {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+.hscroll__dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(184,154,88,0.3);
+  transition: background 0.3s, transform 0.3s;
+}
+.hscroll__dot.active {
+  background: var(--gold);
+  transform: scale(1.4);
+}
+
+/* scroll hint */
+.hscroll__hint {
+  position: absolute;
+  bottom: 38px;
+  right: 48px;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-lt);
+  z-index: 10;
+  transition: opacity 0.4s;
+}
+
+@media (max-width: 768px) {
+  .hscroll { height: 450vh; }
+  .hscroll__panel { padding: 0 6vw; }
+  .hscroll__title { font-size: clamp(2.4rem, 10vw, 3.5rem); }
+  .hscroll__hint { display: none; }
+}
+
+/* ===========================
+   HERO SPOTLIGHT CANVAS
+=========================== */
+.hero__lights {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.9;
+}
+
+/* ===========================
+   MARQUEE TICKER
+=========================== */
+.marquee {
+  overflow: hidden;
+  background: var(--dark-2);
+  border-top: 1px solid rgba(184,154,88,0.15);
+  border-bottom: 1px solid rgba(184,154,88,0.15);
+  padding: 14px 0;
+  position: relative;
+  z-index: 10;
+}
+
+.marquee__track {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  white-space: nowrap;
+  animation: marquee-scroll 28s linear infinite;
+  width: max-content;
+}
+
+.marquee__track span {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--text-mid);
+  padding: 0 32px;
+  transition: color 0.3s;
+}
+
+.marquee__track span:hover { color: var(--gold-lt); }
+
+.marquee__dot {
+  color: var(--gold) !important;
+  font-size: 0.55rem !important;
+  padding: 0 !important;
+  opacity: 0.7;
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
