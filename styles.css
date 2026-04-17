@@ -156,7 +156,7 @@ h1, h2, h3, h4 {
 
 .nav__logo {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.55rem;
+  font-size: 1.25rem;
   font-weight: 500;
   letter-spacing: 0.04em;
   color: var(--white);
@@ -385,6 +385,120 @@ h1, h2, h3, h4 {
   50%  { transform: scaleY(1); transform-origin: top; }
   51%  { transform: scaleY(1); transform-origin: bottom; }
   100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* ===========================
+   HERO EXTRAS
+=========================== */
+.hero__beam {
+  position: absolute;
+  bottom: 0;
+  width: 2px;
+  height: 55%;
+  transform-origin: bottom center;
+  pointer-events: none;
+}
+.hero__beam--1 {
+  left: 32%;
+  background: linear-gradient(to top, rgba(184,154,88,0.55) 0%, transparent 100%);
+  transform: rotate(-18deg);
+  filter: blur(3px);
+}
+.hero__beam--2 {
+  left: 58%;
+  background: linear-gradient(to top, rgba(184,154,88,0.35) 0%, transparent 100%);
+  transform: rotate(14deg);
+  filter: blur(4px);
+}
+
+.hero__stars {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 15% 12%, rgba(255,255,255,0.55) 0%, transparent 100%),
+    radial-gradient(1px 1px at 42% 8%, rgba(255,255,255,0.45) 0%, transparent 100%),
+    radial-gradient(1px 1px at 68% 18%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 82% 6%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 27% 22%, rgba(255,255,255,0.35) 0%, transparent 100%),
+    radial-gradient(1px 1px at 91% 25%, rgba(255,255,255,0.45) 0%, transparent 100%),
+    radial-gradient(1px 1px at 55% 30%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 8% 35%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 75% 10%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 35% 5%, rgba(255,255,255,0.5) 0%, transparent 100%);
+}
+
+.hero__badge {
+  position: absolute;
+  top: 50%;
+  right: 48px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 2;
+}
+.hero__badge-line {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+.hero__badge-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 8px var(--gold-lt);
+}
+
+.hero__float {
+  position: absolute;
+  bottom: 15%;
+  z-index: 2;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(12px);
+  border-radius: 8px;
+  padding: 14px 22px;
+  text-align: center;
+}
+.hero__float--left  { left: 48px; }
+.hero__float--right { right: 48px; }
+.hero__float-num {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.9rem;
+  font-weight: 500;
+  color: var(--gold-lt);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.hero__float-label {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+
+/* ===========================
+   PROCESS ORB
+=========================== */
+.steps__orb {
+  position: absolute;
+  left: 22px;
+  top: 0;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--gold-lt);
+  box-shadow: 0 0 16px 6px rgba(212,184,122,0.65), 0 0 40px 12px rgba(184,154,88,0.3);
+  transform: translate(-50%, 0);
+  z-index: 2;
+  pointer-events: none;
+  transition: top 0.08s linear;
 }
 
 /* ===========================
@@ -1097,4 +1211,6 @@ h1, h2, h3, h4 {
   .stats-band__inner { flex-direction: column; }
   .stat__sep { width: 52px; height: 1px; }
   .hero__title { font-size: 2.2rem; }
+  .hero__float { display: none; }
+  .hero__badge { display: none; }
 }

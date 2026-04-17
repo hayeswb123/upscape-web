@@ -60,6 +60,24 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 // ===========================
+// PROCESS LIGHT ORB
+// ===========================
+const stepsEl  = document.getElementById('steps');
+const stepsOrb = document.getElementById('stepsOrb');
+
+if (stepsEl && stepsOrb) {
+  window.addEventListener('scroll', () => {
+    const rect = stepsEl.getBoundingClientRect();
+    const sectionH = stepsEl.offsetHeight;
+    const viewH    = window.innerHeight;
+    const raw = (viewH * 0.6 - rect.top) / sectionH;
+    const p   = Math.max(0, Math.min(1, raw));
+    stepsOrb.style.top = (p * sectionH) + 'px';
+    stepsOrb.style.opacity = p > 0 && p < 1 ? '1' : '0';
+  }, { passive: true });
+}
+
+// ===========================
 // COUNTER ANIMATION
 // ===========================
 document.querySelectorAll('.stat__n[data-count]').forEach(el => {

@@ -11,7 +11,7 @@
 
   <!-- NAV -->
   <nav class="nav" id="nav">
-    <a href="index.html" class="nav__logo">Upscape</a>
+    <a href="index.html" class="nav__logo">Getupscaped.com</a>
     <ul class="nav__links">
       <li><a href="gallery.html">Gallery</a></li>
       <li><a href="#about">About Us</a></li>
@@ -46,11 +46,22 @@
       <div class="hero__glow hero__glow--1"></div>
       <div class="hero__glow hero__glow--2"></div>
       <div class="hero__glow hero__glow--3"></div>
+      <div class="hero__beam hero__beam--1"></div>
+      <div class="hero__beam hero__beam--2"></div>
       <div class="hero__silhouette"></div>
+      <div class="hero__stars" aria-hidden="true"></div>
     </div>
     <div class="hero__overlay"></div>
+
+    <!-- corner badge -->
+    <div class="hero__badge reveal" data-delay="900">
+      <span class="hero__badge-line">Fairfield County</span>
+      <span class="hero__badge-dot"></span>
+      <span class="hero__badge-line">Low Voltage</span>
+    </div>
+
     <div class="hero__content">
-      <p class="hero__eyebrow reveal">Westport, CT &mdash; Est. 2025</p>
+      <p class="hero__eyebrow reveal">Westport, CT &nbsp;&bull;&nbsp; Est. 2025</p>
       <h1 class="hero__title">
         <span class="reveal-clip">Luxury landscape lighting,</span>
         <span class="reveal-clip hero__title--light" data-delay="200">without the luxury markup.</span>
@@ -61,6 +72,17 @@
         <a href="gallery.html" class="btn btn--outline-white">See Our Work</a>
       </div>
     </div>
+
+    <!-- floating stat pills -->
+    <div class="hero__float hero__float--left reveal" data-delay="800">
+      <span class="hero__float-num">10+</span>
+      <span class="hero__float-label">Properties lit</span>
+    </div>
+    <div class="hero__float hero__float--right reveal" data-delay="950">
+      <span class="hero__float-num">100%</span>
+      <span class="hero__float-label">Satisfaction</span>
+    </div>
+
     <a href="#services" class="hero__scroll">
       <span></span>
     </a>
@@ -115,7 +137,7 @@
   <div class="stats-band">
     <div class="container stats-band__inner">
       <div class="stat reveal">
-        <span class="stat__n">4</span>
+        <span class="stat__n">10</span>
         <span class="stat__l">Properties Illuminated</span>
       </div>
       <div class="stat__sep"></div>
@@ -143,7 +165,8 @@
         <span class="eyebrow">Our Process</span>
         <h2 class="sec-title">From first walkthrough<br>to champagne toast.</h2>
       </div>
-      <div class="steps">
+      <div class="steps" id="steps">
+        <div class="steps__orb" id="stepsOrb" aria-hidden="true"></div>
         <div class="step reveal" data-delay="0">
           <div class="step__num">01</div>
           <div class="step__body">
@@ -259,7 +282,7 @@
       <div class="pricing__range reveal">
         <div class="pricing__end">
           <span class="pricing__label">Starting at</span>
-          <span class="pricing__value">$2,500</span>
+          <span class="pricing__value">$1,800</span>
         </div>
         <div class="pricing__bar-wrap">
           <div class="pricing__bar">
@@ -318,7 +341,7 @@
         </div>
         <div class="faq__item reveal" data-delay="280">
           <button class="faq__q" aria-expanded="false">Will this bother my neighbors?</button>
-          <div class="faq__a"><div><p>Not if it's designed correctly, and good design is the whole point. Every fixture is aimed deliberately at your architecture, trees, or pathways — not toward the street or neighboring properties.</p></div></div>
+          <div class="faq__a"><div><p>Not if it's designed correctly, and good design is the whole point. Every fixture is aimed deliberately at your architecture, trees, or pathways, not toward the street or neighboring properties.</p></div></div>
         </div>
         <div class="faq__item reveal" data-delay="320">
           <button class="faq__q" aria-expanded="false">Can I start small and expand later?</button>
@@ -407,7 +430,7 @@
       </div>
       <div class="footer__bottom">
         <p>&copy; 2026 Upscape. All rights reserved.</p>
-        <p>Westport, CT &mdash; Fairfield &amp; Westchester County</p>
+        <p>Westport, CT &nbsp;&bull;&nbsp; Fairfield &amp; Westchester County</p>
       </div>
     </div>
   </footer>
