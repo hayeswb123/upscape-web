@@ -709,18 +709,15 @@ h1, h2, h3, h4 {
 }
 
 .preview__bg--1 {
-  background:
-    radial-gradient(ellipse 300px 300px at 40% 55%, rgba(184,154,88,0.55) 0%, transparent 65%),
-    radial-gradient(ellipse 180px 150px at 70% 70%, rgba(184,154,88,0.3) 0%, transparent 60%),
-    linear-gradient(170deg, #0a0908 0%, #1c1810 50%, #0d0b07 100%);
+  background-image: url('court-centrale.webp');
+  background-size: cover;
+  background-position: center;
 }
 
 .preview__bg--2 {
-  background:
-    radial-gradient(ellipse 400px 120px at 50% 80%, rgba(184,154,88,0.45) 0%, transparent 70%),
-    radial-gradient(ellipse 200px 60px at 20% 85%, rgba(212,184,122,0.3) 0%, transparent 60%),
-    radial-gradient(ellipse 200px 60px at 80% 82%, rgba(212,184,122,0.3) 0%, transparent 60%),
-    linear-gradient(180deg, #090807 0%, #181410 55%, #0c0a06 100%);
+  background-image: url('stonewalls-driveways.webp');
+  background-size: cover;
+  background-position: center;
 }
 
 .preview__caption {
@@ -1130,34 +1127,33 @@ h1, h2, h3, h4 {
   inset: 0;
   transition: transform 0.7s var(--ease);
 }
+.gal-card__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.25);
+  pointer-events: none;
+}
 
 .gal-bg--1 {
-  background:
-    radial-gradient(ellipse 280px 320px at 35% 55%, rgba(184,154,88,0.6) 0%, transparent 65%),
-    radial-gradient(ellipse 160px 180px at 65% 65%, rgba(212,184,122,0.35) 0%, transparent 60%),
-    linear-gradient(160deg, #0a0908 0%, #1c1810 50%, #0d0b07 100%);
+  background-image: url('tree_uplighting.webp');
+  background-size: cover;
+  background-position: center;
 }
 .gal-bg--2 {
-  background:
-    radial-gradient(ellipse 350px 100px at 50% 85%, rgba(184,154,88,0.5) 0%, transparent 70%),
-    radial-gradient(ellipse 150px 50px at 15% 90%, rgba(212,184,122,0.35) 0%, transparent 60%),
-    radial-gradient(ellipse 150px 50px at 85% 88%, rgba(212,184,122,0.35) 0%, transparent 60%),
-    linear-gradient(180deg, #080706 0%, #161210 55%, #0b0907 100%);
+  background-image: url('stonewalls-driveways.webp');
+  background-size: cover;
+  background-position: center;
 }
 .gal-bg--3 {
-  background:
-    radial-gradient(ellipse 80px 80px at 25% 80%, rgba(184,154,88,0.7) 0%, transparent 58%),
-    radial-gradient(ellipse 60px 60px at 50% 75%, rgba(184,154,88,0.55) 0%, transparent 55%),
-    radial-gradient(ellipse 60px 60px at 75% 78%, rgba(184,154,88,0.6) 0%, transparent 55%),
-    radial-gradient(ellipse 40px 40px at 12% 82%, rgba(212,184,122,0.4) 0%, transparent 55%),
-    linear-gradient(170deg, #090806 0%, #151210 55%, #0c0a07 100%);
+  background-image: url('pathway-lighting.webp');
+  background-size: cover;
+  background-position: center;
 }
 .gal-bg--4 {
-  background:
-    radial-gradient(ellipse 300px 150px at 50% 75%, rgba(184,154,88,0.45) 0%, transparent 65%),
-    radial-gradient(ellipse 180px 60px at 20% 80%, rgba(212,184,122,0.3) 0%, transparent 60%),
-    radial-gradient(ellipse 180px 60px at 80% 78%, rgba(212,184,122,0.3) 0%, transparent 60%),
-    linear-gradient(180deg, #090807 0%, #17130e 55%, #0c0a06 100%);
+  background-image: url('IMG_9979.webp');
+  background-size: cover;
+  background-position: center;
 }
 
 .gal-card__info {
@@ -1249,16 +1245,20 @@ h1, h2, h3, h4 {
   border-right: 1px solid rgba(255,255,255,0.04);
 }
 
+/* background photo per panel */
+.hscroll__panel--1 { background-image: url('tree_uplighting.webp'); background-size: cover; background-position: center; }
+.hscroll__panel--2 { background-image: url('pathway-lighting.webp'); background-size: cover; background-position: center; }
+.hscroll__panel--3 { background-image: url('stonewalls-driveways.webp'); background-size: cover; background-position: center; }
+.hscroll__panel--4 { background-image: url('IMG_9979.webp'); background-size: cover; background-position: center; }
+
+/* dark overlay so text stays legible */
 .hscroll__panel::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 70% 60% at 60% 50%, rgba(184,154,88,0.07) 0%, transparent 70%);
+  background: rgba(10, 9, 6, 0.72);
   pointer-events: none;
 }
-.hscroll__panel--2::before { background: radial-gradient(ellipse 70% 60% at 40% 55%, rgba(184,154,88,0.06) 0%, transparent 70%); }
-.hscroll__panel--3::before { background: radial-gradient(ellipse 70% 60% at 65% 45%, rgba(184,154,88,0.08) 0%, transparent 70%); }
-.hscroll__panel--4::before { background: radial-gradient(ellipse 70% 60% at 35% 50%, rgba(184,154,88,0.06) 0%, transparent 70%); }
 
 .hscroll__panel::after {
   content: attr(data-bg-num);
