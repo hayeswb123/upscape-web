@@ -397,9 +397,12 @@ if (yearEl) yearEl.textContent = yearEl.textContent.replace('2026', new Date().g
 })();
 
 // ===========================
-// MOUSE-FOLLOWING HALO (Gallery)
+// MOUSE-FOLLOWING HALO (Hero only)
 // ===========================
 (function () {
+  const hero = document.getElementById('hero');
+  if (!hero) return;
+
   const canvas = document.createElement('canvas');
   canvas.id = 'haloCanvas';
   canvas.style.position = 'fixed';
@@ -426,34 +429,40 @@ if (yearEl) yearEl.textContent = yearEl.textContent.replace('2026', new Date().g
     mouseY = e.clientY;
   }, { passive: true });
 
+  function isInHero() {
+    return window.scrollY < hero.offsetHeight;
+  }
+
   function frame(ts) {
     t = ts;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.globalCompositeOperation = 'screen';
 
-    // Primary halo glow
-    const r1 = 120 + Math.sin(t * 0.0006) * 20;
-    const grad1 = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, r1);
-    grad1.addColorStop(0,   'rgba(200,220,240,0.08)');
-    grad1.addColorStop(0.5, 'rgba(150,190,230,0.04)');
-    grad1.addColorStop(1,   'rgba(150,190,230,0)');
-    ctx.fillStyle = grad1;
-    ctx.beginPath();
-    ctx.arc(mouseX, mouseY, r1, 0, Math.PI * 2);
-    ctx.fill();
+    if (isInHero()) {
+      ctx.globalCompositeOperation = 'screen';
 
-    // Secondary subtle ring
-    const r2 = 200 + Math.sin(t * 0.0004) * 30;
-    const grad2 = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, r2);
-    grad2.addColorStop(0,   'rgba(180,200,220,0)');
-    grad2.addColorStop(0.7, 'rgba(180,200,220,0.02)');
-    grad2.addColorStop(1,   'rgba(180,200,220,0)');
-    ctx.fillStyle = grad2;
-    ctx.beginPath();
-    ctx.arc(mouseX, mouseY, r2, 0, Math.PI * 2);
-    ctx.fill();
+      const r1 = 120 + Math.sin(t * 0.0006) * 20;
+      const grad1 = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, r1);
+      grad1.addColorStop(0,   'rgba(200,220,240,0.08)');
+      grad1.addColorStop(0.5, 'rgba(150,190,230,0.04)');
+      grad1.addColorStop(1,   'rgba(150,190,230,0)');
+      ctx.fillStyle = grad1;
+      ctx.beginPath();
+      ctx.arc(mouseX, mouseY, r1, 0, Math.PI * 2);
+      ctx.fill();
 
-    ctx.globalCompositeOperation = 'source-over';
+      const r2 = 200 + Math.sin(t * 0.0004) * 30;
+      const grad2 = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, r2);
+      grad2.addColorStop(0,   'rgba(180,200,220,0)');
+      grad2.addColorStop(0.7, 'rgba(180,200,220,0.02)');
+      grad2.addColorStop(1,   'rgba(180,200,220,0)');
+      ctx.fillStyle = grad2;
+      ctx.beginPath();
+      ctx.arc(mouseX, mouseY, r2, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.globalCompositeOperation = 'source-over';
+    }
+
     requestAnimationFrame(frame);
   }
 
