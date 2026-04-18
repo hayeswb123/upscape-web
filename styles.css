@@ -1237,30 +1237,49 @@ h1, h2, h3, h4 {
 .service-card {
   position: relative;
   padding: 48px;
-  background: linear-gradient(135deg, rgba(184,154,88,0.08) 0%, rgba(212,184,122,0.04) 100%);
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(17,16,9,0.9);
   border: 1.5px solid rgba(184,154,88,0.25);
   border-radius: 8px;
-  backdrop-filter: blur(12px);
   overflow: hidden;
   transition: all 0.4s var(--ease);
   cursor: pointer;
 }
 
+.service-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(17,16,9,0.7) 0%, rgba(30,28,22,0.6) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.service-card:nth-child(1) { background-image: url('tree_uplighting.webp'); }
+.service-card:nth-child(2) { background-image: url('pathway-lighting.webp'); }
+.service-card:nth-child(3) { background-image: url('stonewalls-driveways.webp'); }
+.service-card:nth-child(4) { background-image: url('IMG_9979.webp'); }
+
 .service-card::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(600px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(184,154,88,0.15) 0%, transparent 80%);
+  background: radial-gradient(600px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(184,154,88,0.2) 0%, transparent 80%);
   opacity: 0;
   transition: opacity 0.4s;
   pointer-events: none;
+  z-index: 2;
 }
 
 .service-card:hover {
-  background: linear-gradient(135deg, rgba(184,154,88,0.15) 0%, rgba(212,184,122,0.08) 100%);
   border-color: rgba(184,154,88,0.45);
   transform: translateY(-8px);
   box-shadow: 0 24px 64px rgba(184,154,88,0.2);
+}
+
+.service-card:hover::after {
+  background: linear-gradient(135deg, rgba(17,16,9,0.5) 0%, rgba(30,28,22,0.4) 100%);
 }
 
 .service-card:hover::before {
