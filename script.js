@@ -158,7 +158,7 @@ window.addEventListener('load', () => {
 });
 
 // ===========================
-// HERO SPOTLIGHT BEAMS
+// HERO FLOATING ORB CONSTELLATION
 // ===========================
 (function () {
   const canvas = document.getElementById('lightsCanvas');
@@ -168,85 +168,71 @@ window.addEventListener('load', () => {
   function resize() {
     canvas.width  = canvas.offsetWidth  * (window.devicePixelRatio || 1);
     canvas.height = canvas.offsetHeight * (window.devicePixelRatio || 1);
+    ctx.setTransform(1,0,0,1,0,0);
     ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
   }
   resize();
-  window.addEventListener('resize', () => { ctx.setTransform(1,0,0,1,0,0); resize(); }, { passive: true });
+  window.addEventListener('resize', resize, { passive: true });
 
   const W = () => canvas.offsetWidth;
   const H = () => canvas.offsetHeight;
 
-  const beams = [
-    { ox: 0.18, speed: 0.00035, phase: 0,    spread: 0.18, alpha: 0.13, width: 220 },
-    { ox: 0.38, speed: 0.00028, phase: 1.4,  spread: 0.14, alpha: 0.10, width: 180 },
-    { ox: 0.55, speed: 0.00042, phase: 2.8,  spread: 0.20, alpha: 0.15, width: 260 },
-    { ox: 0.72, speed: 0.00031, phase: 0.9,  spread: 0.13, alpha: 0.09, width: 160 },
-    { ox: 0.88, speed: 0.00038, phase: 2.1,  spread: 0.16, alpha: 0.11, width: 200 },
-  ];
-
-  const orbs = Array.from({ length: 6 }, (_, i) => ({
-    x: (0.15 + i * 0.15) * 800,
-    y: 200 + Math.random() * 400,
-    r: 60 + Math.random() * 80,
-    phase: Math.random() * Math.PI * 2,
-    speed: 0.0004 + Math.random() * 0.0003,
-    alpha: 0.04 + Math.random() * 0.04,
-  }));
+  // Orbs: large, slow-drifting glowing spheres with bokeh blur
+  const orbs = Array.from({ length: 12 }, (_, i) => {
+    const seed = i * 137.5;
+    return {
+      xFrac: Math.sin(seed * 0.1) * 0.4 + 0.5,
+      yFrac: Math.sin(seed * 0.2) * 0.25 + 0.2,
+      r: 80 + Math.sin(seed * 0.05) * 60,
+      vx: (Math.sin(seed * 0.15) * 0.00008),
+      vy: (Math.cos(seed * 0.18) * 0.00006),
+      phase: Math.random() * Math.PI * 2,
+      speed: 0.0003 + Math.random() * 0.0002,
+      color: [
+        180 + Math.sin(seed * 0.3) * 40,
+        200 + Math.cos(seed * 0.25) * 30,
+        240 + Math.sin(seed * 0.35) * 15,
+      ],
+      alpha: 0.28 + Math.sin(seed * 0.1) * 0.12,
+    };
+  });
 
   let t = 0;
 
-  function drawBeam(beam, w, h) {
-    const angle = Math.sin(t * beam.speed + beam.phase) * beam.spread;
-    const ox = beam.ox * w;
-    const oy = -30;
+  function drawOrb(orb, w, h) {
+    // Position: slow drift + subtle oscillation
+    const x = orb.xFrac * w + Math.sin(t * 0.0002) * 40;
+    const y = orb.yFrac * h + Math.sin(t * orb.speed + orb.phase) * 50;
 
-    const dx = Math.sin(angle);
-    const dy = Math.cos(angle);
+    const [r, g, b] = orb.color;
+    const pulse = 0.7 + 0.3 * Math.sin(t * 0.0004 + orb.phase);
 
-    const len = h * 1.4;
-    const tx = ox + dx * len;
-    const ty = oy + dy * len;
+    // Multiple bokeh layers for that blurred, overlapping effect
+    for (let layer = 0; layer < 4; layer++) {
+      const layerR = orb.r * (1 + layer * 1.5);
+      const layerAlpha = Math.min(0.25, orb.alpha * pulse * Math.pow(0.7 - layer * 0.15, 1.4));
 
-    const px = -dy * beam.width * 0.5;
-    const py =  dx * beam.width * 0.5;
+      const grad = ctx.createRadialGradient(x, y, 0, x, y, layerR);
+      grad.addColorStop(0,   `rgba(${Math.round(r)},${Math.round(g)},${Math.round(b)},${layerAlpha * 1.5})`);
+      grad.addColorStop(0.4, `rgba(${Math.round(r)},${Math.round(g)},${Math.round(b)},${layerAlpha * 0.6})`);
+      grad.addColorStop(1,   `rgba(${Math.round(r)},${Math.round(g)},${Math.round(b)},0)`);
 
-    const grad = ctx.createLinearGradient(ox, oy, tx, ty);
-    grad.addColorStop(0,   `rgba(212,184,122,${beam.alpha * 1.8})`);
-    grad.addColorStop(0.3, `rgba(184,154,88,${beam.alpha})`);
-    grad.addColorStop(1,   `rgba(184,154,88,0)`);
-
-    ctx.beginPath();
-    ctx.moveTo(ox, oy);
-    ctx.lineTo(tx + px, ty + py);
-    ctx.lineTo(tx - px, ty - py);
-    ctx.closePath();
-    ctx.fillStyle = grad;
-    ctx.fill();
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(x, y, layerR, 0, Math.PI * 2);
+      ctx.fill();
+    }
   }
 
   function frame(ts) {
     t = ts;
     const w = W(), h = H();
     ctx.clearRect(0, 0, w, h);
-
     ctx.globalCompositeOperation = 'screen';
 
-    orbs.forEach(orb => {
-      const wobbleX = orb.x + Math.sin(t * orb.speed + orb.phase) * 40;
-      const wobbleY = orb.y + Math.cos(t * orb.speed * 0.7 + orb.phase) * 25;
-      const g = ctx.createRadialGradient(wobbleX, wobbleY, 0, wobbleX, wobbleY, orb.r);
-      g.addColorStop(0, `rgba(212,184,122,${orb.alpha * 2})`);
-      g.addColorStop(1, `rgba(184,154,88,0)`);
-      ctx.fillStyle = g;
-      ctx.beginPath();
-      ctx.arc(wobbleX, wobbleY, orb.r, 0, Math.PI * 2);
-      ctx.fill();
-    });
-
-    beams.forEach(b => drawBeam(b, w, h));
+    orbs.forEach(orb => drawOrb(orb, w, h));
 
     ctx.globalCompositeOperation = 'source-over';
-
     requestAnimationFrame(frame);
   }
 
@@ -408,4 +394,68 @@ if (yearEl) yearEl.textContent = yearEl.textContent.replace('2026', new Date().g
 
   window.addEventListener('scroll', update, { passive: true });
   update();
+})();
+
+// ===========================
+// MOUSE-FOLLOWING HALO (Gallery)
+// ===========================
+(function () {
+  const canvas = document.createElement('canvas');
+  canvas.id = 'haloCanvas';
+  canvas.style.position = 'fixed';
+  canvas.style.top = '0';
+  canvas.style.left = '0';
+  canvas.style.pointerEvents = 'none';
+  canvas.style.zIndex = '1';
+  document.body.append(canvas);
+
+  const ctx = canvas.getContext('2d');
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let t = 0;
+
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  }, { passive: true });
+
+  function frame(ts) {
+    t = ts;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.globalCompositeOperation = 'screen';
+
+    // Primary halo glow
+    const r1 = 120 + Math.sin(t * 0.0006) * 20;
+    const grad1 = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, r1);
+    grad1.addColorStop(0,   'rgba(200,220,240,0.08)');
+    grad1.addColorStop(0.5, 'rgba(150,190,230,0.04)');
+    grad1.addColorStop(1,   'rgba(150,190,230,0)');
+    ctx.fillStyle = grad1;
+    ctx.beginPath();
+    ctx.arc(mouseX, mouseY, r1, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Secondary subtle ring
+    const r2 = 200 + Math.sin(t * 0.0004) * 30;
+    const grad2 = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, r2);
+    grad2.addColorStop(0,   'rgba(180,200,220,0)');
+    grad2.addColorStop(0.7, 'rgba(180,200,220,0.02)');
+    grad2.addColorStop(1,   'rgba(180,200,220,0)');
+    ctx.fillStyle = grad2;
+    ctx.beginPath();
+    ctx.arc(mouseX, mouseY, r2, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.globalCompositeOperation = 'source-over';
+    requestAnimationFrame(frame);
+  }
+
+  requestAnimationFrame(frame);
 })();
