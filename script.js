@@ -361,40 +361,22 @@ const yearEl = document.querySelector('.footer__bottom p');
 if (yearEl) yearEl.textContent = yearEl.textContent.replace('2026', new Date().getFullYear());
 
 // ===========================
-// HORIZONTAL SCROLL SECTION
+// SERVICE CARDS HOVER GLOW
 // ===========================
-(function () {
-  const section = document.querySelector('.hscroll');
-  const track   = document.getElementById('hscrollTrack');
-  const dots    = document.querySelectorAll('.hscroll__dot');
-  const hint    = document.querySelector('.hscroll__hint');
-  const panels  = document.querySelectorAll('.hscroll__panel');
-  if (!section || !track) return;
+document.querySelectorAll('.service-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    card.style.setProperty('--mouse-x', `${x}%`);
+    card.style.setProperty('--mouse-y', `${y}%`);
+  });
 
-  const PANEL_COUNT = panels.length;
-
-  function update() {
-    const rect    = section.getBoundingClientRect();
-    const sectionH = section.offsetHeight;
-    const viewH   = window.innerHeight;
-
-    const raw = -rect.top / (sectionH - viewH);
-    const p   = Math.max(0, Math.min(1, raw));
-
-    const maxShift = track.scrollWidth - window.innerWidth;
-    track.style.transform = `translateX(${-p * maxShift}px)`;
-
-    const idx = Math.min(Math.floor(p * PANEL_COUNT + 0.15), PANEL_COUNT - 1);
-
-    panels.forEach((panel, i) => panel.classList.toggle('active', i === idx));
-    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-
-    if (hint) hint.style.opacity = p > 0.05 ? '0' : '1';
-  }
-
-  window.addEventListener('scroll', update, { passive: true });
-  update();
-})();
+  card.addEventListener('mouseleave', () => {
+    card.style.setProperty('--mouse-x', '50%');
+    card.style.setProperty('--mouse-y', '50%');
+  });
+});
 
 // ===========================
 // MOUSE-FOLLOWING HALO (Gallery)

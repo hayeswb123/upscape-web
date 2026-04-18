@@ -1212,163 +1212,110 @@ h1, h2, h3, h4 {
 }
 
 /* ===========================
-   HORIZONTAL SCROLL SECTION
+   SERVICES SHOWCASE
 =========================== */
-.hscroll {
-  height: 500vh;
+.services-showcase {
+  background: linear-gradient(180deg, var(--dark) 0%, var(--cream-2) 100%);
+  padding: 120px 0;
   position: relative;
-}
-
-.hscroll__pin {
-  position: sticky;
-  top: 0;
-  height: 100vh;
   overflow: hidden;
-  background: var(--dark);
 }
 
-.hscroll__track {
-  display: flex;
-  height: 100%;
-  width: 400%;
-  will-change: transform;
+.services-showcase__head {
+  text-align: center;
+  margin-bottom: 80px;
 }
 
-.hscroll__panel {
-  flex: 0 0 25%;
-  height: 100%;
+.services-showcase__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.service-card {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0 8vw;
-  border-right: 1px solid rgba(255,255,255,0.04);
+  padding: 48px;
+  background: linear-gradient(135deg, rgba(184,154,88,0.08) 0%, rgba(212,184,122,0.04) 100%);
+  border: 1.5px solid rgba(184,154,88,0.25);
+  border-radius: 8px;
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+  transition: all 0.4s var(--ease);
+  cursor: pointer;
 }
 
-/* background photo per panel */
-.hscroll__panel--1 { background-image: url('tree_uplighting.webp'); background-size: cover; background-position: center; }
-.hscroll__panel--2 { background-image: url('pathway-lighting.webp'); background-size: cover; background-position: center; }
-.hscroll__panel--3 { background-image: url('stonewalls-driveways.webp'); background-size: cover; background-position: center; }
-.hscroll__panel--4 { background-image: url('IMG_9979.webp'); background-size: cover; background-position: center; }
-
-/* dark overlay so text stays legible */
-.hscroll__panel::before {
+.service-card::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(10, 9, 6, 0.72);
-  pointer-events: none;
-}
-
-.hscroll__panel::after {
-  content: attr(data-bg-num);
-  position: absolute;
-  right: 6vw;
-  bottom: -0.1em;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 32vw;
-  font-weight: 600;
-  color: rgba(184,154,88,0.04);
-  line-height: 1;
-  pointer-events: none;
-  user-select: none;
-}
-
-.hscroll__panel-inner {
-  max-width: 560px;
-  position: relative;
-  z-index: 2;
-}
-
-.hscroll__num {
-  display: block;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.68rem;
-  letter-spacing: 0.2em;
-  color: var(--gold);
-  margin-bottom: 12px;
-}
-
-.hscroll__tag {
-  display: block;
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-lt);
-  margin-bottom: 28px;
-}
-
-.hscroll__title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(3rem, 6vw, 5.5rem);
-  font-weight: 500;
-  line-height: 1.05;
-  color: var(--white);
-  margin-bottom: 28px;
+  background: radial-gradient(600px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(184,154,88,0.15) 0%, transparent 80%);
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  transition: opacity 0.4s;
+  pointer-events: none;
 }
 
-.hscroll__desc {
-  font-size: 1rem;
+.service-card:hover {
+  background: linear-gradient(135deg, rgba(184,154,88,0.15) 0%, rgba(212,184,122,0.08) 100%);
+  border-color: rgba(184,154,88,0.45);
+  transform: translateY(-8px);
+  box-shadow: 0 24px 64px rgba(184,154,88,0.2);
+}
+
+.service-card:hover::before {
+  opacity: 1;
+}
+
+.service-card__number {
+  font-size: 4.5rem;
+  font-weight: 600;
+  color: rgba(184,154,88,0.15);
+  line-height: 1;
+  margin-bottom: 20px;
+  transition: color 0.4s var(--ease);
+}
+
+.service-card:hover .service-card__number {
+  color: rgba(184,154,88,0.3);
+}
+
+.service-card h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--white);
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.service-card p {
+  font-size: 15px;
   line-height: 1.7;
   color: var(--text-mid);
-  max-width: 400px;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.7s 0.12s var(--ease), transform 0.7s 0.12s var(--ease);
+  position: relative;
+  z-index: 1;
+  transition: color 0.4s var(--ease);
 }
 
-.hscroll__line {
-  margin-top: 40px;
-  width: 0;
-  height: 1px;
-  background: var(--gold);
-  transition: width 0.8s 0.2s var(--ease);
-}
-
-.hscroll__panel.active .hscroll__title,
-.hscroll__panel.active .hscroll__desc { opacity: 1; transform: none; }
-.hscroll__panel.active .hscroll__line { width: 80px; }
-
-.hscroll__dots {
-  position: absolute;
-  bottom: 36px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
-  z-index: 10;
-}
-.hscroll__dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: rgba(184,154,88,0.3);
-  transition: background 0.3s, transform 0.3s;
-}
-.hscroll__dot.active {
-  background: var(--gold);
-  transform: scale(1.4);
-}
-
-.hscroll__hint {
-  position: absolute;
-  bottom: 38px;
-  right: 48px;
-  font-size: 0.65rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-lt);
-  z-index: 10;
-  transition: opacity 0.4s;
+.service-card:hover p {
+  color: var(--text);
 }
 
 @media (max-width: 768px) {
-  .hscroll { height: 450vh; }
-  .hscroll__panel { padding: 0 6vw; }
-  .hscroll__title { font-size: clamp(2.4rem, 10vw, 3.5rem); }
-  .hscroll__hint { display: none; }
+  .services-showcase {
+    padding: 80px 0;
+  }
+  .services-showcase__grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .service-card {
+    padding: 32px;
+  }
+  .service-card__number {
+    font-size: 3rem;
+  }
 }
 
 /* ===========================
