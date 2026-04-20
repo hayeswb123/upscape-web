@@ -244,7 +244,7 @@ window.addEventListener('load', () => {
 })();
 
 // ===========================
-// HERO EXIT PARALLAX (Montfort-style)
+// HERO SCROLL CINEMATIC (Montfort-style)
 // ===========================
 (function () {
   const hero      = document.getElementById('hero');
@@ -252,23 +252,29 @@ window.addEventListener('load', () => {
   const hint      = document.querySelector('.hero__scroll-hint');
   const upbeams   = document.querySelector('.hero__upbeams');
   const floorGlow = document.querySelector('.hero__floor-glow');
+  const stars     = document.querySelector('.hero__stars');
+  const lights    = document.getElementById('lightsCanvas');
   if (!hero || !content) return;
 
   window.addEventListener('scroll', () => {
     const y = window.scrollY;
     const h = hero.offsetHeight;
-    const p = Math.min(y / (h * 0.55), 1); // 0→1 over first 55% of hero height
+    const p = Math.min(y / (h * 0.6), 1); // 0→1 over first 60% of scroll
 
-    // wordmark lifts up and fades out
+    // ── wordmark: fades, lifts, and zooms toward viewer
     content.style.opacity   = String(1 - p);
-    content.style.transform = `translateY(${-p * 60}px)`;
+    content.style.transform = `translateY(${-p * 55}px) scale(${1 + p * 0.06})`;
 
-    // scroll hint disappears faster
-    if (hint) hint.style.opacity = String(Math.max(0, 1 - p * 3.5));
+    // ── scroll hint disappears fast
+    if (hint) hint.style.opacity = String(Math.max(0, 1 - p * 4));
 
-    // uplight beams drift up slower (parallax depth)
-    if (upbeams)   upbeams.style.transform   = `translateY(${y * 0.12}px)`;
-    if (floorGlow) floorGlow.style.transform = `translateY(${y * 0.06}px)`;
+    // ── background scene slowly zooms in (the Montfort effect)
+    const zoom = 1 + p * 0.12;
+    if (upbeams) upbeams.style.transform   = `scale(${zoom}) translateY(${-y * 0.06}px)`;
+    if (floorGlow) floorGlow.style.transform = `scale(${zoom})`;
+    if (stars)   stars.style.transform     = `scale(${zoom}) translateY(${-y * 0.04}px)`;
+    if (lights)  lights.style.transform    = `scale(${zoom}) translateY(${-y * 0.08}px)`;
+
   }, { passive: true });
 })();
 
