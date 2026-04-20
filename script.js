@@ -244,13 +244,33 @@ window.addEventListener('load', () => {
 })();
 
 // ===========================
-// HERO SCROLL FADE
+// HERO EXIT PARALLAX (Montfort-style)
 // ===========================
-const heroOverlay = document.querySelector('.hero .hero__overlay');
-window.addEventListener('scroll', () => {
-  const y = window.scrollY;
-  if (heroOverlay) heroOverlay.style.opacity = String(Math.min(1, y / window.innerHeight * 1.2));
-}, { passive: true });
+(function () {
+  const hero      = document.getElementById('hero');
+  const content   = document.querySelector('.hero__content');
+  const hint      = document.querySelector('.hero__scroll-hint');
+  const upbeams   = document.querySelector('.hero__upbeams');
+  const floorGlow = document.querySelector('.hero__floor-glow');
+  if (!hero || !content) return;
+
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    const h = hero.offsetHeight;
+    const p = Math.min(y / (h * 0.55), 1); // 0→1 over first 55% of hero height
+
+    // wordmark lifts up and fades out
+    content.style.opacity   = String(1 - p);
+    content.style.transform = `translateY(${-p * 60}px)`;
+
+    // scroll hint disappears faster
+    if (hint) hint.style.opacity = String(Math.max(0, 1 - p * 3.5));
+
+    // uplight beams drift up slower (parallax depth)
+    if (upbeams)   upbeams.style.transform   = `translateY(${y * 0.12}px)`;
+    if (floorGlow) floorGlow.style.transform = `translateY(${y * 0.06}px)`;
+  }, { passive: true });
+})();
 
 // ===========================
 // PROCESS FILL SLIDER

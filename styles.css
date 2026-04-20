@@ -354,7 +354,8 @@ h1, h2, h3, h4 {
    HERO
 =========================== */
 .hero {
-  position: relative;
+  position: sticky;
+  top: 0;
   height: 100vh;
   min-height: 640px;
   display: flex;
@@ -362,6 +363,13 @@ h1, h2, h3, h4 {
   justify-content: center;
   overflow: hidden;
   background: var(--dark);
+  z-index: 0;
+}
+
+/* Every section after the hero slides up on top of the pinned hero */
+.hero ~ * {
+  position: relative;
+  z-index: 1;
 }
 
 .hero__scene {
