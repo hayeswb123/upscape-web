@@ -27,15 +27,16 @@
   resize();
   window.addEventListener('resize', resize, { passive: true });
 
-  const COUNT = 55;
+  const COUNT = 80;
   const particles = Array.from({ length: COUNT }, () => ({
     x: Math.random() * window.innerWidth,
     y: Math.random() * window.innerHeight,
-    r: Math.random() * 1.4 + 0.3,
-    speed: Math.random() * 0.35 + 0.08,
-    drift: (Math.random() - 0.5) * 0.3,
-    alpha: Math.random() * 0.45 + 0.1,
-    fade: Math.random() * 0.008 + 0.002,
+    r: Math.random() * 1.6 + 0.4,
+    rot: Math.random() * Math.PI,
+    speed: Math.random() * 0.3 + 0.06,
+    drift: (Math.random() - 0.5) * 0.25,
+    alpha: Math.random() * 0.4 + 0.08,
+    fade: Math.random() * 0.006 + 0.002,
     dir: 1,
   }));
 
@@ -47,10 +48,13 @@
       p.alpha += p.fade * p.dir;
       if (p.alpha > 0.55 || p.alpha < 0.05) p.dir *= -1;
       if (p.y < -4) { p.y = canvas.height + 4; p.x = Math.random() * canvas.width; }
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      p.rot += 0.003;
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
       ctx.fillStyle = `rgba(184,154,88,${p.alpha})`;
-      ctx.fill();
+      ctx.fillRect(-p.r, -p.r, p.r * 2, p.r * 2);
+      ctx.restore();
     });
     requestAnimationFrame(tick);
   }
@@ -193,7 +197,7 @@ window.addEventListener('load', () => {
         145 + Math.cos(seed * 0.25) * 18,
         55  + Math.sin(seed * 0.35) * 18,
       ],
-      alpha: 0.28 + Math.sin(seed * 0.1) * 0.12,
+      alpha: 0.16 + Math.sin(seed * 0.1) * 0.08,
     };
   });
 

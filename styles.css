@@ -361,7 +361,7 @@ h1, h2, h3, h4 {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: var(--dark) url('tree_uplighting.webp') center 35% / cover no-repeat;
+  background: var(--dark);
 }
 
 .hero__scene {
@@ -401,12 +401,69 @@ h1, h2, h3, h4 {
     radial-gradient(ellipse 800px 300px at 30% 100%, #0d0c08 60%, transparent 100%);
 }
 
+/* Uplight beam cones */
+.hero__upbeams {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+.hero__beam {
+  position: absolute;
+  bottom: 0;
+  transform: translateX(-50%);
+  border-radius: 50%;
+}
+.hero__beam--c {
+  left: 50%;
+  width: 900px;
+  height: 90%;
+  background: radial-gradient(ellipse 48% 100% at 50% 100%,
+    rgba(184,154,88,0.28) 0%,
+    rgba(184,154,88,0.10) 38%,
+    transparent 65%
+  );
+}
+.hero__beam--l {
+  left: 28%;
+  width: 560px;
+  height: 72%;
+  background: radial-gradient(ellipse 42% 100% at 50% 100%,
+    rgba(184,154,88,0.14) 0%,
+    rgba(184,154,88,0.05) 42%,
+    transparent 62%
+  );
+}
+.hero__beam--r {
+  left: 72%;
+  width: 480px;
+  height: 65%;
+  background: radial-gradient(ellipse 40% 100% at 50% 100%,
+    rgba(184,154,88,0.11) 0%,
+    rgba(184,154,88,0.04) 40%,
+    transparent 60%
+  );
+}
+
+/* Warm pool of light at the base */
+.hero__floor-glow {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 22%;
+  pointer-events: none;
+  background: radial-gradient(ellipse 70% 100% at 50% 100%,
+    rgba(184,154,88,0.18) 0%,
+    rgba(184,154,88,0.06) 50%,
+    transparent 100%
+  );
+}
+
 .hero__overlay {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.65) 100%),
-    radial-gradient(ellipse at center, rgba(0,0,0,0) 20%, rgba(0,0,0,0.35) 100%);
+    radial-gradient(ellipse 90% 60% at 50% 50%, transparent 30%, rgba(0,0,0,0.45) 100%),
+    linear-gradient(to top, rgba(17,16,9,0.6) 0%, transparent 40%);
 }
 
 .hero__content {
