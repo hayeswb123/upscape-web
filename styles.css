@@ -361,7 +361,7 @@ h1, h2, h3, h4 {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: var(--dark);
+  background: var(--dark) url('tree_uplighting.webp') center 35% / cover no-repeat;
 }
 
 .hero__scene {
@@ -404,7 +404,9 @@ h1, h2, h3, h4 {
 .hero__overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at center bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.55) 100%);
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.65) 100%),
+    radial-gradient(ellipse at center, rgba(0,0,0,0) 20%, rgba(0,0,0,0.35) 100%);
 }
 
 .hero__content {
@@ -426,10 +428,12 @@ h1, h2, h3, h4 {
 }
 
 .hero__title {
+  font-family: 'Cormorant Garamond', serif;
   font-size: clamp(2.8rem, 6vw, 5rem);
   font-weight: 400;
-  line-height: 1.05;
+  line-height: 1.08;
   margin-bottom: 28px;
+  letter-spacing: -0.01em;
 }
 .hero__title--light { color: rgba(255,255,255,0.65); }
 
@@ -1087,12 +1091,22 @@ h1, h2, h3, h4 {
 =========================== */
 .gal-hero {
   background: var(--dark);
-  padding: 160px 0 80px;
+  padding: 160px 0 64px;
   text-align: center;
   color: var(--white);
+  position: relative;
+}
+.gal-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 900px 500px at 50% 100%, rgba(184,154,88,0.07) 0%, transparent 70%);
+  pointer-events: none;
 }
 .gal-hero h1 {
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(2.5rem, 5vw, 4.2rem);
   font-weight: 400;
   margin: 12px 0 20px;
 }
@@ -1103,80 +1117,118 @@ h1, h2, h3, h4 {
   margin: 0 auto;
 }
 
-.gallery { background: var(--dark); padding: 96px 0; }
+/* ===========================
+   GALLERY FILTERS
+=========================== */
+.gal-filters {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 40px 32px 56px;
+  background: var(--dark);
+}
+.gal-filter {
+  padding: 8px 22px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 100px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  background: transparent;
+  cursor: pointer;
+  transition: border-color 0.22s ease, color 0.22s ease, background 0.22s ease;
+}
+.gal-filter:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.gal-filter.active {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--dark);
+}
+
+/* ===========================
+   GALLERY GRID
+=========================== */
+.gallery { background: var(--dark); padding: 0 0 96px; }
 
 .gal-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 3px;
-  max-width: 1100px;
+  gap: 4px;
+  max-width: 1300px;
   margin: 0 auto;
 }
 
 .gal-card {
   position: relative;
-  height: 480px;
+  height: 460px;
   overflow: hidden;
   cursor: pointer;
 }
-.gal-card:hover .gal-card__bg { transform: scale(1.05); }
+.gal-card--featured {
+  grid-column: 1 / -1;
+  height: 580px;
+}
+.gal-card:hover .gal-card__bg { transform: scale(1.04); }
 
 .gal-card__bg {
   position: absolute;
   inset: 0;
-  transition: transform 0.7s var(--ease);
+  transition: transform 0.8s var(--ease);
+  background-size: cover;
+  background-position: center;
 }
 .gal-card__bg::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.25);
+  background: rgba(0,0,0,0.2);
   pointer-events: none;
+  transition: background 0.4s ease;
+}
+.gal-card:hover .gal-card__bg::after {
+  background: rgba(0,0,0,0.1);
 }
 
-.gal-bg--1 {
-  background-image: url('tree_uplighting.webp');
-  background-size: cover;
-  background-position: center;
-}
-.gal-bg--2 {
-  background-image: url('stonewalls-driveways.webp');
-  background-size: cover;
-  background-position: center;
-}
-.gal-bg--3 {
-  background-image: url('pathway-lighting.webp');
-  background-size: cover;
-  background-position: center;
-}
-.gal-bg--4 {
-  background-image: url('IMG_9979.webp');
-  background-size: cover;
-  background-position: center;
-}
-.gal-bg--5  { background-image: url('IMG_4271.JPG'); background-size: cover; background-position: center; }
-.gal-bg--6  { background-image: url('IMG_4278.JPG'); background-size: cover; background-position: center; }
-.gal-bg--7  { background-image: url('IMG_4279.JPG'); background-size: cover; background-position: center; }
-.gal-bg--8  { background-image: url('IMG_4283.JPG'); background-size: cover; background-position: center; }
-.gal-bg--9  { background-image: url('IMG_4284.JPG'); background-size: cover; background-position: center; }
-.gal-bg--10 { background-image: url('IMG_4285.JPG'); background-size: cover; background-position: center; }
-.gal-bg--11 { background-image: url('IMG_4286.JPG'); background-size: cover; background-position: center; }
-.gal-bg--12 { background-image: url('IMG_4287.JPG'); background-size: cover; background-position: center; }
-.gal-bg--13 { background-image: url('IMG_4288.JPG'); background-size: cover; background-position: center; }
-.gal-bg--14 { background-image: url('IMG_4290.JPG'); background-size: cover; background-position: center; }
-.gal-bg--15 { background-image: url('IMG_4291.JPG'); background-size: cover; background-position: center; }
+.gal-bg--1  { background-image: url('tree_uplighting.webp'); }
+.gal-bg--2  { background-image: url('stonewalls-driveways.webp'); }
+.gal-bg--3  { background-image: url('pathway-lighting.webp'); }
+.gal-bg--4  { background-image: url('IMG_9979.webp'); }
+.gal-bg--5  { background-image: url('IMG_4271.JPG'); }
+.gal-bg--6  { background-image: url('IMG_4278.JPG'); }
+.gal-bg--7  { background-image: url('IMG_4279.JPG'); }
+.gal-bg--8  { background-image: url('IMG_4283.JPG'); }
+.gal-bg--9  { background-image: url('IMG_4284.JPG'); }
+.gal-bg--10 { background-image: url('IMG_4285.JPG'); }
+.gal-bg--11 { background-image: url('IMG_4286.JPG'); }
+.gal-bg--12 { background-image: url('IMG_4287.JPG'); }
+.gal-bg--13 { background-image: url('IMG_4288.JPG'); }
+.gal-bg--14 { background-image: url('IMG_4290.JPG'); }
+.gal-bg--15 { background-image: url('IMG_4291.JPG'); }
 
 .gal-card__info {
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  padding: 48px 32px 32px;
-  background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, transparent 100%);
+  padding: 72px 36px 36px;
+  background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 55%, transparent 100%);
   color: var(--white);
+  transform: translateY(4px);
+  transition: transform 0.5s var(--ease);
 }
+.gal-card:hover .gal-card__info {
+  transform: translateY(0);
+}
+
 .gal-card__tag {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 500;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--gold-lt);
   display: block;
@@ -1184,8 +1236,135 @@ h1, h2, h3, h4 {
 }
 .gal-card__title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.5rem;
+  font-style: italic;
+  font-size: 1.6rem;
   font-weight: 400;
+  line-height: 1.1;
+}
+.gal-card__view {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-top: 16px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.35s var(--ease) 0.06s, transform 0.35s var(--ease) 0.06s;
+}
+.gal-card:hover .gal-card__view {
+  opacity: 1;
+  transform: translateY(0);
+}
+.gal-card__view svg {
+  width: 13px; height: 13px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ===========================
+   LIGHTBOX
+=========================== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(5,4,3,0.97);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s ease;
+}
+.lightbox.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.lightbox__img-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox__img {
+  max-width: min(90vw, 1100px);
+  max-height: 80vh;
+  object-fit: contain;
+  display: block;
+  border-radius: 2px;
+  transition: opacity 0.2s ease;
+}
+.lightbox__img.loading { opacity: 0; }
+.lightbox__close {
+  position: fixed;
+  top: 24px; right: 28px;
+  font-size: 26px;
+  color: rgba(255,255,255,0.55);
+  background: none;
+  border: none;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s;
+  z-index: 10001;
+  padding: 8px;
+}
+.lightbox__close:hover { color: var(--white); }
+.lightbox__prev,
+.lightbox__next {
+  position: fixed;
+  top: 50%; transform: translateY(-50%);
+  font-size: 32px;
+  color: rgba(255,255,255,0.4);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 20px 18px;
+  transition: color 0.2s;
+  z-index: 10001;
+  line-height: 1;
+  user-select: none;
+}
+.lightbox__prev { left: 8px; }
+.lightbox__next { right: 8px; }
+.lightbox__prev:hover, .lightbox__next:hover { color: var(--white); }
+.lightbox__caption {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  padding: 32px 48px 28px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.lightbox__caption-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.lightbox__tag {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-lt);
+}
+.lightbox__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.35rem;
+  color: rgba(255,255,255,0.9);
+}
+.lightbox__counter {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.08em;
 }
 
 /* ===========================
@@ -1208,6 +1387,8 @@ h1, h2, h3, h4 {
   .preview__item { height: 360px; }
   .gal-grid { grid-template-columns: 1fr; }
   .gal-card { height: 340px; }
+  .gal-card--featured { height: 420px; }
+  .gal-filters { padding: 24px 20px 40px; gap: 6px; }
   .pricing__range { flex-direction: column; }
 }
 

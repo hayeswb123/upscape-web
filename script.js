@@ -189,9 +189,9 @@ window.addEventListener('load', () => {
       phase: Math.random() * Math.PI * 2,
       speed: 0.0003 + Math.random() * 0.0002,
       color: [
-        180 + Math.sin(seed * 0.3) * 40,
-        200 + Math.cos(seed * 0.25) * 30,
-        240 + Math.sin(seed * 0.35) * 15,
+        200 + Math.sin(seed * 0.3) * 18,
+        145 + Math.cos(seed * 0.25) * 18,
+        55  + Math.sin(seed * 0.35) * 18,
       ],
       alpha: 0.28 + Math.sin(seed * 0.1) * 0.12,
     };
@@ -467,4 +467,105 @@ if (yearEl) yearEl.textContent = yearEl.textContent.replace('2026', new Date().g
   }
 
   requestAnimationFrame(frame);
+})();
+
+// ===========================
+// GALLERY FILTERS
+// ===========================
+(function () {
+  const filterBtns = document.querySelectorAll('.gal-filter');
+  const galCards   = document.querySelectorAll('.gal-card');
+  if (!filterBtns.length) return;
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.dataset.filter;
+      galCards.forEach(card => {
+        const match = filter === 'all' || card.dataset.category === filter;
+        card.style.display = match ? '' : 'none';
+        if (filter === 'all') {
+          if (card.dataset.featured) card.classList.add('gal-card--featured');
+        } else {
+          card.classList.remove('gal-card--featured');
+        }
+      });
+    });
+  });
+})();
+
+// ===========================
+// LIGHTBOX
+// ===========================
+(function () {
+  const lb = document.getElementById('lightbox');
+  if (!lb) return;
+
+  const lbImg     = document.getElementById('lbImg');
+  const lbTag     = document.getElementById('lbTag');
+  const lbTitle   = document.getElementById('lbTitle');
+  const lbCounter = document.getElementById('lbCounter');
+  const lbClose   = document.getElementById('lbClose');
+  const lbPrev    = document.getElementById('lbPrev');
+  const lbNext    = document.getElementById('lbNext');
+
+  const cards = Array.from(document.querySelectorAll('.gal-card[data-img]'));
+  let current = 0;
+
+  function visibleCards() {
+    return cards.filter(c => c.style.display !== 'none');
+  }
+
+  function open(idx) {
+    const visible = visibleCards();
+    current = idx;
+    const card = visible[current];
+    lbImg.classList.add('loading');
+    lbImg.onload = () => lbImg.classList.remove('loading');
+    lbImg.src   = card.dataset.img;
+    lbImg.alt   = card.dataset.tag || '';
+    lbTag.textContent   = card.dataset.tag   || '';
+    lbTitle.textContent = card.dataset.title || '';
+    lbCounter.textContent = `${current + 1} / ${visible.length}`;
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  function prev() {
+    const visible = visibleCards();
+    open((current - 1 + visible.length) % visible.length);
+  }
+
+  function next() {
+    const visible = visibleCards();
+    open((current + 1) % visible.length);
+  }
+
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      const visible = visibleCards();
+      open(visible.indexOf(card));
+    });
+  });
+
+  lbClose.addEventListener('click', close);
+  lbPrev.addEventListener('click', prev);
+  lbNext.addEventListener('click', next);
+  lb.addEventListener('click', e => { if (e.target === lb) close(); });
+
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')     close();
+    if (e.key === 'ArrowLeft')  prev();
+    if (e.key === 'ArrowRight') next();
+  });
 })();

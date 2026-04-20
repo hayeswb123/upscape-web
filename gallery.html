@@ -47,127 +47,197 @@
     <p class="reveal" data-delay="200">Fairfield County properties transformed with precision low voltage lighting.</p>
   </div>
 
+  <!-- FILTERS -->
+  <div class="gal-filters reveal" data-delay="100">
+    <button class="gal-filter active" data-filter="all">All</button>
+    <button class="gal-filter" data-filter="tree">Tree Uplighting</button>
+    <button class="gal-filter" data-filter="pathway">Pathway</button>
+    <button class="gal-filter" data-filter="stone">Stone &amp; Driveway</button>
+    <button class="gal-filter" data-filter="pool">Pool &amp; Garden</button>
+    <button class="gal-filter" data-filter="architectural">Architectural</button>
+  </div>
+
   <!-- GALLERY GRID -->
   <section class="gallery">
-    <div class="gal-grid">
+    <div class="gal-grid" id="galGrid">
 
-      <div class="gal-card reveal">
+      <!-- Card 1 — FEATURED -->
+      <div class="gal-card gal-card--featured reveal"
+           data-category="tree" data-img="tree_uplighting.webp"
+           data-tag="Tree Lighting" data-title="Fairfield County Residence" data-featured="true">
         <div class="gal-card__bg gal-bg--1"></div>
         <div class="gal-card__info">
           <span class="gal-card__tag">Tree Lighting</span>
           <h2 class="gal-card__title">Fairfield County Residence</h2>
+          <div class="gal-card__view">View Project <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
         </div>
       </div>
 
-      <div class="gal-card reveal" data-delay="80">
+      <!-- Card 2 -->
+      <div class="gal-card reveal" data-delay="0"
+           data-category="stone" data-img="stonewalls-driveways.webp"
+           data-tag="Stone Wall Lighting" data-title="Fairfield County Residence">
         <div class="gal-card__bg gal-bg--2"></div>
         <div class="gal-card__info">
           <span class="gal-card__tag">Stone Wall Lighting</span>
           <h2 class="gal-card__title">Fairfield County Residence</h2>
+          <div class="gal-card__view">View Project <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
         </div>
       </div>
 
-      <div class="gal-card reveal" data-delay="160">
+      <!-- Card 3 -->
+      <div class="gal-card reveal" data-delay="80"
+           data-category="pathway" data-img="pathway-lighting.webp"
+           data-tag="Pathway Lighting" data-title="Fairfield County Residence">
         <div class="gal-card__bg gal-bg--3"></div>
         <div class="gal-card__info">
           <span class="gal-card__tag">Pathway Lighting</span>
           <h2 class="gal-card__title">Fairfield County Residence</h2>
+          <div class="gal-card__view">View Project <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
         </div>
       </div>
 
-      <div class="gal-card reveal" data-delay="240">
+      <!-- Card 4 -->
+      <div class="gal-card reveal" data-delay="0"
+           data-category="pool" data-img="IMG_9979.webp"
+           data-tag="Pool &amp; Garden Lighting" data-title="Fairfield County Residence">
         <div class="gal-card__bg gal-bg--4"></div>
         <div class="gal-card__info">
           <span class="gal-card__tag">Pool &amp; Garden Lighting</span>
           <h2 class="gal-card__title">Fairfield County Residence</h2>
+          <div class="gal-card__view">View Project <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
         </div>
       </div>
 
-      <div class="gal-card reveal" data-delay="0">
+      <!-- Card 5 -->
+      <div class="gal-card reveal" data-delay="80"
+           data-category="tree" data-img="IMG_4271.JPG"
+           data-tag="Tree Uplighting" data-title="Fairfield County Residence">
         <div class="gal-card__bg gal-bg--5"></div>
         <div class="gal-card__info">
           <span class="gal-card__tag">Tree Uplighting</span>
           <h2 class="gal-card__title">Fairfield County Residence</h2>
+          <div class="gal-card__view">View Project <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
         </div>
       </div>
 
-      <div class="gal-card reveal" data-delay="80">
+      <!-- Card 6 — FEATURED -->
+      <div class="gal-card gal-card--featured reveal"
+           data-category="pool" data-img="IMG_4278.JPG"
+           data-tag="Outdoor Living" data-title="Fairfield County Residence" data-featured="true">
         <div class="gal-card__bg gal-bg--6"></div>
         <div class="gal-card__info">
           <span class="gal-card__tag">Outdoor Living</span>
           <h2 class="gal-card__title">Fairfield County Residence</h2>
+          <div class="gal-card__view">View Project <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
         </div>
       </div>
 
-      <div class="gal-card reveal" data-delay="160">
+      <!-- Card 7 -->
+      <div class="gal-card reveal" data-delay="0"
+           data-category="pool" data-img="IMG_4279.JPG"
+           data-tag="Pool &amp; Garden" data-title="Fairfield County Residence">
         <div class="gal-card__bg gal-bg--7"></div>
         <div class="gal-card__info">
           <span class="gal-card__tag">Pool &amp; Garden</span>
           <h2 class="gal-card__title">Fairfield County Residence</h2>
+          <div class="gal-card__view">View Project <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
         </div>
       </div>
 
-      <div class="gal-card reveal" data-delay="240">
+      <!-- Card 8 -->
+      <div class="gal-card reveal" data-delay="80"
+           data-category="architectural" data-img="IMG_4283.JPG"
+           data-tag="Architectural Lighting" data-title="Fairfield County Residence">
         <div class="gal-card__bg gal-bg--8"></div>
         <div class="gal-card__info">
           <span class="gal-card__tag">Architectural Lighting</span>
           <h2 class="gal-card__title">Fairfield County Residence</h2>
+          <div class="gal-card__view">View Project <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
         </div>
       </div>
 
-      <div class="gal-card reveal" data-delay="0">
+      <!-- Card 9 -->
+      <div class="gal-card reveal" data-delay="0"
+           data-category="tree" data-img="IMG_4284.JPG"
+           data-tag="Tree Uplighting" data-title="Fairfield County Residence">
         <div class="gal-card__bg gal-bg--9"></div>
         <div class="gal-card__info">
           <span class="gal-card__tag">Tree Uplighting</span>
           <h2 class="gal-card__title">Fairfield County Residence</h2>
+          <div class="gal-card__view">View Project <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
         </div>
       </div>
 
-      <div class="gal-card reveal" data-delay="80">
+      <!-- Card 10 -->
+      <div class="gal-card reveal" data-delay="80"
+           data-category="pool" data-img="IMG_4285.JPG"
+           data-tag="Pool &amp; Garden" data-title="Fairfield County Residence">
         <div class="gal-card__bg gal-bg--10"></div>
         <div class="gal-card__info">
           <span class="gal-card__tag">Pool &amp; Garden</span>
           <h2 class="gal-card__title">Fairfield County Residence</h2>
+          <div class="gal-card__view">View Project <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
         </div>
       </div>
 
-      <div class="gal-card reveal" data-delay="160">
+      <!-- Card 11 — FEATURED -->
+      <div class="gal-card gal-card--featured reveal"
+           data-category="architectural" data-img="IMG_4286.JPG"
+           data-tag="Garden &amp; Architectural" data-title="Fairfield County Residence" data-featured="true">
         <div class="gal-card__bg gal-bg--11"></div>
         <div class="gal-card__info">
           <span class="gal-card__tag">Garden &amp; Architectural</span>
           <h2 class="gal-card__title">Fairfield County Residence</h2>
+          <div class="gal-card__view">View Project <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
         </div>
       </div>
 
-      <div class="gal-card reveal" data-delay="240">
+      <!-- Card 12 -->
+      <div class="gal-card reveal" data-delay="0"
+           data-category="stone" data-img="IMG_4287.JPG"
+           data-tag="Stone Wall Lighting" data-title="Fairfield County Residence">
         <div class="gal-card__bg gal-bg--12"></div>
         <div class="gal-card__info">
           <span class="gal-card__tag">Stone Wall Lighting</span>
           <h2 class="gal-card__title">Fairfield County Residence</h2>
+          <div class="gal-card__view">View Project <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
         </div>
       </div>
 
-      <div class="gal-card reveal" data-delay="0">
+      <!-- Card 13 -->
+      <div class="gal-card reveal" data-delay="80"
+           data-category="pathway" data-img="IMG_4288.JPG"
+           data-tag="Pathway Lighting" data-title="Fairfield County Residence">
         <div class="gal-card__bg gal-bg--13"></div>
         <div class="gal-card__info">
           <span class="gal-card__tag">Pathway Lighting</span>
           <h2 class="gal-card__title">Fairfield County Residence</h2>
+          <div class="gal-card__view">View Project <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
         </div>
       </div>
 
-      <div class="gal-card reveal" data-delay="80">
+      <!-- Card 14 -->
+      <div class="gal-card reveal" data-delay="0"
+           data-category="stone" data-img="IMG_4290.JPG"
+           data-tag="Driveway Uplighting" data-title="Fairfield County Residence">
         <div class="gal-card__bg gal-bg--14"></div>
         <div class="gal-card__info">
           <span class="gal-card__tag">Driveway Uplighting</span>
           <h2 class="gal-card__title">Fairfield County Residence</h2>
+          <div class="gal-card__view">View Project <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
         </div>
       </div>
 
-      <div class="gal-card reveal" data-delay="160">
+      <!-- Card 15 -->
+      <div class="gal-card reveal" data-delay="80"
+           data-category="tree" data-img="IMG_4291.JPG"
+           data-tag="Tree Uplighting" data-title="Fairfield County Residence">
         <div class="gal-card__bg gal-bg--15"></div>
         <div class="gal-card__info">
           <span class="gal-card__tag">Tree Uplighting</span>
           <h2 class="gal-card__title">Fairfield County Residence</h2>
+          <div class="gal-card__view">View Project <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
         </div>
       </div>
 
@@ -215,6 +285,23 @@
       </div>
     </div>
   </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer">
+    <button class="lightbox__close" id="lbClose" aria-label="Close">&#x2715;</button>
+    <button class="lightbox__prev" id="lbPrev" aria-label="Previous">&#x2039;</button>
+    <button class="lightbox__next" id="lbNext" aria-label="Next">&#x203a;</button>
+    <div class="lightbox__img-wrap">
+      <img class="lightbox__img" id="lbImg" src="" alt="" />
+    </div>
+    <div class="lightbox__caption">
+      <div class="lightbox__caption-left">
+        <span class="lightbox__tag" id="lbTag"></span>
+        <span class="lightbox__title" id="lbTitle"></span>
+      </div>
+      <span class="lightbox__counter" id="lbCounter"></span>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
