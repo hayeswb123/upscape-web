@@ -709,7 +709,7 @@ h1, h2, h3, h4 {
 }
 
 .preview__bg--1 {
-  background-image: url('court-centrale.webp');
+  background-image: url('IMG_4284.JPG');
   background-size: cover;
   background-position: center;
 }
@@ -1154,6 +1154,17 @@ h1, h2, h3, h4 {
   background-size: cover;
   background-position: center;
 }
+.gal-bg--5  { background-image: url('IMG_4271.JPG'); background-size: cover; background-position: center; }
+.gal-bg--6  { background-image: url('IMG_4278.JPG'); background-size: cover; background-position: center; }
+.gal-bg--7  { background-image: url('IMG_4279.JPG'); background-size: cover; background-position: center; }
+.gal-bg--8  { background-image: url('IMG_4283.JPG'); background-size: cover; background-position: center; }
+.gal-bg--9  { background-image: url('IMG_4284.JPG'); background-size: cover; background-position: center; }
+.gal-bg--10 { background-image: url('IMG_4285.JPG'); background-size: cover; background-position: center; }
+.gal-bg--11 { background-image: url('IMG_4286.JPG'); background-size: cover; background-position: center; }
+.gal-bg--12 { background-image: url('IMG_4287.JPG'); background-size: cover; background-position: center; }
+.gal-bg--13 { background-image: url('IMG_4288.JPG'); background-size: cover; background-position: center; }
+.gal-bg--14 { background-image: url('IMG_4290.JPG'); background-size: cover; background-position: center; }
+.gal-bg--15 { background-image: url('IMG_4291.JPG'); background-size: cover; background-position: center; }
 
 .gal-card__info {
   position: absolute;
