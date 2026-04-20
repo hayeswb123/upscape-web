@@ -573,3 +573,27 @@ if (yearEl) yearEl.textContent = yearEl.textContent.replace('2026', new Date().g
     if (e.key === 'ArrowRight') next();
   });
 })();
+
+// ===========================
+// CUSTOM CURSOR
+// ===========================
+(function () {
+  if (window.matchMedia('(pointer: coarse)').matches) return; // skip on touch
+
+  const cursor = document.createElement('div');
+  cursor.className = 'c-cursor';
+  document.body.append(cursor);
+
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top  = e.clientY + 'px';
+    cursor.classList.add('ready');
+  }, { passive: true });
+
+  document.addEventListener('mouseleave', () => cursor.classList.remove('ready'));
+
+  document.querySelectorAll('a, button, .gal-card, .faq__q').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+  });
+})();
