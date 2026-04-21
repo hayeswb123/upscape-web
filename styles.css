@@ -909,6 +909,7 @@ a, button { cursor: none; }
   height: 100%;
   object-fit: cover;
   object-position: center top;
+  transform: rotate(90deg) scale(1.5);
 }
 .about__img-glow {
   position: absolute;
@@ -1282,6 +1283,7 @@ a, button { cursor: none; }
   height: 580px;
 }
 .gal-card:hover .gal-card__bg { transform: scale(1.04); }
+.gal-card--wide { grid-column: 1 / -1; height: 360px; }
 
 .gal-card__bg {
   position: absolute;
@@ -1319,6 +1321,8 @@ a, button { cursor: none; }
 .gal-bg--15 { background-image: url('IMG_4291.JPG'); }
 .gal-bg--16 { background-image: url('IMG_4262.JPG'); background-size: cover; background-position: center; }
 .gal-bg--17 { background-image: url('IMG_4263.JPG'); background-size: cover; background-position: center; }
+.gal-bg--18 { background-image: url('panorama-tennis.JPG'); background-size: cover; background-position: center top; }
+.gal-bg--19 { background-image: url('panorama-outdoor.jpeg'); background-size: cover; background-position: center; }
 .service-card:nth-child(4) { background-image: url('IMG_4263.JPG'); background-position: center; }
 
 .gal-card__info {
