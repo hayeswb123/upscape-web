@@ -1039,141 +1039,110 @@ a, button { cursor: none; }
 /* ===========================
    ANIMATED SCENE
 =========================== */
-.scene-section {
+/* ===== BEFORE / AFTER SLIDER ===== */
+.ba-section {
   background: var(--dark);
-  padding: 112px 0 80px;
+  padding: 112px 0 96px;
 }
 
-.scene-wrap {
+.ba-wrap {
   max-width: 960px;
-  margin: 48px auto 0;
+  margin: 56px auto 0;
   padding: 0 32px;
+}
+
+.ba-slider {
   position: relative;
-}
-
-.scene-svg {
   width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.7), 0 0 0 1px rgba(184,154,88,0.12);
+  cursor: ew-resize;
+  user-select: none;
+}
+
+.ba-after,
+.ba-before {
+  position: absolute;
+  inset: 0;
+}
+
+.ba-after img,
+.ba-before img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
-  border-radius: 12px;
-  border: 1px solid rgba(184,154,88,0.14);
-  box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,0,0,0.3);
+  pointer-events: none;
 }
 
-/* Star twinkle */
-.star {
-  animation: twinkle var(--dur, 3s) var(--d, 0s) ease-in-out infinite;
-  opacity: var(--op, 0.6);
-}
-@keyframes twinkle {
-  0%, 45%, 100% { opacity: var(--op, 0.6); }
-  25% { opacity: 0.06; }
+/* Before panel clips from the left */
+.ba-before {
+  clip-path: inset(0 50% 0 0);
 }
 
-/* All light elements start invisible, animations paused */
-.win-glow,
-.path-light,
-.upbeam,
-.fixture,
-.glow-pool {
-  animation-fill-mode: forwards;
-  animation-play-state: paused;
-}
-
-/* Trigger all animations when .animate is on the SVG */
-
-/* Pathway lights — pop on sequentially */
-.scene-svg.animate .path-light {
-  animation: light-pop 0.35s ease forwards;
-  animation-play-state: running;
-}
-.scene-svg.animate .pl-1 { animation-delay: 0.15s; }
-.scene-svg.animate .pl-2 { animation-delay: 0.45s; }
-.scene-svg.animate .pl-3 { animation-delay: 0.75s; }
-.scene-svg.animate .pl-4 { animation-delay: 1.05s; }
-
-/* Fixtures dot on */
-.scene-svg.animate .fixture {
-  animation: light-pop 0.25s ease forwards;
-  animation-play-state: running;
-}
-.scene-svg.animate .fix-tl { animation-delay: 1.6s; }
-.scene-svg.animate .fix-tr { animation-delay: 1.95s; }
-.scene-svg.animate .fix-wl { animation-delay: 2.3s; }
-.scene-svg.animate .fix-wr { animation-delay: 2.3s; }
-
-/* Ground glow pools */
-.scene-svg.animate .glow-pool {
-  animation: light-pop 0.7s ease forwards;
-  animation-play-state: running;
-}
-.scene-svg.animate .pool-tl { animation-delay: 1.65s; }
-.scene-svg.animate .pool-tr { animation-delay: 2.0s; }
-
-/* Uplight beams rise */
-.scene-svg.animate .upbeam {
-  animation: beam-rise 1.2s ease forwards, beam-breathe 4.5s ease-in-out infinite;
-  animation-play-state: running;
-}
-.scene-svg.animate .beam-tl { animation-delay: 1.7s, 2.9s; }
-.scene-svg.animate .beam-tr { animation-delay: 2.05s, 3.25s; }
-.scene-svg.animate .beam-wl { animation-delay: 2.35s, 3.55s; }
-.scene-svg.animate .beam-wr { animation-delay: 2.35s, 3.55s; }
-
-/* Window glow */
-.scene-svg.animate .win-glow {
-  animation: win-on 0.9s ease forwards, win-breathe 6s ease-in-out infinite;
-  animation-play-state: running;
-}
-.scene-svg.animate .wg-lo { animation-delay: 1.35s, 2.25s; }
-.scene-svg.animate .wg-hi { animation-delay: 1.55s, 2.45s; }
-
-/* Keyframes */
-@keyframes light-pop {
-  0%   { opacity: 0; }
-  60%  { opacity: 1.1; }
-  100% { opacity: 1; }
-}
-
-@keyframes beam-rise {
-  0%   { opacity: 0; }
-  100% { opacity: 0.88; }
-}
-
-@keyframes beam-breathe {
-  0%, 100% { opacity: 0.88; }
-  50%       { opacity: 0.65; }
-}
-
-@keyframes win-on {
-  0%   { opacity: 0; }
-  100% { opacity: 0.95; }
-}
-
-@keyframes win-breathe {
-  0%, 100% { opacity: 0.95; }
-  50%       { opacity: 0.7; }
-}
-
-/* Replay button */
-.scene-replay {
-  display: block;
-  margin: 16px auto 0;
+/* Labels */
+.ba-label {
+  position: absolute;
+  bottom: 20px;
   font-family: 'Inter', sans-serif;
   font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--text-lt);
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: color 0.2s;
-  padding: 8px 16px;
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 40px;
+  backdrop-filter: blur(8px);
+  background: rgba(0,0,0,0.45);
+  pointer-events: none;
 }
-.scene-replay:hover { color: var(--gold); }
+.ba-label--before {
+  left: 20px;
+}
+.ba-label--after {
+  right: 20px;
+}
+
+/* Drag handle */
+.ba-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+
+.ba-handle__line {
+  flex: 1;
+  width: 2px;
+  background: rgba(255,255,255,0.85);
+  box-shadow: 0 0 8px rgba(0,0,0,0.5);
+}
+
+.ba-handle__circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fff;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  flex-shrink: 0;
+}
 
 @media (max-width: 600px) {
-  .scene-wrap { padding: 0 16px; }
+  .ba-wrap { padding: 0 16px; }
+  .ba-label { font-size: 9px; padding: 4px 10px; bottom: 12px; }
+  .ba-handle__circle { width: 36px; height: 36px; }
 }
 
 /* ===========================

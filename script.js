@@ -517,30 +517,31 @@ if (yearEl) yearEl.textContent = yearEl.textContent.replace('2026', new Date().g
 })();
 
 // ===========================
-// ANIMATED SCENE
+// BEFORE / AFTER SLIDER
 // ===========================
 (function () {
-  const svg    = document.getElementById('sceneSvg');
-  const replay = document.getElementById('sceneReplay');
-  if (!svg) return;
+  const slider = document.getElementById('baSlider');
+  const before = document.getElementById('baBefore');
+  const handle = document.getElementById('baHandle');
+  if (!slider || !before || !handle) return;
 
-  function runAnimation() {
-    svg.classList.remove('animate');
-    void svg.getBoundingClientRect(); // force reflow so CSS resets
-    requestAnimationFrame(() => svg.classList.add('animate'));
+  let pct = 50;
+  let dragging = false;
+
+  function setPosition(x) {
+    const rect = slider.getBoundingClientRect();
+    pct = Math.min(Math.max(((x - rect.left) / rect.width) * 100, 2), 98);
+    before.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+    handle.style.left = pct + '%';
   }
 
-  // Fire when scrolled into view
-  const obs = new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting) {
-      runAnimation();
-      obs.unobserve(svg);
-    }
-  }, { threshold: 0.35 });
-  obs.observe(svg);
+  slider.addEventListener('mousedown', e => { dragging = true; setPosition(e.clientX); });
+  window.addEventListener('mousemove', e => { if (dragging) setPosition(e.clientX); });
+  window.addEventListener('mouseup', () => { dragging = false; });
 
-  // Replay button
-  if (replay) replay.addEventListener('click', runAnimation);
+  slider.addEventListener('touchstart', e => { dragging = true; setPosition(e.touches[0].clientX); }, { passive: true });
+  window.addEventListener('touchmove', e => { if (dragging) setPosition(e.touches[0].clientX); }, { passive: true });
+  window.addEventListener('touchend', () => { dragging = false; });
 })();
 
 // ===========================

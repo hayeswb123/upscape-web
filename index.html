@@ -152,105 +152,38 @@
     </div>
   </div>
 
-  <!-- ANIMATED SCENE -->
-  <section class="scene-section" id="scene">
+  <!-- BEFORE / AFTER SLIDER -->
+  <section class="ba-section section" id="scene">
     <div class="container">
       <div class="sec-head reveal" style="text-align:center">
         <span class="eyebrow">The Transformation</span>
-        <h2 class="sec-title">Watch your property<br>come alive after dark.</h2>
+        <h2 class="sec-title">See your property<br>come alive after dark.</h2>
       </div>
     </div>
-    <div class="scene-wrap">
-      <svg id="sceneSvg" class="scene-svg" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <linearGradient id="g-beam" x1="0" y1="1" x2="0" y2="0">
-            <stop offset="0%" stop-color="#c8a84a" stop-opacity="0.8"/>
-            <stop offset="60%" stop-color="#c8a84a" stop-opacity="0.22"/>
-            <stop offset="100%" stop-color="#c8a84a" stop-opacity="0"/>
-          </linearGradient>
-          <linearGradient id="g-beam-w" x1="0" y1="1" x2="0" y2="0">
-            <stop offset="0%" stop-color="#d4b060" stop-opacity="0.65"/>
-            <stop offset="100%" stop-color="#d4b060" stop-opacity="0"/>
-          </linearGradient>
-          <radialGradient id="g-pool" cx="50%" cy="30%" r="60%">
-            <stop offset="0%" stop-color="#c8a84a" stop-opacity="0.65"/>
-            <stop offset="100%" stop-color="#c8a84a" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="g-win" cx="50%" cy="50%" r="60%">
-            <stop offset="0%" stop-color="#f5a030" stop-opacity="1"/>
-            <stop offset="60%" stop-color="#d07820" stop-opacity="0.85"/>
-            <stop offset="100%" stop-color="#904010" stop-opacity="0.15"/>
-          </radialGradient>
-          <radialGradient id="g-fix" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#fff0a0"/>
-            <stop offset="100%" stop-color="#c8a84a" stop-opacity="0"/>
-          </radialGradient>
-          <filter id="f-glow" x="-80%" y="-80%" width="360%" height="360%">
-            <feGaussianBlur stdDeviation="5" result="b"/>
-            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-          <filter id="f-win" x="-40%" y="-40%" width="180%" height="180%">
-            <feGaussianBlur stdDeviation="9"/>
-          </filter>
-        </defs>
-
-        <!-- Dark base -->
-        <rect width="900" height="520" fill="#060509"/>
-
-        <!-- House photo -->
-        <image href="hwfor3epivfaovugjfwi.jpeg" x="0" y="0" width="900" height="520" preserveAspectRatio="xMidYMid meet"/>
-
-        <!-- Slight darkening so lights pop -->
-        <rect width="900" height="520" fill="rgba(0,0,0,0.18)"/>
-
-        <!-- PATHWAY LIGHTS -->
-        <g class="path-light pl-1" opacity="0">
-          <rect x="418" y="468" width="3" height="11" fill="#e0c060"/>
-          <ellipse cx="419" cy="481" rx="22" ry="6" fill="url(#g-pool)"/>
-        </g>
-        <g class="path-light pl-2" opacity="0">
-          <rect x="475" y="468" width="3" height="11" fill="#e0c060"/>
-          <ellipse cx="476" cy="481" rx="22" ry="6" fill="url(#g-pool)"/>
-        </g>
-        <g class="path-light pl-3" opacity="0">
-          <rect x="424" y="443" width="3" height="11" fill="#e0c060"/>
-          <ellipse cx="425" cy="456" rx="19" ry="5" fill="url(#g-pool)"/>
-        </g>
-        <g class="path-light pl-4" opacity="0">
-          <rect x="469" y="443" width="3" height="11" fill="#e0c060"/>
-          <ellipse cx="470" cy="456" rx="19" ry="5" fill="url(#g-pool)"/>
-        </g>
-
-        <!-- LEFT TREE UPBEAM -->
-        <polygon class="upbeam beam-tl" points="140,482 170,482 215,90 100,90" fill="url(#g-beam)" opacity="0"/>
-        <ellipse class="glow-pool pool-tl" cx="155" cy="483" rx="44" ry="10" fill="url(#g-pool)" opacity="0"/>
-        <circle class="fixture fix-tl" cx="155" cy="481" r="6" fill="url(#g-fix)" opacity="0" filter="url(#f-glow)"/>
-
-        <!-- RIGHT TREE UPBEAM -->
-        <polygon class="upbeam beam-tr" points="750,482 780,482 825,85 710,85" fill="url(#g-beam)" opacity="0"/>
-        <ellipse class="glow-pool pool-tr" cx="765" cy="483" rx="44" ry="10" fill="url(#g-pool)" opacity="0"/>
-        <circle class="fixture fix-tr" cx="765" cy="481" r="6" fill="url(#g-fix)" opacity="0" filter="url(#f-glow)"/>
-
-        <!-- HOUSE WALL BEAMS -->
-        <polygon class="upbeam beam-wl" points="202,400 220,400 226,248 196,248" fill="url(#g-beam-w)" opacity="0"/>
-        <circle class="fixture fix-wl" cx="211" cy="400" r="4" fill="url(#g-fix)" opacity="0"/>
-
-        <polygon class="upbeam beam-wr" points="678,400 696,400 702,248 672,248" fill="url(#g-beam-w)" opacity="0"/>
-        <circle class="fixture fix-wr" cx="687" cy="400" r="4" fill="url(#g-fix)" opacity="0"/>
-
-        <!-- LOWER WINDOW GLOWS -->
-        <rect class="win-glow wg-lo" x="208" y="260" width="58" height="50" fill="url(#g-win)" rx="2" opacity="0" filter="url(#f-win)"/>
-        <rect class="win-glow wg-lo" x="300" y="262" width="55" height="48" fill="url(#g-win)" rx="2" opacity="0" filter="url(#f-win)"/>
-        <rect class="win-glow wg-lo" x="545" y="262" width="55" height="48" fill="url(#g-win)" rx="2" opacity="0" filter="url(#f-win)"/>
-        <rect class="win-glow wg-lo" x="636" y="260" width="58" height="50" fill="url(#g-win)" rx="2" opacity="0" filter="url(#f-win)"/>
-
-        <!-- UPPER WINDOW GLOWS -->
-        <rect class="win-glow wg-hi" x="233" y="162" width="52" height="46" fill="url(#g-win)" rx="2" opacity="0" filter="url(#f-win)"/>
-        <rect class="win-glow wg-hi" x="390" y="150" width="58" height="48" fill="url(#g-win)" rx="2" opacity="0" filter="url(#f-win)"/>
-        <rect class="win-glow wg-hi" x="614" y="162" width="52" height="46" fill="url(#g-win)" rx="2" opacity="0" filter="url(#f-win)"/>
-
-      </svg>
-      <button class="scene-replay" id="sceneReplay">&#x21BA; Replay</button>
+    <div class="ba-wrap reveal">
+      <div class="ba-slider" id="baSlider">
+        <!-- AFTER (lights on) — full width base layer -->
+        <div class="ba-after">
+          <img src="i9givefkzeijocwtcg1p.avif" alt="House with landscape lighting on" draggable="false"/>
+          <span class="ba-label ba-label--after">With Landscape Lighting</span>
+        </div>
+        <!-- BEFORE (lights off) — clipped to left portion -->
+        <div class="ba-before" id="baBefore">
+          <img src="glif-media-_R_ib7e9cqn5fiv5vsnp37b_.jpg" alt="House with moonlight only" draggable="false"/>
+          <span class="ba-label ba-label--before">Moonlight Only</span>
+        </div>
+        <!-- Drag handle -->
+        <div class="ba-handle" id="baHandle">
+          <div class="ba-handle__line"></div>
+          <div class="ba-handle__circle">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 10L2 6M6 10L2 14M6 10H2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 10L18 6M14 10L18 14M14 10H18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="ba-handle__line"></div>
+        </div>
+      </div>
     </div>
   </section>
 
