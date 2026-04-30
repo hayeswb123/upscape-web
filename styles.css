@@ -1204,125 +1204,51 @@ a, button { cursor: none; }
 }
 .wave-mask svg { display: block; width: 100%; height: clamp(40px, 5vw, 80px); }
 
-/* ===========================
-   HOW IT WORKS — STICKY SCROLL
-=========================== */
-.hiw {
-  background: var(--dark-2);
-  padding: 0 0 120px;
-}
+.process { background: var(--cream-2); }
 
-.hiw__inner {
-  display: flex;
-  align-items: flex-start;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 48px;
-  gap: 80px;
-}
-
-.hiw__left {
-  width: 340px;
-  flex-shrink: 0;
-}
-
-.hiw__left-sticky {
-  position: sticky;
-  top: 120px;
-  padding-top: 120px;
-}
-
-.hiw__heading {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(3rem, 5vw, 5rem);
-  font-weight: 500;
-  line-height: 1.0;
-  color: var(--white);
-  margin: 16px 0 40px;
-  letter-spacing: -0.02em;
-}
-
-.hiw__pager {
+.steps {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
 }
 
-.hiw__pager-bar {
-  height: 2px;
-  background: rgba(255,255,255,0.12);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.hiw__pager-fill {
-  height: 100%;
-  width: 0%;
-  background: var(--white);
-  border-radius: 2px;
-  transition: width 0.3s ease;
-}
-
-.hiw__right {
-  flex: 1;
-  padding-top: 120px;
-}
-
-.hiw__step {
-  padding: 80px 0;
+.step {
+  display: flex;
+  gap: 36px;
+  padding: 36px 0;
   border-bottom: 1px solid rgba(255,255,255,0.07);
-  opacity: 0.3;
-  transition: opacity 0.4s ease;
 }
-.hiw__step:last-child { border-bottom: none; }
-.hiw__step.active { opacity: 1; }
+.step:last-child { border-bottom: none; }
 
-.hiw__step-num {
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  color: var(--gold);
-  margin-bottom: 20px;
-}
-
-.hiw__step-title {
+.step__num {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.4rem, 4vw, 3.8rem);
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--gold);
+  background: var(--dark-2);
+  width: 58px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 4px;
+}
+
+.step__body h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.65rem;
   font-weight: 500;
   color: var(--white);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
 }
-
-.hiw__step-body {
-  font-size: 16px;
+.step__body p {
+  font-size: 15px;
   color: var(--text-mid);
-  line-height: 1.75;
-  max-width: 440px;
-  margin-bottom: 32px;
-}
-
-.hiw__step-img {
-  border-radius: 14px;
-  overflow: hidden;
-  aspect-ratio: 16/9;
-}
-.hiw__step-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-@media (max-width: 768px) {
-  .hiw__inner { flex-direction: column; padding: 0 24px; gap: 0; }
-  .hiw__left { width: 100%; }
-  .hiw__left-sticky { position: static; padding-top: 80px; }
-  .hiw__right { padding-top: 0; }
-  .hiw__step { opacity: 1; padding: 48px 0; }
-  .hiw__pager { display: none; }
+  line-height: 1.7;
 }
 
 /* ===========================
