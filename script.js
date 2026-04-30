@@ -244,6 +244,21 @@ window.addEventListener('load', () => {
 })();
 
 // ===========================
+// SPINNING RING ENTRANCE
+// ===========================
+(function () {
+  const wrap = document.querySelector('.ring-section__wrap');
+  if (!wrap) return;
+  const obs = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      wrap.classList.add('visible');
+      obs.unobserve(wrap);
+    }
+  }, { threshold: 0.25 });
+  obs.observe(wrap);
+})();
+
+// ===========================
 // PROCESS FILL SLIDER
 // ===========================
 const stepsEl   = document.getElementById('steps');
