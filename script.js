@@ -128,7 +128,7 @@ document.querySelectorAll('.reveal-left, .reveal-right').forEach(el => dirObs.ob
 // WORD SPLIT HEADINGS
 // ===========================
 (function () {
-  document.querySelectorAll('.sec-title').forEach(heading => {
+  document.querySelectorAll('.sec-title:not([data-scramble])').forEach(heading => {
     const rawHtml = heading.innerHTML;
     const lines = rawHtml.split(/<br\s*\/?>/i);
     const wrapped = lines.map(line =>
@@ -497,6 +497,143 @@ if (yearEl) yearEl.textContent = yearEl.textContent.replace('2026', new Date().g
   }
 
   requestAnimationFrame(frame);
+})();
+
+// ===========================
+// SPOTLIGHT CURSOR
+// ===========================
+(function () {
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+
+  const el = document.getElementById('spotlight');
+  if (!el) return;
+
+  let tx = window.innerWidth / 2;
+  let ty = window.innerHeight / 2;
+  let cx = tx, cy = ty;
+  let active = false;
+
+  document.addEventListener('mousemove', e => {
+    tx = e.clientX;
+    ty = e.clientY;
+    if (!active) { active = true; el.classList.add('active'); }
+  }, { passive: true });
+
+  document.addEventListener('mouseleave', () => {
+    active = false;
+    el.classList.remove('active');
+  });
+
+  function tick() {
+    cx += (tx - cx) * 0.09;
+    cy += (ty - cy) * 0.09;
+    el.style.background = `radial-gradient(
+      circle 420px at ${cx.toFixed(1)}px ${cy.toFixed(1)}px,
+      rgba(184,154,88,0.07) 0%,
+      rgba(184,154,88,0.02) 28%,
+      transparent 55%,
+      rgba(0,0,0,0.38) 100%
+    )`;
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+
+// ===========================
+// TEXT SCRAMBLE
+// ===========================
+(function () {
+  const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&';
+  const DURATION = 900;
+  const RESOLVE_INTERVAL = 38;
+
+  function scramble(el) {
+    const original = el.textContent;
+    const len = original.length;
+    let resolved = 0;
+    let frame = 0;
+    const startTime = performance.now();
+
+    function tick(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / DURATION, 1);
+
+      // How many chars are now locked in
+      const locked = Math.floor(progress * len);
+
+      let output = '';
+      for (let i = 0; i < len; i++) {
+        if (original[i] === ' ' || original[i] === '\n') {
+          output += original[i];
+        } else if (i < locked) {
+          output += original[i];
+        } else {
+          output += CHARS[Math.floor(Math.random() * CHARS.length)];
+        }
+      }
+      el.textContent = output;
+
+      if (progress < 1) {
+        requestAnimationFrame(tick);
+      } else {
+        el.textContent = original;
+      }
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  // Hero wordmark fires on load
+  const wordmark = document.querySelector('.hero__wordmark[data-scramble]');
+  if (wordmark) {
+    window.addEventListener('load', () => {
+      setTimeout(() => scramble(wordmark), 600);
+    });
+  }
+
+  // Section titles fire on scroll enter
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      scramble(entry.target);
+      obs.unobserve(entry.target);
+    });
+  }, { threshold: 0.4 });
+
+  document.querySelectorAll('.sec-title[data-scramble]').forEach(el => obs.observe(el));
+})();
+
+// ===========================
+// MAGNETIC BUTTONS
+// ===========================
+(function () {
+  if (window.matchMedia('(pointer: coarse)').matches) return;
+
+  const STRENGTH = 0.38;
+  const RADIUS   = 130;
+
+  document.querySelectorAll('.btn, .nav__cta').forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+      const rect = btn.getBoundingClientRect();
+      const cx = rect.left + rect.width  / 2;
+      const cy = rect.top  + rect.height / 2;
+      const dx = e.clientX - cx;
+      const dy = e.clientY - cy;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < RADIUS) {
+        const pull = (1 - dist / RADIUS) * STRENGTH;
+        btn.style.transform = `translate(${dx * pull}px, ${dy * pull}px) scale(1.04)`;
+        btn.classList.remove('mag-reset');
+      }
+    });
+
+    btn.addEventListener('mouseleave', () => {
+      btn.classList.add('mag-reset');
+      btn.style.transform = '';
+      setTimeout(() => btn.classList.remove('mag-reset'), 600);
+    });
+  });
 })();
 
 // ===========================
