@@ -265,9 +265,10 @@ window.addEventListener('load', () => {
     imgOff.style.transform = `scale(${scale})`;
     imgOn.style.transform  = `scale(${scale})`;
 
-    // Lights fade in during the middle 40%–85% of scroll
-    const lightsP = Math.min(Math.max((p - 0.4) / 0.45, 0), 1);
-    imgOn.style.opacity = String(lightsP);
+    // Lights fade in during 20%–65% of scroll — fade off out, fade on in
+    const lightsP = Math.min(Math.max((p - 0.2) / 0.45, 0), 1);
+    imgOff.style.opacity = String(1 - lightsP);
+    imgOn.style.opacity  = String(lightsP);
 
     // Content fades out in first 25%
     const cp = Math.min(p / 0.25, 1);
