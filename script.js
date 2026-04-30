@@ -500,6 +500,123 @@ if (yearEl) yearEl.textContent = yearEl.textContent.replace('2026', new Date().g
 })();
 
 // ===========================
+// WORD-BY-WORD ANIMATION
+// ===========================
+(function () {
+  document.querySelectorAll('.animate-words').forEach(el => {
+    // Split each text node into word spans, preserve <br> tags
+    const rawHtml = el.innerHTML;
+    const lines = rawHtml.split(/<br\s*\/?>/i);
+    el.innerHTML = lines.map(line =>
+      line.trim().split(/\s+/).filter(Boolean).map(w =>
+        `<span class="word">${w}</span>`
+      ).join(' ')
+    ).join('<br>');
+
+    const words = el.querySelectorAll('.word');
+    const obs = new IntersectionObserver(entries => {
+      if (!entries[0].isIntersecting) return;
+      // Already revealed by parent reveal observer — just stagger the words
+      words.forEach((w, i) => {
+        setTimeout(() => {
+          w.style.transitionDelay = `${i * 55}ms`;
+        }, 0);
+      });
+      obs.unobserve(el);
+    }, { threshold: 0.2 });
+    obs.observe(el);
+  });
+})();
+
+// ===========================
+// STAGGER CHILDREN OBSERVER
+// ===========================
+(function () {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('visible');
+      obs.unobserve(entry.target);
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.stagger-children, .reveal-scale, .reveal-blur, .reveal-rotate').forEach(el => {
+    obs.observe(el);
+  });
+})();
+
+// ===========================
+// BUTTON RIPPLE ON CLICK
+// ===========================
+(function () {
+  document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      const rect = btn.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      const size = Math.max(rect.width, rect.height) * 1.8;
+      ripple.style.cssText = `
+        position:absolute;
+        border-radius:50%;
+        width:${size}px; height:${size}px;
+        left:${e.clientX - rect.left - size/2}px;
+        top:${e.clientY - rect.top - size/2}px;
+        background:rgba(255,255,255,0.18);
+        pointer-events:none;
+        transform:scale(0);
+        animation:ripple-out 0.55s var(--ease) forwards;
+        z-index:0;
+      `;
+      btn.appendChild(ripple);
+      ripple.addEventListener('animationend', () => ripple.remove());
+    });
+  });
+})();
+
+// ===========================
+// SCROLL ZOOM PANELS
+// ===========================
+(function () {
+  const panels = document.querySelectorAll('[data-zoom]');
+  if (!panels.length) return;
+
+  const SCALE_MAX = 1.08;
+  const SCALE_MIN = 1.0;
+
+  // Each panel tracks its own lerped scale
+  const state = Array.from(panels).map(panel => ({
+    el: panel.querySelector('.parallax-strip__bg'),
+    current: SCALE_MAX,
+    target: SCALE_MAX,
+  }));
+
+  function getProgress(panel) {
+    const rect = panel.getBoundingClientRect();
+    const vh = window.innerHeight;
+    // 0 when top of panel hits bottom of viewport, 1 when bottom hits top
+    const raw = (vh - rect.top) / (vh + rect.height);
+    return Math.max(0, Math.min(1, raw));
+  }
+
+  function tick() {
+    state.forEach(({ el, current }, i) => {
+      const panel = panels[i];
+      const progress = getProgress(panel);
+      // Peak zoom (1.0) at center (progress ~0.5), max zoom at edges
+      const distFromCenter = Math.abs(progress - 0.5) * 2; // 0 at center, 1 at edges
+      state[i].target = SCALE_MIN + (SCALE_MAX - SCALE_MIN) * distFromCenter;
+
+      // Lerp for buttery smoothness
+      state[i].current += (state[i].target - state[i].current) * 0.06;
+
+      if (el) el.style.transform = `scale(${state[i].current.toFixed(4)})`;
+    });
+    requestAnimationFrame(tick);
+  }
+
+  requestAnimationFrame(tick);
+})();
+
+// ===========================
 // GALLERY FILTERS
 // ===========================
 (function () {
