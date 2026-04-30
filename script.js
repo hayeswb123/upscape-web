@@ -128,7 +128,7 @@ document.querySelectorAll('.reveal-left, .reveal-right').forEach(el => dirObs.ob
 // WORD SPLIT HEADINGS
 // ===========================
 (function () {
-  document.querySelectorAll('.sec-title:not([data-scramble])').forEach(heading => {
+  document.querySelectorAll('.sec-title').forEach(heading => {
     const rawHtml = heading.innerHTML;
     const lines = rawHtml.split(/<br\s*\/?>/i);
     const wrapped = lines.map(line =>
@@ -566,69 +566,6 @@ if (yearEl) yearEl.textContent = yearEl.textContent.replace('2026', new Date().g
   requestAnimationFrame(tick);
 })();
 
-// ===========================
-// TEXT SCRAMBLE
-// ===========================
-(function () {
-  const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&';
-  const DURATION = 900;
-  const RESOLVE_INTERVAL = 38;
-
-  function scramble(el) {
-    const original = el.textContent;
-    const len = original.length;
-    let resolved = 0;
-    let frame = 0;
-    const startTime = performance.now();
-
-    function tick(now) {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / DURATION, 1);
-
-      // How many chars are now locked in
-      const locked = Math.floor(progress * len);
-
-      let output = '';
-      for (let i = 0; i < len; i++) {
-        if (original[i] === ' ' || original[i] === '\n') {
-          output += original[i];
-        } else if (i < locked) {
-          output += original[i];
-        } else {
-          output += CHARS[Math.floor(Math.random() * CHARS.length)];
-        }
-      }
-      el.textContent = output;
-
-      if (progress < 1) {
-        requestAnimationFrame(tick);
-      } else {
-        el.textContent = original;
-      }
-    }
-
-    requestAnimationFrame(tick);
-  }
-
-  // Hero wordmark fires on load
-  const wordmark = document.querySelector('.hero__wordmark[data-scramble]');
-  if (wordmark) {
-    window.addEventListener('load', () => {
-      setTimeout(() => scramble(wordmark), 600);
-    });
-  }
-
-  // Section titles fire on scroll enter
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      scramble(entry.target);
-      obs.unobserve(entry.target);
-    });
-  }, { threshold: 0.4 });
-
-  document.querySelectorAll('.sec-title[data-scramble]').forEach(el => obs.observe(el));
-})();
 
 // ===========================
 // MAGNETIC BUTTONS
