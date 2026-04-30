@@ -502,40 +502,6 @@ if (yearEl) yearEl.textContent = yearEl.textContent.replace('2026', new Date().g
 
 // ===========================
 // ===========================
-// BEAM DROP ANIMATION
-// ===========================
-(function () {
-  const section  = document.getElementById('beamSection');
-  const line     = document.getElementById('beamLine');
-  const cone     = document.getElementById('beamCone');
-  const glow     = document.getElementById('beamGlow');
-  const houseOn  = document.getElementById('beamHouseOn');
-  const houseOff = document.querySelector('.beam-section__img--off');
-  if (!section || !line) return;
-
-  let fired = false;
-
-  const obs = new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting && !fired) {
-      fired = true;
-      // 1. line drops
-      line.classList.add('drop');
-      // 2. cone blooms (CSS delay 0.7s)
-      cone.classList.add('drop');
-      // 3. glow spreads (CSS delay 1.1s)
-      glow.classList.add('drop');
-      // 4. house lights on
-      setTimeout(() => {
-        if (houseOn)  houseOn.classList.add('lit');
-        if (houseOff) houseOff.classList.add('lit');
-      }, 1400);
-    }
-  }, { threshold: 0.4 });
-
-  obs.observe(section);
-})();
-
-// ===========================
 // BEFORE / AFTER SLIDER
 // ===========================
 (function () {
