@@ -500,6 +500,33 @@ if (yearEl) yearEl.textContent = yearEl.textContent.replace('2026', new Date().g
 })();
 
 // ===========================
+// ANIMATED SCENE
+// ===========================
+(function () {
+  const svg    = document.getElementById('sceneSvg');
+  const replay = document.getElementById('sceneReplay');
+  if (!svg) return;
+
+  function runAnimation() {
+    svg.classList.remove('animate');
+    void svg.getBoundingClientRect(); // force reflow so CSS resets
+    requestAnimationFrame(() => svg.classList.add('animate'));
+  }
+
+  // Fire when scrolled into view
+  const obs = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      runAnimation();
+      obs.unobserve(svg);
+    }
+  }, { threshold: 0.35 });
+  obs.observe(svg);
+
+  // Replay button
+  if (replay) replay.addEventListener('click', runAnimation);
+})();
+
+// ===========================
 // SPOTLIGHT CURSOR
 // ===========================
 (function () {

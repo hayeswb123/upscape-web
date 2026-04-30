@@ -149,6 +149,155 @@
     </div>
   </div>
 
+  <!-- ANIMATED SCENE -->
+  <section class="scene-section" id="scene">
+    <div class="container">
+      <div class="sec-head reveal" style="text-align:center">
+        <span class="eyebrow">The Transformation</span>
+        <h2 class="sec-title">Watch your property<br>come alive after dark.</h2>
+      </div>
+    </div>
+    <div class="scene-wrap">
+      <svg id="sceneSvg" class="scene-svg" viewBox="0 0 900 420" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="g-sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#04040e"/>
+            <stop offset="100%" stop-color="#0b0a14"/>
+          </linearGradient>
+          <linearGradient id="g-beam" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%" stop-color="#c8a84a" stop-opacity="0.7"/>
+            <stop offset="65%" stop-color="#c8a84a" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#c8a84a" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="g-beam-w" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%" stop-color="#d4b060" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#d4b060" stop-opacity="0"/>
+          </linearGradient>
+          <radialGradient id="g-pool" cx="50%" cy="30%" r="60%">
+            <stop offset="0%" stop-color="#c8a84a" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#c8a84a" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="g-win" cx="50%" cy="50%" r="60%">
+            <stop offset="0%" stop-color="#e89828" stop-opacity="1"/>
+            <stop offset="70%" stop-color="#c87010" stop-opacity="0.75"/>
+            <stop offset="100%" stop-color="#904010" stop-opacity="0.2"/>
+          </radialGradient>
+          <radialGradient id="g-fix" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#f0d870"/>
+            <stop offset="100%" stop-color="#c8a84a" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="f-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="4" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- Sky -->
+        <rect width="900" height="420" fill="url(#g-sky)"/>
+
+        <!-- Stars -->
+        <circle class="star" style="--op:.65;--dur:2.8s;--d:.3s" cx="42"  cy="28"  r="1.2"/>
+        <circle class="star" style="--op:.5; --dur:3.5s;--d:1.1s" cx="125" cy="52"  r="0.9"/>
+        <circle class="star" style="--op:.7; --dur:2.4s;--d:.7s"  cx="210" cy="18"  r="1.4"/>
+        <circle class="star" style="--op:.45;--dur:3.8s;--d:2.0s" cx="330" cy="35"  r="0.8"/>
+        <circle class="star" style="--op:.6; --dur:2.6s;--d:.5s"  cx="462" cy="12"  r="1.1"/>
+        <circle class="star" style="--op:.55;--dur:3.2s;--d:1.6s" cx="578" cy="42"  r="1.0"/>
+        <circle class="star" style="--op:.7; --dur:2.9s;--d:.2s"  cx="695" cy="22"  r="1.3"/>
+        <circle class="star" style="--op:.5; --dur:3.6s;--d:1.3s" cx="800" cy="48"  r="0.9"/>
+        <circle class="star" style="--op:.65;--dur:2.7s;--d:.9s"  cx="862" cy="15"  r="1.1"/>
+        <circle class="star" style="--op:.4; --dur:4.1s;--d:2.4s" cx="74"  cy="82"  r="0.8"/>
+        <circle class="star" style="--op:.38;--dur:3.0s;--d:1.8s" cx="500" cy="68"  r="0.7"/>
+        <circle class="star" style="--op:.5; --dur:2.5s;--d:.6s"  cx="740" cy="75"  r="1.0"/>
+        <circle class="star" style="--op:.4; --dur:3.9s;--d:2.2s" cx="290" cy="88"  r="0.8"/>
+        <circle class="star" style="--op:.35;--dur:3.3s;--d:1.4s" cx="640" cy="95"  r="0.7"/>
+        <circle class="star" style="--op:.45;--dur:2.6s;--d:.8s"  cx="155" cy="108" r="0.9"/>
+
+        <!-- Ground -->
+        <rect x="0" y="356" width="900" height="64" fill="#09090a"/>
+        <rect x="0" y="354" width="900" height="4"  fill="#0e0d0b"/>
+
+        <!-- Left trees -->
+        <polygon points="96,358  252,358  174,138" fill="#07070a"/>
+        <polygon points="24,358  132,358  78,222"  fill="#09090c"/>
+
+        <!-- Right trees -->
+        <polygon points="652,358 808,358 730,132" fill="#07070a"/>
+        <polygon points="772,358 878,358 825,218" fill="#09090c"/>
+
+        <!-- House body -->
+        <rect x="292" y="254" width="316" height="102" fill="#07070b"/>
+        <!-- Roof -->
+        <polygon points="266,254 634,254 450,140" fill="#060609"/>
+        <!-- Chimney -->
+        <rect x="490" y="140" width="36" height="72" fill="#060609"/>
+        <rect x="487" y="136" width="42" height="7"  fill="#060609"/>
+
+        <!-- Siding lines -->
+        <line x1="292" y1="292" x2="608" y2="292" stroke="#0d0c0a" stroke-width="0.8" opacity="0.5"/>
+        <line x1="292" y1="328" x2="608" y2="328" stroke="#0d0c0a" stroke-width="0.8" opacity="0.5"/>
+
+        <!-- Door -->
+        <rect x="413" y="310" width="74" height="46" fill="#0f0e0d" rx="2"/>
+        <circle cx="479" cy="334" r="2.5" fill="#1c1a17"/>
+
+        <!-- Lower windows - frames -->
+        <rect x="320" y="268" width="62" height="48" fill="#0e0d0c" rx="1.5"/>
+        <rect x="518" y="268" width="62" height="48" fill="#0e0d0c" rx="1.5"/>
+        <!-- Lower windows - glow -->
+        <rect class="win-glow wg-lo" x="322" y="270" width="58" height="44" fill="url(#g-win)" rx="1" opacity="0"/>
+        <rect class="win-glow wg-lo" x="520" y="270" width="58" height="44" fill="url(#g-win)" rx="1" opacity="0"/>
+
+        <!-- Upper windows - frames -->
+        <rect x="348" y="196" width="46" height="38" fill="#0e0d0c" rx="1.5"/>
+        <rect x="506" y="196" width="46" height="38" fill="#0e0d0c" rx="1.5"/>
+        <!-- Upper windows - glow -->
+        <rect class="win-glow wg-hi" x="350" y="198" width="42" height="34" fill="url(#g-win)" rx="1" opacity="0"/>
+        <rect class="win-glow wg-hi" x="508" y="198" width="42" height="34" fill="url(#g-win)" rx="1" opacity="0"/>
+
+        <!-- Pathway (driveway line) -->
+        <rect x="243" y="355" width="170" height="2" fill="#111009" opacity="0.6"/>
+
+        <!-- Pathway lights -->
+        <g class="path-light pl-1" opacity="0">
+          <rect x="247" y="347" width="3" height="9" fill="#c8a84a"/>
+          <ellipse cx="248.5" cy="357" rx="16" ry="5" fill="url(#g-pool)"/>
+        </g>
+        <g class="path-light pl-2" opacity="0">
+          <rect x="288" y="347" width="3" height="9" fill="#c8a84a"/>
+          <ellipse cx="289.5" cy="357" rx="16" ry="5" fill="url(#g-pool)"/>
+        </g>
+        <g class="path-light pl-3" opacity="0">
+          <rect x="329" y="347" width="3" height="9" fill="#c8a84a"/>
+          <ellipse cx="330.5" cy="357" rx="16" ry="5" fill="url(#g-pool)"/>
+        </g>
+        <g class="path-light pl-4" opacity="0">
+          <rect x="370" y="347" width="3" height="9" fill="#c8a84a"/>
+          <ellipse cx="371.5" cy="357" rx="16" ry="5" fill="url(#g-pool)"/>
+        </g>
+
+        <!-- Left tree upbeam + fixture -->
+        <polygon class="upbeam beam-tl" points="160,358 190,358 228,138 120,138" fill="url(#g-beam)" opacity="0"/>
+        <ellipse class="glow-pool pool-tl" cx="175" cy="360" rx="34" ry="7" fill="url(#g-pool)" opacity="0"/>
+        <circle class="fixture fix-tl" cx="175" cy="357" r="5" fill="url(#g-fix)" opacity="0" filter="url(#f-glow)"/>
+
+        <!-- Right tree upbeam + fixture -->
+        <polygon class="upbeam beam-tr" points="716,358 746,358 784,132 678,132" fill="url(#g-beam)" opacity="0"/>
+        <ellipse class="glow-pool pool-tr" cx="731" cy="360" rx="34" ry="7" fill="url(#g-pool)" opacity="0"/>
+        <circle class="fixture fix-tr" cx="731" cy="357" r="5" fill="url(#g-fix)" opacity="0" filter="url(#f-glow)"/>
+
+        <!-- House wall upbeam left -->
+        <polygon class="upbeam beam-wl" points="296,356 312,356 318,254 290,254" fill="url(#g-beam-w)" opacity="0"/>
+        <circle class="fixture fix-wl" cx="304" cy="356" r="3.5" fill="url(#g-fix)" opacity="0"/>
+
+        <!-- House wall upbeam right -->
+        <polygon class="upbeam beam-wr" points="588,356 604,356 610,254 582,254" fill="url(#g-beam-w)" opacity="0"/>
+        <circle class="fixture fix-wr" cx="596" cy="356" r="3.5" fill="url(#g-fix)" opacity="0"/>
+
+      </svg>
+      <button class="scene-replay" id="sceneReplay">&#x21BA; Replay</button>
+    </div>
+  </section>
+
   <!-- HOW IT WORKS -->
   <section class="process section" id="process">
     <div class="container">
