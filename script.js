@@ -291,6 +291,42 @@ if (stepsEl && stepsFill) {
 }
 
 // ===========================
+// ===========================
+// LIGHT ASSEMBLY ANIMATION
+// ===========================
+(function () {
+  const track = document.getElementById('assemblyTrack');
+  const img   = document.getElementById('assemblyImg');
+  const glow  = document.getElementById('assemblyGlow');
+  const label = document.getElementById('assemblyLabel');
+  if (!track || !img) return;
+
+  window.addEventListener('scroll', () => {
+    const rect   = track.getBoundingClientRect();
+    const trackH = track.offsetHeight - window.innerHeight;
+    const p      = Math.min(Math.max(-rect.top / trackH, 0), 1);
+
+    // p=0: parts exploded (scaleY stretched, slight blur)
+    // p=1: fully assembled (normal scale, sharp, glow on)
+    const scaleY  = 1.45 - p * 0.45;        // 1.45 → 1.0
+    const scaleX  = 0.88 + p * 0.12;        // 0.88 → 1.0 (parts spread wide then narrow)
+    const blur    = (1 - p) * 3;
+    const brightness = 0.75 + p * 0.3;
+
+    img.style.transform = `scaleX(${scaleX.toFixed(3)}) scaleY(${scaleY.toFixed(3)})`;
+    img.style.filter    = `contrast(1.05) saturate(0.9) blur(${blur.toFixed(1)}px) brightness(${brightness.toFixed(2)})`;
+
+    if (p > 0.88) {
+      glow.classList.add('on');
+      label.classList.add('on');
+    } else {
+      glow.classList.remove('on');
+      label.classList.remove('on');
+    }
+  }, { passive: true });
+})();
+
+// ===========================
 // COUNTER ANIMATION
 // ===========================
 document.querySelectorAll('.stat__n[data-count]').forEach(el => {
