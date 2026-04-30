@@ -261,13 +261,13 @@ window.addEventListener('load', () => {
     const trackH = (track ? track.offsetHeight : hero.offsetHeight * 3.5) - hero.offsetHeight;
     const p      = Math.min(y / trackH, 1);
 
-    // Gentle zoom — stops at 1.5× aimed at the door
-    const scale = 1 + p * 0.5;
+    // Both images zoom at the same rate — no snap on crossfade
+    const scale = 1 + p * 0.6;
     if (imgWide) imgWide.style.transform = `scale(${scale})`;
     if (imgDoor) imgDoor.style.transform = `scale(${scale})`;
 
-    // Door photo crossfades in during last 30% of scroll
-    const doorP = Math.min(Math.max((p - 0.7) / 0.3, 0), 1);
+    // Slow crossfade to door in last 25% of scroll
+    const doorP = Math.min(Math.max((p - 0.75) / 0.25, 0), 1);
     if (imgWide) imgWide.style.opacity = String(1 - doorP);
     if (imgDoor) imgDoor.style.opacity = String(doorP);
 
