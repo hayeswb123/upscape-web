@@ -292,33 +292,6 @@ if (stepsEl && stepsFill) {
 
 // ===========================
 // ===========================
-// LIGHT ASSEMBLY ANIMATION
-// ===========================
-(function () {
-  const track = document.getElementById('assemblyTrack');
-  const img   = document.getElementById('assemblyImg');
-  const label = document.getElementById('assemblyLabel');
-  if (!track || !img) return;
-
-  window.addEventListener('scroll', () => {
-    const rect   = track.getBoundingClientRect();
-    const trackH = track.offsetHeight - window.innerHeight;
-    const p      = Math.min(Math.max(-rect.top / trackH, 0), 1);
-
-    // p=0: assembled (normal), p=1: fully exploded (spread apart)
-    const scaleY     = 1 + p * 0.55;          // 1.0 → 1.55  (parts spread up/down)
-    const scaleX     = 1 - p * 0.08;          // 1.0 → 0.92  (slight horizontal pull)
-    const blur       = p * 1.5;               // 0 → 1.5px
-    const brightness = 1.15 - p * 0.25;       // 1.15 → 0.9
-
-    img.style.transform = `scaleX(${scaleX.toFixed(3)}) scaleY(${scaleY.toFixed(3)})`;
-    img.style.filter    = `brightness(${brightness.toFixed(2)}) contrast(1.1) saturate(0.85) blur(${blur.toFixed(1)}px)`;
-
-    if (label) label.classList.toggle('faded', p > 0.3);
-  }, { passive: true });
-})();
-
-// ===========================
 // COUNTER ANIMATION
 // ===========================
 document.querySelectorAll('.stat__n[data-count]').forEach(el => {
