@@ -297,7 +297,6 @@ if (stepsEl && stepsFill) {
 (function () {
   const track = document.getElementById('assemblyTrack');
   const img   = document.getElementById('assemblyImg');
-  const glow  = document.getElementById('assemblyGlow');
   const label = document.getElementById('assemblyLabel');
   if (!track || !img) return;
 
@@ -306,23 +305,16 @@ if (stepsEl && stepsFill) {
     const trackH = track.offsetHeight - window.innerHeight;
     const p      = Math.min(Math.max(-rect.top / trackH, 0), 1);
 
-    // p=0: parts exploded (scaleY stretched, slight blur)
-    // p=1: fully assembled (normal scale, sharp, glow on)
-    const scaleY  = 1.45 - p * 0.45;        // 1.45 → 1.0
-    const scaleX  = 0.88 + p * 0.12;        // 0.88 → 1.0 (parts spread wide then narrow)
-    const blur    = (1 - p) * 3;
-    const brightness = 0.75 + p * 0.3;
+    // p=0: assembled (normal), p=1: fully exploded (spread apart)
+    const scaleY     = 1 + p * 0.55;          // 1.0 → 1.55  (parts spread up/down)
+    const scaleX     = 1 - p * 0.08;          // 1.0 → 0.92  (slight horizontal pull)
+    const blur       = p * 1.5;               // 0 → 1.5px
+    const brightness = 1.15 - p * 0.25;       // 1.15 → 0.9
 
     img.style.transform = `scaleX(${scaleX.toFixed(3)}) scaleY(${scaleY.toFixed(3)})`;
-    img.style.filter    = `contrast(1.05) saturate(0.9) blur(${blur.toFixed(1)}px) brightness(${brightness.toFixed(2)})`;
+    img.style.filter    = `brightness(${brightness.toFixed(2)}) contrast(1.1) saturate(0.85) blur(${blur.toFixed(1)}px)`;
 
-    if (p > 0.88) {
-      glow.classList.add('on');
-      label.classList.add('on');
-    } else {
-      glow.classList.remove('on');
-      label.classList.remove('on');
-    }
+    if (label) label.classList.toggle('faded', p > 0.3);
   }, { passive: true });
 })();
 

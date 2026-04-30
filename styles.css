@@ -1262,7 +1262,7 @@ a, button { cursor: none; }
 }
 
 .assembly__track {
-  height: 280vh;
+  height: 300vh;
   position: relative;
 }
 
@@ -1279,17 +1279,27 @@ a, button { cursor: none; }
 }
 
 .assembly__eyebrow {
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   text-align: center;
 }
 
 .assembly__img-wrap {
   position: relative;
   width: 100%;
-  max-width: 760px;
+  max-width: 820px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Vignette masks the edges into the dark background */
+.assembly__img-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 50%, transparent 40%, var(--dark) 100%);
+  pointer-events: none;
+  z-index: 2;
 }
 
 #assemblyImg {
@@ -1298,33 +1308,22 @@ a, button { cursor: none; }
   display: block;
   transform-origin: center center;
   will-change: transform, filter;
-  filter: contrast(1.05) saturate(0.9);
-}
-
-.assembly__glow {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: radial-gradient(ellipse 40% 20% at 58% 38%, rgba(255,200,80,0.55) 0%, transparent 70%);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.6s ease;
+  /* screen blend: dark outdoor bg disappears, metallic parts float */
   mix-blend-mode: screen;
+  filter: brightness(1.15) contrast(1.1) saturate(0.85);
 }
-.assembly__glow.on { opacity: 1; }
 
 .assembly__label {
-  margin-top: 28px;
+  margin-top: 20px;
   font-size: 15px;
   color: var(--text-mid);
   text-align: center;
   max-width: 480px;
   line-height: 1.7;
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  opacity: 1;
+  transition: opacity 0.5s ease;
 }
-.assembly__label.on { opacity: 1; transform: none; }
+.assembly__label.faded { opacity: 0.25; }
 
 /* ===========================
    GALLERY PREVIEW
