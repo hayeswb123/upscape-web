@@ -261,15 +261,7 @@ window.addEventListener('load', () => {
     const trackH = (track ? track.offsetHeight : hero.offsetHeight * 3.5) - hero.offsetHeight;
     const p      = Math.min(y / trackH, 1);
 
-    // Both images zoom at the same rate — no snap on crossfade
-    const scale = 1 + p * 0.6;
-    if (imgWide) imgWide.style.transform = `scale(${scale})`;
-    if (imgDoor) imgDoor.style.transform = `scale(${scale})`;
-
-    // Slow crossfade to door in last 25% of scroll
-    const doorP = Math.min(Math.max((p - 0.75) / 0.25, 0), 1);
-    if (imgWide) imgWide.style.opacity = String(1 - doorP);
-    if (imgDoor) imgDoor.style.opacity = String(doorP);
+    if (imgWide) imgWide.style.transform = `scale(${1 + p * 0.6})`;
 
     // Content fades out in first 25%
     const cp = Math.min(p / 0.25, 1);
