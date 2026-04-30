@@ -536,10 +536,19 @@ if (yearEl) yearEl.textContent = yearEl.textContent.replace('2026', new Date().g
   let cx = tx, cy = ty;
   let active = false;
 
+  const heroTrack = document.getElementById('heroTrack');
+
+  function inHero() {
+    if (!heroTrack) return true;
+    const r = heroTrack.getBoundingClientRect();
+    return r.bottom > 0 && r.top < window.innerHeight;
+  }
+
   document.addEventListener('mousemove', e => {
     tx = e.clientX;
     ty = e.clientY;
-    if (!active) { active = true; el.classList.add('active'); }
+    if (!active && inHero()) { active = true; el.classList.add('active'); }
+    if (active && !inHero()) { active = false; el.classList.remove('active'); }
   }, { passive: true });
 
   document.addEventListener('mouseleave', () => {
@@ -547,13 +556,17 @@ if (yearEl) yearEl.textContent = yearEl.textContent.replace('2026', new Date().g
     el.classList.remove('active');
   });
 
+  window.addEventListener('scroll', () => {
+    if (active && !inHero()) { active = false; el.classList.remove('active'); }
+  }, { passive: true });
+
   function tick() {
     cx += (tx - cx) * 0.09;
     cy += (ty - cy) * 0.09;
     el.style.background = `radial-gradient(
       circle 420px at ${cx.toFixed(1)}px ${cy.toFixed(1)}px,
-      rgba(184,154,88,0.07) 0%,
-      rgba(184,154,88,0.02) 28%,
+      rgba(255,255,255,0.06) 0%,
+      rgba(255,255,255,0.02) 28%,
       transparent 55%,
       rgba(0,0,0,0.38) 100%
     )`;
