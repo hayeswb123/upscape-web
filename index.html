@@ -44,9 +44,15 @@
   </div>
 
   <!-- HERO -->
+  <div class="hero-scroll-track" id="heroTrack">
   <section class="hero" id="hero">
     <div class="hero__cinematic" aria-hidden="true">
-      <img src="i9givefkzeijocwtcg1p.avif" alt="" draggable="false"/>
+      <!-- Scroll-driven cinematic sequence: aerial → overhead → side → front → door -->
+      <img class="hero__slide" src="glif-media-_r_15a_.jpg"  alt="" draggable="false" data-slide="0"/>
+      <img class="hero__slide" src="glif-media-_r_15f_.jpg"  alt="" draggable="false" data-slide="1"/>
+      <img class="hero__slide" src="glif-media-_r_15k_.jpg"  alt="" draggable="false" data-slide="2"/>
+      <img class="hero__slide" src="glif-media-_r_15p_.jpg"  alt="" draggable="false" data-slide="3"/>
+      <img class="hero__slide" src="glif-media-_r_163_.jpg"  alt="" draggable="false" data-slide="4"/>
     </div>
     <div class="hero__stars" aria-hidden="true"></div>
     <canvas class="hero__lights" id="lightsCanvas" aria-hidden="true"></canvas>
@@ -74,6 +80,7 @@
       <span class="hero__scroll-discover">Scroll down to discover</span>
     </div>
   </section>
+  </div><!-- /hero-scroll-track -->
 
   <!-- MARQUEE TICKER -->
   <div class="marquee" aria-hidden="true">

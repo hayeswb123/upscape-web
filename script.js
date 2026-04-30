@@ -244,37 +244,47 @@ window.addEventListener('load', () => {
 })();
 
 // ===========================
-// HERO SCROLL CINEMATIC (Montfort-style)
+// HERO SCROLL CINEMATIC
 // ===========================
 (function () {
-  const hero      = document.getElementById('hero');
-  const content   = document.querySelector('.hero__content');
-  const hint      = document.querySelector('.hero__scroll-hint');
-  const upbeams   = document.querySelector('.hero__upbeams');
+  const track   = document.getElementById('heroTrack');
+  const hero    = document.getElementById('hero');
+  const slides  = Array.from(document.querySelectorAll('.hero__slide'));
+  const content = document.querySelector('.hero__content');
+  const hint    = document.querySelector('.hero__scroll-hint');
+  const upbeams = document.querySelector('.hero__upbeams');
   const floorGlow = document.querySelector('.hero__floor-glow');
-  const stars     = document.querySelector('.hero__stars');
-  const lights    = document.getElementById('lightsCanvas');
-  if (!hero || !content) return;
+  const stars   = document.querySelector('.hero__stars');
+  const lights  = document.getElementById('lightsCanvas');
+  if (!hero || !slides.length) return;
+
+  // Activate first slide immediately
+  slides[0].classList.add('active');
 
   window.addEventListener('scroll', () => {
     const y = window.scrollY;
-    const h = hero.offsetHeight;
-    const p = Math.min(y / (h * 0.6), 1); // 0→1 over first 60% of scroll
+    const trackH = track ? track.offsetHeight - hero.offsetHeight : hero.offsetHeight * 5;
+    const total  = Math.min(y / trackH, 1); // 0 → 1 across full track
+    const heroP  = Math.min(y / (hero.offsetHeight * 0.6), 1); // for content fade
 
-    // ── wordmark: fades, lifts, and zooms toward viewer
-    content.style.opacity   = String(1 - p);
-    content.style.transform = `translateY(${-p * 55}px) scale(${1 + p * 0.06})`;
+    // ── slide switching: divide track into equal segments
+    const perSlide = 1 / slides.length;
+    const slideIdx = Math.min(Math.floor(total / perSlide), slides.length - 1);
+    slides.forEach((s, i) => s.classList.toggle('active', i === slideIdx));
 
-    // ── scroll hint disappears fast
-    if (hint) hint.style.opacity = String(Math.max(0, 1 - p * 4));
+    // ── content fades out on first scroll
+    if (content) {
+      content.style.opacity   = String(Math.max(0, 1 - heroP * 2));
+      content.style.transform = `translateY(${-heroP * 55}px) scale(${1 + heroP * 0.06})`;
+    }
+    if (hint) hint.style.opacity = String(Math.max(0, 1 - heroP * 4));
 
-    // ── background scene slowly zooms in (the Montfort effect)
-    const zoom = 1 + p * 0.12;
-    if (upbeams) upbeams.style.transform   = `scale(${zoom}) translateY(${-y * 0.06}px)`;
+    // ── subtle zoom on overlays
+    const zoom = 1 + heroP * 0.08;
+    if (upbeams)   upbeams.style.transform   = `scale(${zoom})`;
     if (floorGlow) floorGlow.style.transform = `scale(${zoom})`;
-    if (stars)   stars.style.transform     = `scale(${zoom}) translateY(${-y * 0.04}px)`;
-    if (lights)  lights.style.transform    = `scale(${zoom}) translateY(${-y * 0.08}px)`;
-
+    if (stars)     stars.style.transform     = `scale(${zoom})`;
+    if (lights)    lights.style.transform    = `scale(${zoom})`;
   }, { passive: true });
 })();
 
