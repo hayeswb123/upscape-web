@@ -244,33 +244,23 @@ window.addEventListener('load', () => {
 })();
 
 // ===========================
-// HERO SCROLL ZOOM + LIGHTS ON
+// HERO SCROLL ZOOM
 // ===========================
 (function () {
-  const track    = document.getElementById('heroTrack');
-  const hero     = document.getElementById('hero');
-  const imgOff   = document.querySelector('.hero__lights-off');
-  const imgOn    = document.querySelector('.hero__lights-on');
-  const content  = document.querySelector('.hero__content');
-  const hint     = document.querySelector('.hero__scroll-hint');
-  if (!hero || !imgOff || !imgOn) return;
+  const track   = document.getElementById('heroTrack');
+  const hero    = document.getElementById('hero');
+  const img     = document.getElementById('heroImg');
+  const content = document.querySelector('.hero__content');
+  const hint    = document.querySelector('.hero__scroll-hint');
+  if (!hero || !img) return;
 
   window.addEventListener('scroll', () => {
     const y      = window.scrollY;
     const trackH = (track ? track.offsetHeight : hero.offsetHeight * 3.5) - hero.offsetHeight;
-    const p      = Math.min(y / trackH, 1); // 0 → 1 across the pinned scroll
+    const p      = Math.min(y / trackH, 1);
 
-    // Both images zoom together: 1× → 2.6×
-    const scale = 1 + p * 1.6;
-    imgOff.style.transform = `scale(${scale})`;
-    imgOn.style.transform  = `scale(${scale})`;
+    img.style.transform = `scale(${1 + p * 1.8})`;
 
-    // Lights fade in during 20%–65% of scroll — fade off out, fade on in
-    const lightsP = Math.min(Math.max((p - 0.2) / 0.45, 0), 1);
-    imgOff.style.opacity = String(1 - lightsP);
-    imgOn.style.opacity  = String(lightsP);
-
-    // Content fades out in first 25%
     const cp = Math.min(p / 0.25, 1);
     if (content) {
       content.style.opacity   = String(Math.max(0, 1 - cp));
