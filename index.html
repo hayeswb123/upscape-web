@@ -69,6 +69,13 @@
   </section>
   </div>
 
+  <!-- WAVE TRANSITION -->
+  <div class="wave-mask" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" preserveAspectRatio="none">
+      <path d="M0,80 C360,0 1080,0 1440,80 L1440,80 L0,80 Z" fill="var(--dark-2)"/>
+    </svg>
+  </div>
+
   <!-- MARQUEE TICKER -->
   <div class="marquee" aria-hidden="true">
     <div class="marquee__track">
@@ -181,53 +188,60 @@
     </div>
   </section>
 
-  <!-- HOW IT WORKS -->
-  <section class="process section" id="process">
-    <div class="container">
-      <div class="sec-head reveal" style="text-align:center">
-        <span class="eyebrow">Our Process</span>
-        <h2 class="sec-title">From first walkthrough<br>to champagne toast.</h2>
-      </div>
-      <div class="steps" id="steps">
-        <div class="steps__track" aria-hidden="true">
-          <div class="steps__fill" id="stepsFill"></div>
-        </div>
-        <div class="step reveal" data-delay="0">
-          <div class="step__num">01</div>
-          <div class="step__body">
-            <h3>Free Design Consultation</h3>
-            <p>We walk your property with you, discuss how you use each space, and sketch a custom lighting plan. No cost, no pressure.</p>
-          </div>
-        </div>
-        <div class="step reveal" data-delay="80">
-          <div class="step__num">02</div>
-          <div class="step__body">
-            <h3>Installation Day</h3>
-            <p>Fixtures are installed with minimal disruption. No trenches left open, no mess, no surprises.</p>
-          </div>
-        </div>
-        <div class="step reveal" data-delay="160">
-          <div class="step__num">03</div>
-          <div class="step__body">
-            <h3>Dusk Aiming &amp; Tuning</h3>
-            <p>We return after dark to aim and fine-tune every fixture so the light looks perfect from the street and from inside your home.</p>
-          </div>
-        </div>
-        <div class="step reveal" data-delay="240">
-          <div class="step__num">04</div>
-          <div class="step__body">
-            <h3>Champagne Toast</h3>
-            <p>We reveal your new lighting with a bottle of champagne and a celebratory toast. A Getupscaped tradition.</p>
-          </div>
-        </div>
-        <div class="step reveal" data-delay="320">
-          <div class="step__num">05</div>
-          <div class="step__body">
-            <h3>Ongoing Care</h3>
-            <p>We're available for seasonal adjustments, upgrades, and service as your property evolves over time.</p>
+  <!-- HOW IT WORKS — sticky scroll layout -->
+  <section class="hiw" id="process">
+    <div class="hiw__inner">
+
+      <!-- LEFT: sticky headline -->
+      <div class="hiw__left">
+        <div class="hiw__left-sticky">
+          <span class="eyebrow">Our Process</span>
+          <h2 class="hiw__heading">How to<br>Upscape.</h2>
+          <!-- progress bars -->
+          <div class="hiw__pager" id="hiwPager">
+            <div class="hiw__pager-bar"><div class="hiw__pager-fill"></div></div>
+            <div class="hiw__pager-bar"><div class="hiw__pager-fill"></div></div>
+            <div class="hiw__pager-bar"><div class="hiw__pager-fill"></div></div>
+            <div class="hiw__pager-bar"><div class="hiw__pager-fill"></div></div>
+            <div class="hiw__pager-bar"><div class="hiw__pager-fill"></div></div>
           </div>
         </div>
       </div>
+
+      <!-- RIGHT: scrolling steps -->
+      <div class="hiw__right" id="hiwSteps">
+        <div class="hiw__step" data-step="0">
+          <div class="hiw__step-num">01</div>
+          <h3 class="hiw__step-title">Free Design<br>Walkthrough</h3>
+          <p class="hiw__step-body">We walk your property, discuss how you use each space, and sketch a custom lighting plan. No cost, no pressure.</p>
+          <div class="hiw__step-img"><img src="glif-media-_r_15k_.jpg" alt="Property walkthrough" loading="lazy"/></div>
+        </div>
+        <div class="hiw__step" data-step="1">
+          <div class="hiw__step-num">02</div>
+          <h3 class="hiw__step-title">Installation<br>Day</h3>
+          <p class="hiw__step-body">Fixtures go in with minimal disruption — no trenches left open, no mess, no surprises.</p>
+          <div class="hiw__step-img"><img src="glif-media-_r_15f_.jpg" alt="Installation" loading="lazy"/></div>
+        </div>
+        <div class="hiw__step" data-step="2">
+          <div class="hiw__step-num">03</div>
+          <h3 class="hiw__step-title">Dusk Aiming<br>&amp; Tuning</h3>
+          <p class="hiw__step-body">We return after dark to aim and fine-tune every fixture so the light looks perfect from the street and from inside.</p>
+          <div class="hiw__step-img"><img src="glif-media-_r_15p_.jpg" alt="Tuning lights at dusk" loading="lazy"/></div>
+        </div>
+        <div class="hiw__step" data-step="3">
+          <div class="hiw__step-num">04</div>
+          <h3 class="hiw__step-title">Champagne<br>Toast</h3>
+          <p class="hiw__step-body">We reveal your new lighting with a bottle of champagne. A Getupscaped tradition since day one.</p>
+          <div class="hiw__step-img"><img src="glif-media-_r_163_.jpg" alt="Champagne toast" loading="lazy"/></div>
+        </div>
+        <div class="hiw__step" data-step="4">
+          <div class="hiw__step-num">05</div>
+          <h3 class="hiw__step-title">Ongoing<br>Care</h3>
+          <p class="hiw__step-body">Available for seasonal adjustments, upgrades, and service as your property evolves.</p>
+          <div class="hiw__step-img"><img src="glif-media-_r_15a_.jpg" alt="Ongoing care" loading="lazy"/></div>
+        </div>
+      </div>
+
     </div>
   </section>
 

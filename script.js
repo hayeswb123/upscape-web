@@ -274,21 +274,27 @@ window.addEventListener('load', () => {
 })();
 
 // ===========================
-// PROCESS FILL SLIDER
+// HOW IT WORKS — ACTIVE STEP
 // ===========================
-const stepsEl   = document.getElementById('steps');
-const stepsFill = document.getElementById('stepsFill');
+(function () {
+  const steps = Array.from(document.querySelectorAll('.hiw__step'));
+  const fills = Array.from(document.querySelectorAll('.hiw__pager-fill'));
+  if (!steps.length) return;
 
-if (stepsEl && stepsFill) {
-  window.addEventListener('scroll', () => {
-    const rect    = stepsEl.getBoundingClientRect();
-    const sectionH = stepsEl.offsetHeight;
-    const viewH   = window.innerHeight;
-    const raw = (viewH * 0.55 - rect.top) / sectionH;
-    const p   = Math.max(0, Math.min(1, raw));
-    stepsFill.style.height = (p * 100) + '%';
-  }, { passive: true });
-}
+  function update() {
+    const mid = window.innerHeight * 0.5;
+    let activeIdx = 0;
+    steps.forEach((s, i) => {
+      const r = s.getBoundingClientRect();
+      if (r.top < mid) activeIdx = i;
+    });
+    steps.forEach((s, i) => s.classList.toggle('active', i === activeIdx));
+    fills.forEach((f, i) => f.style.width = i <= activeIdx ? '100%' : '0%');
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
 
 // ===========================
 // COUNTER ANIMATION
