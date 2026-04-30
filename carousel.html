@@ -18,100 +18,97 @@
     user-select: none;
   }
 
-  .scene {
-    width: 420px;
-    height: 260px;
-    perspective: 1100px;
+  .wrap {
     position: relative;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .scene {
+    width: 480px;
+    height: 280px;
+    perspective: 900px;
+    perspective-origin: 50% 50%;
   }
 
   .carousel {
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: relative;
     transform-style: preserve-3d;
-    transition: transform 0.05s linear;
   }
 
   .card {
     position: absolute;
-    width: 380px;
-    height: 220px;
+    width: 440px;
+    height: 240px;
     left: 50%;
     top: 50%;
-    margin-left: -190px;
-    margin-top: -110px;
+    margin-left: -220px;
+    margin-top: -120px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    border-radius: 18px;
-    padding: 28px 32px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 32px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
     backface-visibility: hidden;
   }
 
   .card__number {
-    font-size: 72px;
+    font-size: 86px;
     line-height: 1;
-    letter-spacing: -2px;
-    text-transform: uppercase;
+    letter-spacing: -3px;
   }
 
   .card__label {
-    font-size: 18px;
-    letter-spacing: 0.18em;
+    font-size: 17px;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    margin-top: 10px;
-    color: rgba(255,255,255,0.55);
+    margin-top: 12px;
+    color: rgba(255,255,255,0.5);
     font-family: 'Arial Narrow', Arial, sans-serif;
     font-weight: 700;
   }
 
-  /* per-card colors */
   .card--0 .card__number { color: #4ea8ff; }
   .card--1 .card__number { color: #f5c842; }
   .card--2 .card__number { color: #4ecf7a; }
 
-  /* arrow buttons */
   .arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
     background: rgba(255,255,255,0.08);
     border: 1px solid rgba(255,255,255,0.15);
     color: #fff;
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    font-size: 20px;
+    font-size: 22px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: background 0.2s;
-    z-index: 10;
+    flex-shrink: 0;
   }
-  .arrow:hover { background: rgba(255,255,255,0.18); }
-  .arrow--left  { left: -60px; }
-  .arrow--right { right: -60px; }
+  .arrow:hover { background: rgba(255,255,255,0.2); }
 
-  /* dots */
   .dots {
     position: absolute;
-    bottom: -40px;
+    bottom: -36px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 8px;
+    gap: 10px;
   }
   .dot {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.2);
     transition: background 0.3s;
   }
   .dot.active { background: #fff; }
@@ -119,108 +116,81 @@
 </head>
 <body>
 
-<div style="position:relative;">
-  <div class="scene">
-    <div class="carousel" id="carousel"></div>
+<div class="wrap">
+  <button class="arrow" id="prev">&#8592;</button>
+  <div style="position:relative;">
+    <div class="scene">
+      <div class="carousel" id="carousel"></div>
+    </div>
+    <div class="dots" id="dots"></div>
   </div>
-  <button class="arrow arrow--left" id="prev">&#8592;</button>
-  <button class="arrow arrow--right" id="next">&#8594;</button>
-  <div class="dots" id="dots"></div>
+  <button class="arrow" id="next">&#8594;</button>
 </div>
 
 <script>
   const stats = [
-    { number: '4B+',  label: 'Media Assets Generated' },
-    { number: '16',   label: 'Industries Empowered'    },
-    { number: '235',  label: 'Countries & Territories' },
+    { number: '4B+', label: 'Media Assets Generated' },
+    { number: '16',  label: 'Industries Empowered'   },
+    { number: '235', label: 'Countries & Territories' },
   ];
 
-  const carousel = document.getElementById('carousel');
-  const dotsEl   = document.getElementById('dots');
-  const N        = stats.length;
+  const N         = stats.length;
   const angleStep = 360 / N;
-  const radius    = 480; // px — pushes cards back along Z
+  const radius    = 220;
 
-  // Build cards
+  const carouselEl = document.getElementById('carousel');
+  const dotsEl     = document.getElementById('dots');
+
   stats.forEach((s, i) => {
     const card = document.createElement('div');
     card.className = `card card--${i}`;
     card.innerHTML = `<div class="card__number">${s.number}</div><div class="card__label">${s.label}</div>`;
-    const angle = angleStep * i;
-    card.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
-    carousel.appendChild(card);
+    card.style.transform = `rotateY(${angleStep * i}deg) translateZ(${radius}px)`;
+    carouselEl.appendChild(card);
 
     const dot = document.createElement('div');
     dot.className = 'dot';
     dotsEl.appendChild(dot);
   });
 
-  let currentAngle = 0;
-  let targetAngle  = 0;
-  let autoAngle    = 0;
-  let dragging     = false;
-  let dragStartX   = 0;
-  let dragStartAngle = 0;
-  let autoSpeed    = 0.18; // deg per frame
-  let raf;
+  let angle    = 0;
+  let autoOn   = true;
+  let dragOn   = false;
+  let dragX    = 0;
+  let dragBase = 0;
 
-  function getActiveIndex() {
-    // Normalise angle to 0-360, find nearest card
-    const norm = (((-currentAngle) % 360) + 360) % 360;
-    return Math.round(norm / angleStep) % N;
+  function activeIdx() {
+    return Math.round(((-angle % 360) + 360) % 360 / angleStep) % N;
   }
 
-  function updateDots() {
-    const idx = getActiveIndex();
-    document.querySelectorAll('.dot').forEach((d, i) => {
-      d.classList.toggle('active', i === idx);
-    });
+  function render() {
+    carouselEl.style.transform = `rotateY(${angle}deg)`;
+    const idx = activeIdx();
+    dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === idx));
   }
 
-  function tick() {
-    if (!dragging) {
-      currentAngle -= autoSpeed;
-    }
-    carousel.style.transform = `rotateY(${currentAngle}deg)`;
-    updateDots();
-    raf = requestAnimationFrame(tick);
+  (function loop() {
+    if (autoOn && !dragOn) angle -= 0.2;
+    render();
+    requestAnimationFrame(loop);
+  })();
+
+  function pauseAuto() {
+    autoOn = false;
+    clearTimeout(window._autoResume);
+    window._autoResume = setTimeout(() => autoOn = true, 2000);
   }
 
-  tick();
+  document.getElementById('prev').addEventListener('click', () => { angle += angleStep; pauseAuto(); });
+  document.getElementById('next').addEventListener('click', () => { angle -= angleStep; pauseAuto(); });
 
-  // Arrow buttons — snap to next/prev card
-  document.getElementById('prev').addEventListener('click', () => {
-    autoSpeed = 0; // pause auto briefly
-    currentAngle += angleStep;
-    setTimeout(() => autoSpeed = 0.18, 1200);
-  });
-  document.getElementById('next').addEventListener('click', () => {
-    autoSpeed = 0;
-    currentAngle -= angleStep;
-    setTimeout(() => autoSpeed = 0.18, 1200);
-  });
+  carouselEl.addEventListener('mousedown',  e => { dragOn = true; dragX = e.clientX; dragBase = angle; pauseAuto(); });
+  window.addEventListener('mousemove',      e => { if (dragOn) angle = dragBase + (e.clientX - dragX) * 0.5; });
+  window.addEventListener('mouseup',        ()  => { dragOn = false; });
 
-  // Drag to spin
-  function onDragStart(x) {
-    dragging     = true;
-    dragStartX   = x;
-    dragStartAngle = currentAngle;
-  }
-  function onDragMove(x) {
-    if (!dragging) return;
-    currentAngle = dragStartAngle + (x - dragStartX) * 0.4;
-  }
-  function onDragEnd() {
-    dragging = false;
-  }
-
-  carousel.addEventListener('mousedown',  e => onDragStart(e.clientX));
-  window.addEventListener('mousemove',    e => onDragMove(e.clientX));
-  window.addEventListener('mouseup',      onDragEnd);
-
-  carousel.addEventListener('touchstart', e => onDragStart(e.touches[0].clientX), { passive: true });
-  window.addEventListener('touchmove',    e => onDragMove(e.touches[0].clientX),  { passive: true });
-  window.addEventListener('touchend',     onDragEnd);
+  carouselEl.addEventListener('touchstart', e => { dragOn = true; dragX = e.touches[0].clientX; dragBase = angle; pauseAuto(); }, { passive: true });
+  window.addEventListener('touchmove',      e => { if (dragOn) angle = dragBase + (e.touches[0].clientX - dragX) * 0.5; }, { passive: true });
+  window.addEventListener('touchend',       ()  => { dragOn = false; });
 </script>
 </body>
 </html>
