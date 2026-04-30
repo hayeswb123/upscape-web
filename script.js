@@ -12,53 +12,60 @@
 })();
 
 // ===========================
-// AMBIENT GOLD PARTICLES
+// FOG / CLOUD BACKGROUND (Montfort-style)
 // ===========================
 (function () {
   const canvas = document.createElement('canvas');
-  canvas.id = 'particles-canvas';
-  document.body.prepend(canvas);
+  canvas.id = 'fog-canvas';
+  document.body.insertBefore(canvas, document.body.firstChild);
   const ctx = canvas.getContext('2d');
 
+  let W, H;
   function resize() {
-    canvas.width  = window.innerWidth;
-    canvas.height = window.innerHeight;
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
   }
   resize();
   window.addEventListener('resize', resize, { passive: true });
 
-  const COUNT = 80;
-  const particles = Array.from({ length: COUNT }, () => ({
-    x: Math.random() * window.innerWidth,
-    y: Math.random() * window.innerHeight,
-    r: Math.random() * 1.6 + 0.4,
-    rot: Math.random() * Math.PI,
-    speed: Math.random() * 0.3 + 0.06,
-    drift: (Math.random() - 0.5) * 0.25,
-    alpha: Math.random() * 0.4 + 0.08,
-    fade: Math.random() * 0.006 + 0.002,
-    dir: 1,
+  const puffs = Array.from({ length: 22 }, () => ({
+    x:     Math.random() * window.innerWidth,
+    y:     Math.random() * window.innerHeight,
+    r:     180 + Math.random() * 320,
+    vx:    (Math.random() - 0.5) * 0.13,
+    vy:    (Math.random() - 0.5) * 0.07,
+    alpha: 0.018 + Math.random() * 0.032,
+    phase: Math.random() * Math.PI * 2,
+    freq:  0.00012 + Math.random() * 0.00018,
   }));
 
-  function tick() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => {
-      p.y -= p.speed;
-      p.x += p.drift;
-      p.alpha += p.fade * p.dir;
-      if (p.alpha > 0.55 || p.alpha < 0.05) p.dir *= -1;
-      if (p.y < -4) { p.y = canvas.height + 4; p.x = Math.random() * canvas.width; }
-      p.rot += 0.003;
-      ctx.save();
-      ctx.translate(p.x, p.y);
-      ctx.rotate(p.rot);
-      ctx.fillStyle = `rgba(184,154,88,${p.alpha})`;
-      ctx.fillRect(-p.r, -p.r, p.r * 2, p.r * 2);
-      ctx.restore();
+  function frame() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalCompositeOperation = 'screen';
+    const t = performance.now();
+    puffs.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < -p.r) p.x = W + p.r;
+      if (p.x > W + p.r) p.x = -p.r;
+      if (p.y < -p.r) p.y = H + p.r;
+      if (p.y > H + p.r) p.y = -p.r;
+
+      const a = p.alpha * (0.45 + 0.55 * Math.sin(t * p.freq + p.phase));
+      const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+      g.addColorStop(0,    `rgba(255,255,255,${(a * 2).toFixed(4)})`);
+      g.addColorStop(0.3,  `rgba(255,255,255,${(a * 0.9).toFixed(4)})`);
+      g.addColorStop(0.65, `rgba(255,255,255,${(a * 0.2).toFixed(4)})`);
+      g.addColorStop(1,    'rgba(255,255,255,0)');
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
     });
-    requestAnimationFrame(tick);
+    ctx.globalCompositeOperation = 'source-over';
+    requestAnimationFrame(frame);
   }
-  tick();
+  requestAnimationFrame(frame);
 })();
 
 // ===========================
@@ -244,18 +251,82 @@ window.addEventListener('load', () => {
 })();
 
 // ===========================
-// SPINNING RING ENTRANCE
+// MONTFORT-STYLE DRAGGABLE SERVICE TRANSITION
 // ===========================
 (function () {
-  const wrap = document.querySelector('.ring-section__wrap');
-  if (!wrap) return;
-  const obs = new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting) {
-      wrap.classList.add('visible');
-      obs.unobserve(wrap);
+  const track = document.getElementById('svcHtTrack');
+  if (!track) return;
+
+  const items = Array.from(track.querySelectorAll('.svc-ht__item'));
+  let offset = 0, target = 0;
+  let dragging = false, startX = 0, startOffset = 0;
+  let activeIdx = 0;
+
+  function getItemCenter(item) {
+    const r = item.getBoundingClientRect();
+    return r.left + r.width / 2;
+  }
+
+  function nearestIdx() {
+    const mid = window.innerWidth / 2;
+    let best = 0, bestDist = Infinity;
+    items.forEach((item, i) => {
+      const d = Math.abs(getItemCenter(item) - mid);
+      if (d < bestDist) { bestDist = d; best = i; }
+    });
+    return best;
+  }
+
+  function setActive(idx) {
+    if (idx === activeIdx) return;
+    activeIdx = idx;
+    items.forEach((item, i) => item.classList.toggle('active', i === idx));
+  }
+
+  function snapToCenter() {
+    const mid = window.innerWidth / 2;
+    const item = items[nearestIdx()];
+    const delta = getItemCenter(item) - mid;
+    target -= delta;
+    setActive(nearestIdx());
+  }
+
+  function onStart(x) { dragging = true; startX = x; startOffset = target; track.style.transition = 'none'; }
+  function onMove(x) {
+    if (!dragging) return;
+    target = startOffset + (x - startX);
+    offset = target;
+    track.style.transform = `translateX(${offset}px)`;
+    setActive(nearestIdx());
+  }
+  function onEnd() { if (!dragging) return; dragging = false; snapToCenter(); }
+
+  track.addEventListener('mousedown',  e => onStart(e.clientX));
+  window.addEventListener('mousemove', e => onMove(e.clientX));
+  window.addEventListener('mouseup',   onEnd);
+  track.addEventListener('touchstart', e => onStart(e.touches[0].clientX), { passive: true });
+  window.addEventListener('touchmove', e => onMove(e.touches[0].clientX),  { passive: true });
+  window.addEventListener('touchend',  onEnd);
+
+  // Smooth lerp loop
+  (function loop() {
+    if (!dragging) {
+      offset += (target - offset) * 0.1;
+      track.style.transform = `translateX(${offset.toFixed(2)}px)`;
     }
-  }, { threshold: 0.25 });
-  obs.observe(wrap);
+    requestAnimationFrame(loop);
+  })();
+
+  // Center first item on load
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      const mid = window.innerWidth / 2;
+      const shift = mid - getItemCenter(items[0]);
+      offset = target = shift;
+      track.style.transform = `translateX(${shift}px)`;
+      items[0].classList.add('active');
+    });
+  });
 })();
 
 // ===========================

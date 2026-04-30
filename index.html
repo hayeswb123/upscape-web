@@ -138,26 +138,63 @@
     </div>
   </section>
 
-  <!-- SPINNING RING TRANSITION -->
-  <div class="ring-section" id="ringSection">
-    <div class="ring-section__wrap">
-      <svg class="ring-section__svg" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <path id="ringPath" d="M 180,180 m -142,0 a 142,142 0 1,1 284,0 a 142,142 0 1,1 -284,0"/>
-          <filter id="ringGlowF" x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="5"/>
-          </filter>
-        </defs>
-        <circle cx="180" cy="180" r="142" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-        <circle cx="180" cy="180" r="112" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
-        <circle cx="180" cy="180" r="82"  fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/>
-        <circle cx="180" cy="180" r="142" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="0.5" filter="url(#ringGlowF)"/>
-        <text font-family="Inter, sans-serif" font-size="10.5" letter-spacing="3.5" fill="rgba(255,255,255,0.4)" font-weight="300">
-          <textPath href="#ringPath">UPLIGHTING · PATHWAY LIGHTING · STONE WALLS · TREE LIGHTING · LOW VOLTAGE ·&nbsp;&nbsp;&nbsp;</textPath>
-        </text>
-      </svg>
-      <div class="ring-section__center">✦</div>
+  <!-- MONTFORT-STYLE DRAGGABLE SERVICE TRANSITION -->
+  <div class="svc-ht" id="svcHt">
+    <div class="svc-ht__track" id="svcHtTrack">
+      <div class="svc-ht__item" data-idx="0">
+        <div class="svc-ht__spinner">
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="hta0" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="rgba(255,255,255,0)"/><stop offset="100%" stop-color="rgba(255,255,255,0.9)"/></linearGradient>
+              <linearGradient id="htb0" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="rgba(255,255,255,0.9)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></linearGradient>
+            </defs>
+            <path stroke="url(#hta0)" stroke-width="1.5" d="M 4 100 A 96 96 0 0 1 196 100" fill="none"/>
+            <path stroke="url(#htb0)" stroke-width="1.5" d="M 196 100 A 96 96 0 0 1 4 100" fill="none"/>
+          </svg>
+        </div>
+        <span class="svc-ht__name">Uplighting</span>
+      </div>
+      <div class="svc-ht__item" data-idx="1">
+        <div class="svc-ht__spinner">
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="hta1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="rgba(255,255,255,0)"/><stop offset="100%" stop-color="rgba(255,255,255,0.9)"/></linearGradient>
+              <linearGradient id="htb1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="rgba(255,255,255,0.9)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></linearGradient>
+            </defs>
+            <path stroke="url(#hta1)" stroke-width="1.5" d="M 4 100 A 96 96 0 0 1 196 100" fill="none"/>
+            <path stroke="url(#htb1)" stroke-width="1.5" d="M 196 100 A 96 96 0 0 1 4 100" fill="none"/>
+          </svg>
+        </div>
+        <span class="svc-ht__name">Pathway Lighting</span>
+      </div>
+      <div class="svc-ht__item" data-idx="2">
+        <div class="svc-ht__spinner">
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="hta2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="rgba(255,255,255,0)"/><stop offset="100%" stop-color="rgba(255,255,255,0.9)"/></linearGradient>
+              <linearGradient id="htb2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="rgba(255,255,255,0.9)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></linearGradient>
+            </defs>
+            <path stroke="url(#hta2)" stroke-width="1.5" d="M 4 100 A 96 96 0 0 1 196 100" fill="none"/>
+            <path stroke="url(#htb2)" stroke-width="1.5" d="M 196 100 A 96 96 0 0 1 4 100" fill="none"/>
+          </svg>
+        </div>
+        <span class="svc-ht__name">Driveways &amp; Walls</span>
+      </div>
+      <div class="svc-ht__item" data-idx="3">
+        <div class="svc-ht__spinner">
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="hta3" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="rgba(255,255,255,0)"/><stop offset="100%" stop-color="rgba(255,255,255,0.9)"/></linearGradient>
+              <linearGradient id="htb3" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="rgba(255,255,255,0.9)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></linearGradient>
+            </defs>
+            <path stroke="url(#hta3)" stroke-width="1.5" d="M 4 100 A 96 96 0 0 1 196 100" fill="none"/>
+            <path stroke="url(#htb3)" stroke-width="1.5" d="M 196 100 A 96 96 0 0 1 4 100" fill="none"/>
+          </svg>
+        </div>
+        <span class="svc-ht__name">Low Voltage</span>
+      </div>
     </div>
+    <p class="svc-ht__hint">drag to explore</p>
   </div>
 
   <!-- STATS -->

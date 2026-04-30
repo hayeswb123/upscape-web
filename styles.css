@@ -316,18 +316,7 @@ html { scroll-behavior: smooth; }
   pointer-events: none;
 }
 
-/* ===========================
-   AMBIENT PARTICLES CANVAS
-=========================== */
-#particles-canvas {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.45;
-}
+/* particles-canvas removed — replaced by fog-canvas */
 
 /* ===========================
    REVEAL VARIANTS
@@ -1026,69 +1015,80 @@ a, button { cursor: none; }
 }
 
 /* ===========================
-   SPINNING RING TRANSITION
+   MONTFORT-STYLE SERVICE TRANSITION
 =========================== */
-.ring-section {
+.svc-ht {
+  padding: 96px 0 88px;
+  background: var(--dark);
+  overflow: hidden;
+  position: relative;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.svc-ht__track {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 96px 0;
-  background: var(--dark);
-  position: relative;
-  overflow: hidden;
+  width: max-content;
+  cursor: grab;
+  user-select: none;
+  will-change: transform;
 }
+.svc-ht__track:active { cursor: grabbing; }
 
-.ring-section::before {
-  content: '';
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(255,255,255,0.03) 0%, transparent 70%);
-  pointer-events: none;
+.svc-ht__item {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 0 52px;
+  opacity: 0.18;
+  transition: opacity 0.55s var(--ease);
 }
+.svc-ht__item.active { opacity: 1; }
 
-.ring-section__wrap {
-  position: relative;
-  width: 300px;
-  height: 300px;
-  opacity: 0;
-  transform: scale(0.82) rotate(-6deg);
-  transition: opacity 1.1s var(--ease), transform 1.3s var(--ease);
-}
-
-.ring-section__wrap.visible {
-  opacity: 1;
-  transform: scale(1) rotate(0deg);
-}
-
-.ring-section__svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  animation: ring-spin 28s linear infinite;
-  transform-origin: 50% 50%;
+.svc-ht__spinner {
+  width: 54px;
+  height: 54px;
+  flex-shrink: 0;
+  animation: ring-spin 3.5s linear infinite;
 }
 
 @keyframes ring-spin {
   to { transform: rotate(360deg); }
 }
 
-.ring-section__center {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  color: rgba(255,255,255,0.45);
-  animation: ring-star-pulse 4.5s ease-in-out infinite;
+.svc-ht__name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem, 5.5vw, 5rem);
+  font-weight: 400;
+  color: var(--white);
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+  line-height: 1;
 }
 
-@keyframes ring-star-pulse {
-  0%, 100% { opacity: 0.2; transform: scale(1); }
-  50%       { opacity: 0.7; transform: scale(1.2); }
+.svc-ht__hint {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.18);
+  white-space: nowrap;
+}
+
+/* ===========================
+   FOG CANVAS BACKGROUND
+=========================== */
+#fog-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* ===========================
