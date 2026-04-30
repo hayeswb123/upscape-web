@@ -249,18 +249,29 @@ window.addEventListener('load', () => {
 (function () {
   const track   = document.getElementById('heroTrack');
   const hero    = document.getElementById('hero');
-  const img     = document.getElementById('heroImg');
   const content = document.querySelector('.hero__content');
   const hint    = document.querySelector('.hero__scroll-hint');
-  if (!hero || !img) return;
+  if (!hero) return;
+
+  const imgWide = document.getElementById('heroImgWide');
+  const imgDoor = document.getElementById('heroImgDoor');
 
   window.addEventListener('scroll', () => {
     const y      = window.scrollY;
     const trackH = (track ? track.offsetHeight : hero.offsetHeight * 3.5) - hero.offsetHeight;
     const p      = Math.min(y / trackH, 1);
 
-    img.style.transform = `scale(${1 + p * 1.8})`;
+    // Gentle zoom — stops at 1.5× aimed at the door
+    const scale = 1 + p * 0.5;
+    if (imgWide) imgWide.style.transform = `scale(${scale})`;
+    if (imgDoor) imgDoor.style.transform = `scale(${scale})`;
 
+    // Door photo crossfades in during last 30% of scroll
+    const doorP = Math.min(Math.max((p - 0.7) / 0.3, 0), 1);
+    if (imgWide) imgWide.style.opacity = String(1 - doorP);
+    if (imgDoor) imgDoor.style.opacity = String(doorP);
+
+    // Content fades out in first 25%
     const cp = Math.min(p / 0.25, 1);
     if (content) {
       content.style.opacity   = String(Math.max(0, 1 - cp));
