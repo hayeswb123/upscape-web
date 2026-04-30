@@ -244,47 +244,19 @@ window.addEventListener('load', () => {
 })();
 
 // ===========================
-// HERO SCROLL CINEMATIC
+// HERO CONTENT FADE ON SCROLL
 // ===========================
 (function () {
-  const track   = document.getElementById('heroTrack');
   const hero    = document.getElementById('hero');
-  const slides  = Array.from(document.querySelectorAll('.hero__slide'));
   const content = document.querySelector('.hero__content');
   const hint    = document.querySelector('.hero__scroll-hint');
-  const upbeams = document.querySelector('.hero__upbeams');
-  const floorGlow = document.querySelector('.hero__floor-glow');
-  const stars   = document.querySelector('.hero__stars');
-  const lights  = document.getElementById('lightsCanvas');
-  if (!hero || !slides.length) return;
-
-  // Activate first slide immediately
-  slides[0].classList.add('active');
+  if (!hero || !content) return;
 
   window.addEventListener('scroll', () => {
-    const y = window.scrollY;
-    const trackH = track ? track.offsetHeight - hero.offsetHeight : hero.offsetHeight * 5;
-    const total  = Math.min(y / trackH, 1); // 0 → 1 across full track
-    const heroP  = Math.min(y / (hero.offsetHeight * 0.6), 1); // for content fade
-
-    // ── slide switching: divide track into equal segments
-    const perSlide = 1 / slides.length;
-    const slideIdx = Math.min(Math.floor(total / perSlide), slides.length - 1);
-    slides.forEach((s, i) => s.classList.toggle('active', i === slideIdx));
-
-    // ── content fades out on first scroll
-    if (content) {
-      content.style.opacity   = String(Math.max(0, 1 - heroP * 2));
-      content.style.transform = `translateY(${-heroP * 55}px) scale(${1 + heroP * 0.06})`;
-    }
-    if (hint) hint.style.opacity = String(Math.max(0, 1 - heroP * 4));
-
-    // ── subtle zoom on overlays
-    const zoom = 1 + heroP * 0.08;
-    if (upbeams)   upbeams.style.transform   = `scale(${zoom})`;
-    if (floorGlow) floorGlow.style.transform = `scale(${zoom})`;
-    if (stars)     stars.style.transform     = `scale(${zoom})`;
-    if (lights)    lights.style.transform    = `scale(${zoom})`;
+    const p = Math.min(window.scrollY / (hero.offsetHeight * 0.55), 1);
+    content.style.opacity   = String(Math.max(0, 1 - p * 2));
+    content.style.transform = `translateY(${-p * 50}px)`;
+    if (hint) hint.style.opacity = String(Math.max(0, 1 - p * 5));
   }, { passive: true });
 })();
 
