@@ -244,19 +244,31 @@ window.addEventListener('load', () => {
 })();
 
 // ===========================
-// HERO CONTENT FADE ON SCROLL
+// HERO SCROLL ZOOM
 // ===========================
 (function () {
+  const track   = document.getElementById('heroTrack');
   const hero    = document.getElementById('hero');
+  const img     = document.querySelector('.hero__cinematic img');
   const content = document.querySelector('.hero__content');
   const hint    = document.querySelector('.hero__scroll-hint');
-  if (!hero || !content) return;
+  if (!hero || !img) return;
 
   window.addEventListener('scroll', () => {
-    const p = Math.min(window.scrollY / (hero.offsetHeight * 0.55), 1);
-    content.style.opacity   = String(Math.max(0, 1 - p * 2));
-    content.style.transform = `translateY(${-p * 50}px)`;
-    if (hint) hint.style.opacity = String(Math.max(0, 1 - p * 5));
+    const y       = window.scrollY;
+    const trackH  = (track ? track.offsetHeight : hero.offsetHeight * 3.5) - hero.offsetHeight;
+    const p       = Math.min(y / trackH, 1); // 0 → 1 across the full pinned scroll
+
+    // zoom from 1× to 2.8× centered on the house
+    img.style.transform = `scale(${1 + p * 1.8})`;
+
+    // content fades out in the first 30% of the scroll
+    const cp = Math.min(p / 0.3, 1);
+    if (content) {
+      content.style.opacity   = String(Math.max(0, 1 - cp));
+      content.style.transform = `translateY(${-cp * 40}px)`;
+    }
+    if (hint) hint.style.opacity = String(Math.max(0, 1 - cp * 3));
   }, { passive: true });
 })();
 

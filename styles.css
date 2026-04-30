@@ -660,15 +660,16 @@ h1, h2, h3, h4 {
   height: 100%;
   object-fit: cover;
   object-position: center center;
-  opacity: 0.8;
+  opacity: 0.85;
   transform-origin: 52% 48%;
-  animation: aerial-zoom 28s ease-out forwards;
+  transform: scale(1);
   will-change: transform;
 }
 
-@keyframes aerial-zoom {
-  0%   { transform: scale(1.0); }
-  100% { transform: scale(2.6); }
+/* track pins the hero while scroll drives the zoom */
+.hero-track {
+  height: 350vh;
+  position: relative;
 }
 
 .hero__scene {
