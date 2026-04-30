@@ -655,16 +655,21 @@ h1, h2, h3, h4 {
   overflow: hidden;
 }
 
-.hero__cinematic img {
+.hero__lights-off,
+.hero__lights-on {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center center;
-  opacity: 0.85;
-  transform-origin: 52% 48%;
+  transform-origin: center 55%;
   transform: scale(1);
   will-change: transform;
 }
+
+.hero__lights-off { opacity: 1; }
+.hero__lights-on  { opacity: 0; }
 
 /* track pins the hero while scroll drives the zoom */
 .hero-track {

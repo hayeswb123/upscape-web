@@ -244,31 +244,38 @@ window.addEventListener('load', () => {
 })();
 
 // ===========================
-// HERO SCROLL ZOOM
+// HERO SCROLL ZOOM + LIGHTS ON
 // ===========================
 (function () {
-  const track   = document.getElementById('heroTrack');
-  const hero    = document.getElementById('hero');
-  const img     = document.querySelector('.hero__cinematic img');
-  const content = document.querySelector('.hero__content');
-  const hint    = document.querySelector('.hero__scroll-hint');
-  if (!hero || !img) return;
+  const track    = document.getElementById('heroTrack');
+  const hero     = document.getElementById('hero');
+  const imgOff   = document.querySelector('.hero__lights-off');
+  const imgOn    = document.querySelector('.hero__lights-on');
+  const content  = document.querySelector('.hero__content');
+  const hint     = document.querySelector('.hero__scroll-hint');
+  if (!hero || !imgOff || !imgOn) return;
 
   window.addEventListener('scroll', () => {
-    const y       = window.scrollY;
-    const trackH  = (track ? track.offsetHeight : hero.offsetHeight * 3.5) - hero.offsetHeight;
-    const p       = Math.min(y / trackH, 1); // 0 → 1 across the full pinned scroll
+    const y      = window.scrollY;
+    const trackH = (track ? track.offsetHeight : hero.offsetHeight * 3.5) - hero.offsetHeight;
+    const p      = Math.min(y / trackH, 1); // 0 → 1 across the pinned scroll
 
-    // zoom from 1× to 2.8× centered on the house
-    img.style.transform = `scale(${1 + p * 1.8})`;
+    // Both images zoom together: 1× → 2.6×
+    const scale = 1 + p * 1.6;
+    imgOff.style.transform = `scale(${scale})`;
+    imgOn.style.transform  = `scale(${scale})`;
 
-    // content fades out in the first 30% of the scroll
-    const cp = Math.min(p / 0.3, 1);
+    // Lights fade in during the middle 40%–85% of scroll
+    const lightsP = Math.min(Math.max((p - 0.4) / 0.45, 0), 1);
+    imgOn.style.opacity = String(lightsP);
+
+    // Content fades out in first 25%
+    const cp = Math.min(p / 0.25, 1);
     if (content) {
       content.style.opacity   = String(Math.max(0, 1 - cp));
       content.style.transform = `translateY(${-cp * 40}px)`;
     }
-    if (hint) hint.style.opacity = String(Math.max(0, 1 - cp * 3));
+    if (hint) hint.style.opacity = String(Math.max(0, 1 - cp * 4));
   }, { passive: true });
 })();
 
