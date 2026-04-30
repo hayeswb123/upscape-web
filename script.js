@@ -244,36 +244,6 @@ window.addEventListener('load', () => {
 })();
 
 // ===========================
-// HERO SCROLL ZOOM
-// ===========================
-(function () {
-  const track   = document.getElementById('heroTrack');
-  const hero    = document.getElementById('hero');
-  const content = document.querySelector('.hero__content');
-  const hint    = document.querySelector('.hero__scroll-hint');
-  if (!hero) return;
-
-  const imgWide = document.getElementById('heroImgWide');
-  const imgDoor = document.getElementById('heroImgDoor');
-
-  window.addEventListener('scroll', () => {
-    const y      = window.scrollY;
-    const trackH = (track ? track.offsetHeight : hero.offsetHeight * 3.5) - hero.offsetHeight;
-    const p      = Math.min(y / trackH, 1);
-
-    if (imgWide) imgWide.style.transform = `scale(${1 + p * 0.6})`;
-
-    // Content fades out in first 25%
-    const cp = Math.min(p / 0.25, 1);
-    if (content) {
-      content.style.opacity   = String(Math.max(0, 1 - cp));
-      content.style.transform = `translateY(${-cp * 40}px)`;
-    }
-    if (hint) hint.style.opacity = String(Math.max(0, 1 - cp * 4));
-  }, { passive: true });
-})();
-
-// ===========================
 // PROCESS FILL SLIDER
 // ===========================
 const stepsEl   = document.getElementById('steps');
@@ -495,34 +465,6 @@ if (yearEl) yearEl.textContent = yearEl.textContent.replace('2026', new Date().g
   requestAnimationFrame(frame);
 })();
 
-// ===========================
-// ===========================
-// BEFORE / AFTER SLIDER
-// ===========================
-(function () {
-  const slider = document.getElementById('baSlider');
-  const before = document.getElementById('baBefore');
-  const handle = document.getElementById('baHandle');
-  if (!slider || !before || !handle) return;
-
-  let pct = 50;
-  let dragging = false;
-
-  function setPosition(x) {
-    const rect = slider.getBoundingClientRect();
-    pct = Math.min(Math.max(((x - rect.left) / rect.width) * 100, 2), 98);
-    before.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
-    handle.style.left = pct + '%';
-  }
-
-  slider.addEventListener('mousedown', e => { dragging = true; setPosition(e.clientX); });
-  window.addEventListener('mousemove', e => { if (dragging) setPosition(e.clientX); });
-  window.addEventListener('mouseup', () => { dragging = false; });
-
-  slider.addEventListener('touchstart', e => { dragging = true; setPosition(e.touches[0].clientX); }, { passive: true });
-  window.addEventListener('touchmove', e => { if (dragging) setPosition(e.touches[0].clientX); }, { passive: true });
-  window.addEventListener('touchend', () => { dragging = false; });
-})();
 
 // ===========================
 // SPOTLIGHT CURSOR
