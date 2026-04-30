@@ -500,23 +500,6 @@ if (yearEl) yearEl.textContent = yearEl.textContent.replace('2026', new Date().g
 })();
 
 // ===========================
-// SCROLL-DRIVEN HERO VIDEO
-// ===========================
-(function () {
-  const video = document.querySelector('.hero__video');
-  if (!video) return;
-
-  video.pause();
-
-  window.addEventListener('scroll', () => {
-    const hero = document.getElementById('hero');
-    if (!video.duration) return;
-    const progress = Math.min(window.scrollY / hero.offsetHeight, 1);
-    video.currentTime = progress * video.duration;
-  }, { passive: true });
-})();
-
-// ===========================
 // BEFORE / AFTER SLIDER
 // ===========================
 (function () {
